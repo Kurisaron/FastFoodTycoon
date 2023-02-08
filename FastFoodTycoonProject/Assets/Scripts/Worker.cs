@@ -19,4 +19,9 @@ public class Worker : MonoBehaviour
     {
         agent.destination = transform.position;
     }
+
+    public Vector3 GetDestination()
+    {
+        return agent.destination;
+    }
 }
