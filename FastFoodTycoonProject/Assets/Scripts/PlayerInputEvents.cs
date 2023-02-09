@@ -4,31 +4,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputEvents : MonoBehaviour
+public class PlayerInputEvents : Singleton<PlayerInputEvents>
 {
     // VARIABLES
     private Worker player;
     private Worker currentWorker;
 
-    private WorkStation lastStationPressed;
-    private bool canOpenStation;
+    public WorkStation lastStationPressed;
+    public bool canOpenStation;
 
     // FUNCTIONS
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
+        
         player = GameObject.Find("Player").GetComponent<Worker>();
         currentWorker = player;
         canOpenStation = false;
     }
 
-    private void Update()
-    {
-        if (canOpenStation && CheckPlayerDistance())
-        {
-            canOpenStation = false;
-            lastStationPressed.LoadStationScene();
-        }
-    }
 
     public void TapEvent(InputAction.CallbackContext context)
     {
@@ -42,7 +36,7 @@ public class PlayerInputEvents : MonoBehaviour
                 if (hit.collider.gameObject.GetComponent<WorkStation>() != null)
                 {
                     lastStationPressed = hit.collider.gameObject.GetComponent<WorkStation>();
-                    currentWorker.SetDestination(lastStationPressed.goToPoint);
+                    currentWorker.SetDestination(lastStationPressed);
 
                     if (currentWorker == player)
                     {
@@ -61,7 +55,7 @@ public class PlayerInputEvents : MonoBehaviour
                 }
                 else if (hit.collider.gameObject.name.Contains("Exit"))
                 {
-                    lastStationPressed.UnloadStationScene();
+                    player.targetStation.UnloadStationScene();
                 }
                 else
                 {
@@ -83,15 +77,4 @@ public class PlayerInputEvents : MonoBehaviour
         }
     }
 
-    private bool CheckPlayerDistance()
-    {
-        if (Vector3.Distance(player.GetDestination(), player.transform.position) <= 2.0f)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 }

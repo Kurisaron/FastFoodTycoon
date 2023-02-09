@@ -8,12 +8,15 @@ public enum Ingredient
 {
     TopBun,
     BottomBun,
-    Patty,
+    RawPatty,
     CookedPatty,
     Lettuce,
-    Fries,
+    RawFries,
     CookedFries,
-    Soda
+    Soda,
+    CompleteBurger,
+    CompleteFries,
+    CompleteDrink
 }
 
 public enum StorageType
@@ -36,10 +39,14 @@ public class WorkStation : MonoBehaviour
     [Tooltip("The point that workers stand at to work at the station (Pathfinding)")]
     public Transform goToPoint;
 
+    [HideInInspector]
     public static WorkStation fridge;
+    [HideInInspector]
     public static WorkStation flatTop;
+    [HideInInspector]
     public static WorkStation fryer;
 
+    // Workstation Storage
     public StorageType storageType;
     [HideInInspector]
     public Dictionary<Ingredient, int> ingredients = new Dictionary<Ingredient, int>();
@@ -73,7 +80,7 @@ public class WorkStation : MonoBehaviour
                 // Can store all non-cooked ingredients
                 foreach (Ingredient ingredient in (Ingredient[])Enum.GetValues(typeof(Ingredient)))
                 {
-                    if (!ingredient.ToString().Contains("Cooked"))
+                    if (!ingredient.ToString().Contains("Cooked") && !ingredient.ToString().Contains("Complete"))
                     {
                         ingredients.Add(ingredient, 0);
                     }
@@ -83,36 +90,40 @@ public class WorkStation : MonoBehaviour
             case StorageType.FlatTop:
                 flatTop = this;
                 // Can store patties (cooked or not)
-                foreach (Ingredient ingredient in (Ingredient[])Enum.GetValues(typeof(Ingredient)))
-                {
-                    if (ingredient.ToString().Contains("Patty"))
-                    {
-                        ingredients.Add(ingredient, 0);
-                    }
-
-                }
+                ingredients.Add(Ingredient.RawPatty, 0);
+                ingredients.Add(Ingredient.CookedPatty, 0);
                 break;
             case StorageType.Fryer:
                 fryer = this;
-                // Can store fries (cooked or not)
-                foreach (Ingredient ingredient in (Ingredient[])Enum.GetValues(typeof(Ingredient)))
-                {
-                    if (ingredient.ToString().Contains("Fries"))
-                    {
-                        ingredients.Add(ingredient, 0);
-                    }
-
-                }
+                // Can store raw or cooked fries
+                ingredients.Add(Ingredient.RawFries, 0);
+                ingredients.Add(Ingredient.CookedFries, 0);
                 break;
             case StorageType.FryWarmer:
+                // Can store cooked or complete fries
+                ingredients.Add(Ingredient.CookedFries, 0);
+                ingredients.Add(Ingredient.CompleteFries, 0);
                 break;
             case StorageType.BurgerAssembly:
+                // Can store burger ingredients or complete burgers
+                ingredients.Add(Ingredient.CookedPatty, 0);
+                ingredients.Add(Ingredient.TopBun, 0);
+                ingredients.Add(Ingredient.BottomBun, 0);
+                ingredients.Add(Ingredient.Lettuce, 0);
+                ingredients.Add(Ingredient.CompleteBurger, 0);
                 break;
             case StorageType.OrderStation:
                 break;
             case StorageType.OrderBuilding:
+                // Can store complete food items
+                ingredients.Add(Ingredient.CompleteBurger, 0);
+                ingredients.Add(Ingredient.CompleteFries, 0);
+                ingredients.Add(Ingredient.CompleteDrink, 0);
                 break;
             case StorageType.DrinkStation:
+                // Can store soda or complete drink
+                ingredients.Add(Ingredient.Soda, 0);
+                ingredients.Add(Ingredient.CompleteDrink, 0);
                 break;
             case StorageType.Other:
                 break;
