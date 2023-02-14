@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -40,11 +41,15 @@ public class WorkStation : MonoBehaviour
     public Transform goToPoint;
 
     [HideInInspector]
-    public static WorkStation fridge;
+    public static WorkStation fridge1;
+    [HideInInspector]
+    public static WorkStation fridge2;
     [HideInInspector]
     public static WorkStation flatTop;
     [HideInInspector]
-    public static WorkStation fryer;
+    public static WorkStation fryer1;
+    [HideInInspector]
+    public static WorkStation fryer2;
 
     // Workstation Storage
     public StorageType storageType;
@@ -59,12 +64,21 @@ public class WorkStation : MonoBehaviour
 
     public void LoadStationScene()
     {
-        SceneManager.LoadScene(gameObject.name + "Scene", LoadSceneMode.Additive);
+        SceneManager.LoadScene(GetStationSceneName(), LoadSceneMode.Additive);
+        FindObjectOfType<WorkStationInterface>().workStation = this;
     }
 
     public void UnloadStationScene()
     {
-        SceneManager.UnloadSceneAsync(gameObject.name + "Scene");
+        SceneManager.UnloadSceneAsync(GetStationSceneName());
+    }
+
+    private string GetStationSceneName()
+    {
+        string sceneName = new String(gameObject.name.Where(Char.IsLetter).ToArray());
+        sceneName += "Scene";
+
+        return sceneName;
     }
 
     private void SetStorage()
@@ -76,7 +90,16 @@ public class WorkStation : MonoBehaviour
             case StorageType.None:
                 break;
             case StorageType.Fridge:
-                fridge = this;
+                // Set appropriate static "singleton"
+                if (gameObject.name.Contains("1"))
+                {
+                    fridge1 = this;
+                }
+                else
+                {
+                    fridge2 = this;
+                }
+
                 // Can store all non-cooked ingredients
                 foreach (Ingredient ingredient in (Ingredient[])Enum.GetValues(typeof(Ingredient)))
                 {
@@ -94,7 +117,16 @@ public class WorkStation : MonoBehaviour
                 ingredients.Add(Ingredient.CookedPatty, 0);
                 break;
             case StorageType.Fryer:
-                fryer = this;
+                // Set appropriate static "singleton"
+                if (gameObject.name.Contains("1"))
+                {
+                    fryer1 = this;
+                }
+                else
+                {
+                    fryer2 = this;
+                }
+
                 // Can store raw or cooked fries
                 ingredients.Add(Ingredient.RawFries, 0);
                 ingredients.Add(Ingredient.CookedFries, 0);

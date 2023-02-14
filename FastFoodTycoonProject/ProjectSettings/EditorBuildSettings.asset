@@ -18,13 +18,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Game/Workstations/FlatTopScene.unity
     guid: 65b2d7c425cd7dd4b858514c16871c2f
   - enabled: 1
-    path: Assets/Scenes/Game/Workstations/Fridge1Scene.unity
+    path: Assets/Scenes/Game/Workstations/FridgeScene.unity
     guid: e30a01b7b01e07d4fbbaa80e388f22ca
   - enabled: 1
     path: Assets/Scenes/Game/Workstations/Fridge2Scene.unity
     guid: da7a807790021074d882cc2180e52028
   - enabled: 1
-    path: Assets/Scenes/Game/Workstations/Fryer1Scene.unity
+    path: Assets/Scenes/Game/Workstations/FryerScene.unity
     guid: 670678e9bf6c8a148b60ce4e385623fb
   - enabled: 1
     path: Assets/Scenes/Game/Workstations/Fryer2Scene.unity
@@ -33,7 +33,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Game/Workstations/FryWarmerScene.unity
     guid: 4482ece2f851082499cd987405d6e895
   - enabled: 1
-    path: Assets/Scenes/Game/Workstations/OrderBuilding1Scene.unity
+    path: Assets/Scenes/Game/Workstations/OrderBuildingScene.unity
     guid: e1b1028680a54204293c709ec21a9303
   - enabled: 1
     path: Assets/Scenes/Game/Workstations/OrderBuilding2Scene.unity
