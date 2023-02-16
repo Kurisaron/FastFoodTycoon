@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class Worker : MonoBehaviour
 {
     // VARIABLES
+    public static Worker player;
     private NavMeshAgent agent;
     public WorkStation targetStation;
 
@@ -17,6 +18,11 @@ public class Worker : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+
+        if (gameObject.name.Contains("Player"))
+        {
+            player = this;
+        }
     }
 
     private void Update()

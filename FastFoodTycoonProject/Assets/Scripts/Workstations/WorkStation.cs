@@ -7,17 +7,17 @@ using UnityEngine.SceneManagement;
 
 public enum Ingredient
 {
-    TopBun,
-    BottomBun,
-    RawPatty,
-    CookedPatty,
-    Lettuce,
-    RawFries,
-    CookedFries,
-    Soda,
-    CompleteBurger,
-    CompleteFries,
-    CompleteDrink
+    TopBun, // 0
+    BottomBun, // 1
+    RawPatty, // 2
+    CookedPatty, // 3
+    Lettuce, // 4
+    RawFries, // 5
+    CookedFries, // 6
+    Soda, // 7
+    CompleteBurger, // 8
+    CompleteFries, // 9
+    CompleteDrink // 10
 }
 
 public enum StorageType
@@ -65,7 +65,6 @@ public class WorkStation : MonoBehaviour
     public void LoadStationScene()
     {
         SceneManager.LoadScene(GetStationSceneName(), LoadSceneMode.Additive);
-        FindObjectOfType<WorkStationInterface>().workStation = this;
     }
 
     public void UnloadStationScene()
