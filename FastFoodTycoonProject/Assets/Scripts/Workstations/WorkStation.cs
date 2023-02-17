@@ -104,7 +104,8 @@ public class WorkStation : MonoBehaviour
                 {
                     if (!ingredient.ToString().Contains("Cooked") && !ingredient.ToString().Contains("Complete"))
                     {
-                        ingredients.Add(ingredient, 0);
+                        //ingredients.Add(ingredient, 0);
+                        ingredients.Add(ingredient, UnityEngine.Random.Range(0,3));
                     }
 
                 }

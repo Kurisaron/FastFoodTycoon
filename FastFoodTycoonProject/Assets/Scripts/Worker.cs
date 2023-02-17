@@ -30,6 +30,9 @@ public class Worker : MonoBehaviour
         if (gameObject.name.Contains("Player") && PlayerInputEvents.Instance.canOpenStation && CheckPlayerDistance())
         {
             PlayerInputEvents.Instance.canOpenStation = false;
+
+            // TO-DO: Deposit held items
+
             targetStation.LoadStationScene();
         }
     }
@@ -54,6 +57,8 @@ public class Worker : MonoBehaviour
         }
 
         heldIngredient = new Tuple<Ingredient, int>(ingredient, amount);
+
+        if (gameObject.name.Contains("Player")) Debug.Log("Now holding ingredient " + heldIngredient.Item1.ToString() + ", amount: " + heldIngredient.Item2.ToString());
         // To-Do: Turn on visuals for held item (UI or model needed)
     }
 
