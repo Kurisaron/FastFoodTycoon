@@ -173,6 +173,7 @@ public class WorkStation : MonoBehaviour
 
         // Add ingredients if storage can accept it
         ingredients[ingredient] += amount;
+        Debug.Log(gameObject.name + " " + amount.ToString() + " " + ingredient.ToString() + " deposited");
         return true;
     }
 

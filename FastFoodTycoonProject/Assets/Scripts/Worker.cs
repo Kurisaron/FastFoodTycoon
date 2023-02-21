@@ -31,9 +31,15 @@ public class Worker : MonoBehaviour
         {
             PlayerInputEvents.Instance.canOpenStation = false;
 
-            // TO-DO: Deposit held items
-
-            targetStation.LoadStationScene();
+            // Deposit held items
+            if ((heldIngredient != null && targetStation.DepositIngredient(heldIngredient.Item1, heldIngredient.Item2)) || heldIngredient == null)
+            {
+                targetStation.LoadStationScene();
+            }
+            else
+            {
+                Debug.Log("Workstation cannot accept held item");
+            }
         }
     }
 
