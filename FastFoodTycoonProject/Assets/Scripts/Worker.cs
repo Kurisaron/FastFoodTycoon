@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Worker : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class Worker : MonoBehaviour
 
     // Worker Storage
     private Tuple<Ingredient, int> heldIngredient = null;
+    [SerializeField]
+    private GameObject heldItemCanvas;
+    [SerializeField]
+    private Image ingredientImage;
 
     // FUNCTIONS
     private void Awake()
