@@ -66,7 +66,7 @@ public class FridgeInterface : WorkStationInterface
         return new UnityAction(() =>
         {
             ingredientName.text = name;
-            // TO-DO: set ingredientImage
+            SetIngredientImage(ingredient);
 
             SetupAmountSlider(ingredient);
 
@@ -81,11 +81,16 @@ public class FridgeInterface : WorkStationInterface
             if (workStation.ingredients[kvp.Key] > 0)
             {
                 GameObject newButton = Instantiate(ingredientButtonPrefab, layoutGroup.transform);
-                newButton.GetComponentInChildren<Text>().text = kvp.Key.ToString(); // THIS LINE IS TO BE REPLACED WITH PROPER VISUAL ID FOR EACH INGREDIENT
+                newButton.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = IngredientInfoManager.Instance.GetInfo(kvp.Key).ingredientSprite;
                 newButton.GetComponent<Button>().onClick.AddListener(IngredientButtonPressed(kvp.Key));
             }
 
         }
+    }
+
+    private void SetIngredientImage(Ingredient ingredient)
+    {
+        ingredientImage.sprite = IngredientInfoManager.Instance.GetInfo(ingredient).ingredientSprite;
     }
 
     private void SetupAmountSlider()
