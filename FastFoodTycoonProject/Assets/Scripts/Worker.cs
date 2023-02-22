@@ -17,7 +17,7 @@ public class Worker : MonoBehaviour
     [SerializeField]
     private GameObject heldItemCanvas;
     [SerializeField]
-    private Image ingredientImage;
+    private GameObject heldItemCanvas_Prefab;
 
     // FUNCTIONS
     private void Awake()
@@ -27,6 +27,11 @@ public class Worker : MonoBehaviour
         if (gameObject.name.Contains("Player"))
         {
             player = this;
+
+            heldItemCanvas = Instantiate(heldItemCanvas_Prefab, null);
+            heldItemCanvas.GetComponent<WorkerSpeechBubble>().Worker = this;
+
+            heldItemCanvas.SetActive(false);
         }
     }
 
@@ -39,12 +44,15 @@ public class Worker : MonoBehaviour
             // Deposit held items
             if ((heldIngredient != null && targetStation.DepositIngredient(heldIngredient.Item1, heldIngredient.Item2)) || heldIngredient == null)
             {
+                ReleaseIngredient();
                 targetStation.LoadStationScene();
             }
             else
             {
                 Debug.Log("Workstation cannot accept held item");
             }
+
+            if (heldItemCanvas.activeInHierarchy) heldItemCanvas.GetComponent<RectTransform>().position = new Vector3(gameObject.transform.position.x, heldItemCanvas.GetComponent<RectTransform>().position.y, gameObject.transform.position.z);
         }
     }
 
@@ -70,7 +78,10 @@ public class Worker : MonoBehaviour
         heldIngredient = new Tuple<Ingredient, int>(ingredient, amount);
 
         if (gameObject.name.Contains("Player")) Debug.Log("Now holding ingredient " + heldIngredient.Item1.ToString() + ", amount: " + heldIngredient.Item2.ToString());
-        // To-Do: Turn on visuals for held item (UI or model needed)
+
+        // Turn on visuals for held item (UI or model needed)
+        heldItemCanvas.SetActive(true);
+        heldItemCanvas.GetComponent<WorkerSpeechBubble>().SetImage(ingredient);
     }
 
     public void ReleaseIngredient()
@@ -82,7 +93,8 @@ public class Worker : MonoBehaviour
         }
 
         heldIngredient = null;
-        // To-Do: Turn on visuals for held item (UI or model needed)
+        // Turn off visuals for held item (UI or model needed)
+        heldItemCanvas.SetActive(false);
     }
 
 
