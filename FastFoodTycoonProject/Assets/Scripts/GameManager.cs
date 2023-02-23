@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     // VARIABLES
-    [SerializeField]
-    private GameObject openBuyMenuButton;
+    public GameObject openBuyMenuButton;
     [HideInInspector]
     public GameData gameData;
 
