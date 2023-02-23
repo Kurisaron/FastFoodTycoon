@@ -5,21 +5,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum Ingredient
-{
-    TopBun, // 0
-    BottomBun, // 1
-    RawPatty, // 2
-    CookedPatty, // 3
-    Lettuce, // 4
-    RawFries, // 5
-    CookedFries, // 6
-    Soda, // 7
-    CompleteBurger, // 8
-    CompleteFries, // 9
-    CompleteDrink // 10
-}
-
 public enum StorageType
 {
     None,
@@ -139,8 +124,7 @@ public class WorkStation : MonoBehaviour
             case StorageType.BurgerAssembly:
                 // Can store burger ingredients or complete burgers
                 ingredients.Add(Ingredient.CookedPatty, 0);
-                ingredients.Add(Ingredient.TopBun, 0);
-                ingredients.Add(Ingredient.BottomBun, 0);
+                ingredients.Add(Ingredient.Buns, 0);
                 ingredients.Add(Ingredient.Lettuce, 0);
                 ingredients.Add(Ingredient.CompleteBurger, 0);
                 break;

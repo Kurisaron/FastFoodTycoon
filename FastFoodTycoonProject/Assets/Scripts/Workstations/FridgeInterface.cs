@@ -36,36 +36,9 @@ public class FridgeInterface : WorkStationInterface
 
     public UnityAction IngredientButtonPressed(Ingredient ingredient)
     {
-        string name;
-        
-        switch (ingredient)
-        {
-            case Ingredient.TopBun:
-                name = "Top Bun";
-                break;
-            case Ingredient.BottomBun:
-                name = "Bottom Bun";
-                break;
-            case Ingredient.RawPatty:
-                name = "Raw Patty";
-                break;
-            case Ingredient.Lettuce:
-                name = "Lettuce";
-                break;
-            case Ingredient.RawFries:
-                name = "Raw Fries";
-                break;
-            case Ingredient.Soda:
-                name = "Soda";
-                break;
-            default:
-                name = "Invalid Ingredient";
-                break;
-        }
-
         return new UnityAction(() =>
         {
-            ingredientName.text = name;
+            ingredientName.text = IngredientInfoManager.Instance.GetInfo(ingredient).ingredientName;
             SetIngredientImage(ingredient);
 
             SetupAmountSlider(ingredient);
