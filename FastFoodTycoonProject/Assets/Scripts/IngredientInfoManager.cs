@@ -55,5 +55,7 @@ public class IngredientInfoManager : Singleton<IngredientInfoManager>
         public float bulkCost;
         [Tooltip("Sprite for ingredient")]
         public Sprite ingredientSprite;
+        [Tooltip("Prefab for ingredient (includes textured model)")]
+        public GameObject ingredientPrefab;
     }
 }
