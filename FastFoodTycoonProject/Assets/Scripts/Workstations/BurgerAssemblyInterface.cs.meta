@@ -3,7 +3,14 @@ guid: 2633148a04ff429408088252a13d9187
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - workStation: {instanceID: 0}
+  - endPoint: {instanceID: 0}
+  - topBunPrefab: {fileID: 6450821025797911906, guid: 094b54a403269f84eac97b420219412d, type: 3}
+  - bottomBunPrefab: {fileID: 144441576580042058, guid: 22afc5f78ede6d845afb3b3c6b570531, type: 3}
+  - cookedPattyPrefab: {fileID: 3221978998054382160, guid: 5a79237a470fe824a9a60b70bf12eaf2, type: 3}
+  - lettucePrefab: {fileID: 8720503522392821412, guid: d5354129904fde740afbac7f37af179d, type: 3}
+  - burgerPrefab: {fileID: 1436142983090966506, guid: b20c02e76d9a4314a8ed14735d099078, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

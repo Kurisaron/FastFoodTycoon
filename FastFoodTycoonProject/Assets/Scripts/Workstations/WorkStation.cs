@@ -35,6 +35,8 @@ public class WorkStation : MonoBehaviour
     public static WorkStation fryer1;
     [HideInInspector]
     public static WorkStation fryer2;
+    [HideInInspector]
+    public static WorkStation orderBuilding;
 
     // Workstation Storage
     public StorageType storageType;
@@ -133,6 +135,7 @@ public class WorkStation : MonoBehaviour
             case StorageType.OrderStation:
                 break;
             case StorageType.OrderBuilding:
+                orderBuilding = this;
                 // Can store complete food items
                 ingredients.Add(Ingredient.CompleteBurger, 0);
                 ingredients.Add(Ingredient.CompleteFries, 0);

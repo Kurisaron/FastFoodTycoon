@@ -1213,30 +1213,35 @@ MonoBehaviour:
     bulkAmount: 100
     bulkCost: 25
     ingredientSprite: {fileID: 21300000, guid: 80f8e93f9976b2449adf288484bb94ab, type: 3}
+    ingredientPrefab: {fileID: 0}
   - ingredient: 1
     ingredientName: Raw Patty
     costPerUnit: 0.5
     bulkAmount: 50
     bulkCost: 25
     ingredientSprite: {fileID: 21300000, guid: 61275b87bb9ab3f48b6379ec39864ad3, type: 3}
+    ingredientPrefab: {fileID: 0}
   - ingredient: 3
     ingredientName: Lettuce
     costPerUnit: 0.25
     bulkAmount: 100
     bulkCost: 25
     ingredientSprite: {fileID: 21300000, guid: 8affaf97f957f4d4f95ee3da0c772361, type: 3}
+    ingredientPrefab: {fileID: 0}
   - ingredient: 4
     ingredientName: Raw Fries
     costPerUnit: 0.25
     bulkAmount: 100
     bulkCost: 25
     ingredientSprite: {fileID: 21300000, guid: 92daa497e584ef647a18b12da8b9b5b2, type: 3}
+    ingredientPrefab: {fileID: 0}
   - ingredient: 6
     ingredientName: Soda
     costPerUnit: 0.25
     bulkAmount: 100
     bulkCost: 25
     ingredientSprite: {fileID: 21300000, guid: 25b94105ebd3dac428abf91a76249c50, type: 3}
+    ingredientPrefab: {fileID: 0}
 --- !u!4 &1770199992
 Transform:
   m_ObjectHideFlags: 0
