@@ -247,7 +247,7 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/clark/OneDrive/Documents/GitHub/FastFoodTycoon/key
+  AndroidKeystoreName: C:/Users/Anna/Downloads/Documents/GitHub/FastFoodTycoon/key
     store FFT/user.keystore
   AndroidKeyaliasName: tycoon game key
   AndroidBuildApkPerCpuArchitecture: 0
