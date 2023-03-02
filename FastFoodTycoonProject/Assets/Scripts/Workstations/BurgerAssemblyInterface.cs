@@ -143,6 +143,12 @@ public class BurgerAssemblyInterface : WorkStationInterface
 
             ingredient.transform.position += new Vector3(0,0, interval * 2.0f);
 
+            if (lastIngredient == null)
+            {
+                Destroy(ingredient);
+                yield break;
+            }
+
             if (Vector3.Distance(ingredient.transform.position, lastIngredient.transform.position) <= 0.2f)
             {
                 ingredient.transform.parent = lastIngredient.transform;
