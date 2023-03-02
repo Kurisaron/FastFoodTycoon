@@ -37,6 +37,8 @@ public class WorkStation : MonoBehaviour
     public static WorkStation fryer2;
     [HideInInspector]
     public static WorkStation orderBuilding;
+    [HideInInspector]
+    public static WorkStation orderStation;
 
     // Workstation Storage
     public StorageType storageType;
@@ -133,6 +135,8 @@ public class WorkStation : MonoBehaviour
                 ingredients.Add(Ingredient.CompleteBurger, 0);
                 break;
             case StorageType.OrderStation:
+                orderStation = this;
+                gameObject.AddComponent<MealStorage>();
                 break;
             case StorageType.OrderBuilding:
                 orderBuilding = this;
@@ -175,4 +179,5 @@ public class WorkStation : MonoBehaviour
         ingredients[ingredient] -= amount;
         return true;
     }
+
 }
