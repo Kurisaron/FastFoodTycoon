@@ -1863,7 +1863,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1716214223}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2059946696}
+        m_TargetAssemblyTypeName: WorkStationInterface, Assembly-CSharp
+        m_MethodName: ExitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1716214223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1984,7 +1996,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1526672772}
   m_HandleRect: {fileID: 1526672771}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2082,7 +2094,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1949902467
 BoxCollider:
   m_ObjectHideFlags: 0

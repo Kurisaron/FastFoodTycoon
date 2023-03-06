@@ -19,4 +19,8 @@ public class WorkStationInterface : MonoBehaviour
         }
     }
 
+    public void ExitButton()
+    {
+        Worker.player.targetStation.UnloadStationScene();
+    }
 }
