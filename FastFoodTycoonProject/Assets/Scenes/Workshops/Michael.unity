@@ -344,6 +344,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Primatives '
       objectReference: {fileID: 0}
+    - target: {fileID: 4433386462073306466, guid: c0299cba422b4554dbbf9f9a95e34f7c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4433386462073306467, guid: c0299cba422b4554dbbf9f9a95e34f7c, type: 3}
       propertyPath: m_RootOrder
       value: 2
