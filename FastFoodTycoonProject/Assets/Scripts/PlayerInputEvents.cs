@@ -35,12 +35,15 @@ public class PlayerInputEvents : Singleton<PlayerInputEvents>
             {
                 if (hit.collider.gameObject.GetComponent<WorkStation>() != null)
                 {
-                    lastStationPressed = hit.collider.gameObject.GetComponent<WorkStation>();
-                    currentWorker.SetDestination(lastStationPressed);
-
-                    if (currentWorker == player)
+                    if (currentWorker == player && !GameManager.Instance.stationOpened)
                     {
                         canOpenStation = true;
+                        SetWorkerDestination(hit);
+                    }
+
+                    if (currentWorker != player)
+                    {
+                        SetWorkerDestination(hit);
                     }
 
                     ResetWorker();
@@ -63,6 +66,13 @@ public class PlayerInputEvents : Singleton<PlayerInputEvents>
                 }
             }
         }
+    }
+
+    private void SetWorkerDestination(RaycastHit hit)
+    {
+        lastStationPressed = hit.collider.gameObject.GetComponent<WorkStation>();
+        currentWorker.SetDestination(lastStationPressed);
+
     }
 
     // Runs when a non-player worker is deselected (either moved to station or player pressed on non-interactable)

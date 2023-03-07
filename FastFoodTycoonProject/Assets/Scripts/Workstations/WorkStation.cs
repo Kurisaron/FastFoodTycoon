@@ -53,12 +53,14 @@ public class WorkStation : MonoBehaviour
 
     public void LoadStationScene()
     {
+        GameManager.Instance.stationOpened = true;
         GameManager.Instance.openBuyMenuButton.SetActive(false);
         SceneManager.LoadScene(GetStationSceneName(), LoadSceneMode.Additive);
     }
 
     public void UnloadStationScene()
     {
+        GameManager.Instance.stationOpened = false;
         GameManager.Instance.openBuyMenuButton.SetActive(true);
         SceneManager.UnloadSceneAsync(GetStationSceneName());
     }

@@ -11,6 +11,8 @@ public class OrderBuildingInterface : WorkStationInterface
 
     public GameObject orderTrayPrefab;
     public GameObject burgerPrefab;
+    public GameObject fryTrayPrefab;
+    public GameObject drinkPrefab;
 
     private GameObject orderTray;
     private Meal currentMeal;
@@ -103,8 +105,68 @@ public class OrderBuildingInterface : WorkStationInterface
     }
 
     // FRIES BUTTON EVENTS
+    public void FriesButtonEvent()
+    {
+        if (isAssembling)
+        {
+            AddBurger();
+        }
+        else
+        {
+            NoBurger();
+        }
+    }
+
+    private void AddFries()
+    {
+        if (!currentMeal.Contains(Ingredient.CompleteFries))
+        {
+            GameObject fries = Instantiate(fryTrayPrefab, transform);
+            fries.transform.parent = null;
+            fries.transform.position = spawnPoints.Find(point => point.id == "Fries").point.position;
+            fries.transform.Rotate(new Vector3(-90.0f, 0.0f, 0.0f));
+            fries.transform.parent = orderTray.transform;
+        }
+
+        currentMeal.AddFood(Ingredient.CompleteBurger, 1);
+    }
+
+    private void NoFries()
+    {
+        Debug.Log("Cannot add fries without a tray!");
+    }
 
     // DRINK BUTTON EVENTS
+    public void DrinkButtonEvent()
+    {
+        if (isAssembling)
+        {
+            AddBurger();
+        }
+        else
+        {
+            NoBurger();
+        }
+    }
+
+    private void AddDrink()
+    {
+        if (!currentMeal.Contains(Ingredient.CompleteDrink))
+        {
+            GameObject drink = Instantiate(drinkPrefab, transform);
+            drink.transform.parent = null;
+            drink.transform.position = spawnPoints.Find(point => point.id == "Drink").point.position;
+            drink.transform.Rotate(new Vector3(-90.0f, 0.0f, 0.0f));
+            drink.transform.parent = orderTray.transform;
+        }
+
+        currentMeal.AddFood(Ingredient.CompleteBurger, 1);
+    }
+
+    private void NoDrink()
+    {
+        Debug.Log("Cannot add a drink without a tray!");
+    }
 
     // MISC FUNCTIONS
     private string GetOrderText()

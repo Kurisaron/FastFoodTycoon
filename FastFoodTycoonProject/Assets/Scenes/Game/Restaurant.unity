@@ -1270,6 +1270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openBuyMenuButton: {fileID: 101581300}
   gameData: {fileID: 0}
+  stationOpened: 0
 --- !u!1 &1800863231
 GameObject:
   m_ObjectHideFlags: 0

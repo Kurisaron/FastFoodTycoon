@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject openBuyMenuButton;
     [HideInInspector]
     public GameData gameData;
+    public bool stationOpened;
 
     // FUNCTIONS
     public override void Awake()
@@ -17,6 +18,7 @@ public class GameManager : Singleton<GameManager>
 
         gameData = gameObject.AddComponent<GameData>();
         gameData.money = 10000.0f;
+        stationOpened = false;
     }
 
     public bool SpendMoney(float cost)
