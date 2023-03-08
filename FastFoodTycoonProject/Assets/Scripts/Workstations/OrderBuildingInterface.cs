@@ -40,6 +40,8 @@ public class OrderBuildingInterface : WorkStationInterface
         orderTray = Instantiate(orderTrayPrefab, transform);
         orderTray.transform.parent = null;
         orderTray.transform.position = spawnPoints.Find(point => point.id == "Order Tray").point.position;
+        orderTray.transform.Rotate(new Vector3(-90.0f, 0.0f, 0.0f));
+        orderTray.transform.localScale *= 3.0f;
 
         currentMeal = new Meal();
         isAssembling = true;
@@ -109,11 +111,11 @@ public class OrderBuildingInterface : WorkStationInterface
     {
         if (isAssembling)
         {
-            AddBurger();
+            AddFries();
         }
         else
         {
-            NoBurger();
+            NoFries();
         }
     }
 
@@ -128,7 +130,7 @@ public class OrderBuildingInterface : WorkStationInterface
             fries.transform.parent = orderTray.transform;
         }
 
-        currentMeal.AddFood(Ingredient.CompleteBurger, 1);
+        currentMeal.AddFood(Ingredient.CompleteFries, 1);
     }
 
     private void NoFries()
@@ -141,11 +143,11 @@ public class OrderBuildingInterface : WorkStationInterface
     {
         if (isAssembling)
         {
-            AddBurger();
+            AddDrink();
         }
         else
         {
-            NoBurger();
+            NoDrink();
         }
     }
 
@@ -160,7 +162,7 @@ public class OrderBuildingInterface : WorkStationInterface
             drink.transform.parent = orderTray.transform;
         }
 
-        currentMeal.AddFood(Ingredient.CompleteBurger, 1);
+        currentMeal.AddFood(Ingredient.CompleteDrink, 1);
     }
 
     private void NoDrink()
