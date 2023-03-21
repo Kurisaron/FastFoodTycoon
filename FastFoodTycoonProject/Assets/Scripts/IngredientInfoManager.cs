@@ -5,16 +5,15 @@ using UnityEngine;
 
 public enum Ingredient
 {
-    Buns, // 0
-    RawPatty, // 1
-    CookedPatty, // 2
-    Lettuce, // 3
-    RawFries, // 4
-    CookedFries, // 5
-    Soda, // 6
-    CompleteBurger, // 7
-    CompleteFries, // 8
-    CompleteDrink // 9
+    Buns = 0, // 0
+    RawPatty = 1, // 1
+    CookedPatty = 2, // 2
+    Lettuce = 3, // 3
+    RawFries = 4, // 4
+    Soda = 6, // 6
+    CompleteBurger = 7, // 7
+    CompleteFries = 8, // 8
+    CompleteDrink = 9 // 9
 }
 
 public class IngredientInfoManager : Singleton<IngredientInfoManager>

@@ -28,6 +28,18 @@ public class CookingStation : MonoBehaviour
 
     public void TryCookingIngredient()
     {
+        Tuple<Ingredient, Ingredient> cookingSequence = GetCookingIngredientTypes();
+
+        if (cookingIngredients.Count < GetCookingCapacity() && workStation.WithdrawIngredient(cookingSequence.Item1, 1))
+        {
+            CookingIngredient newIngredient = new CookingIngredient(cookingSequence.Item1, cookingSequence.Item2);
+            cookingIngredients.Add(newIngredient);
+            StartCoroutine(CookRoutine(newIngredient));
+        }
+    }
+
+    private Tuple<Ingredient, Ingredient> GetCookingIngredientTypes()
+    {
         Ingredient ingredientToCook, goalIngredient;
         switch (cookingType)
         {
@@ -37,7 +49,7 @@ public class CookingStation : MonoBehaviour
                 break;
             case CookingType.Fries:
                 ingredientToCook = Ingredient.RawFries;
-                goalIngredient = Ingredient.CookedFries;
+                goalIngredient = Ingredient.CompleteFries;
                 break;
             case CookingType.Drink:
                 ingredientToCook = Ingredient.Soda;
@@ -45,15 +57,11 @@ public class CookingStation : MonoBehaviour
                 break;
             default:
                 Debug.Log("Cooking type invalid");
-                return;
+                cookingType = CookingType.Patty;
+                return GetCookingIngredientTypes();
         }
 
-        if (cookingIngredients.Count < GetCookingCapacity() && workStation.WithdrawIngredient(ingredientToCook, 1))
-        {
-            CookingIngredient newIngredient = new CookingIngredient(ingredientToCook, goalIngredient);
-            cookingIngredients.Add(newIngredient);
-            StartCoroutine(CookRoutine(newIngredient));
-        }
+        return new Tuple<Ingredient, Ingredient>(ingredientToCook, goalIngredient);
     }
 
     private int GetCookingCapacity()
@@ -89,6 +97,7 @@ public class CookingStation : MonoBehaviour
         private Ingredient startingIngredient;
         private Ingredient targetIngredient;
 
+        public 
         public float cookingLife;
         public int steps;
 
