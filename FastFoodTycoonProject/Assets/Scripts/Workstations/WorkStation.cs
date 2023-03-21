@@ -108,6 +108,7 @@ public class WorkStation : MonoBehaviour
                 // Can store patties (cooked or not)
                 ingredients.Add(Ingredient.RawPatty, 0);
                 ingredients.Add(Ingredient.CookedPatty, 0);
+                gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Patty);
                 break;
             case StorageType.Fryer:
                 // Set appropriate static "singleton"
@@ -123,6 +124,7 @@ public class WorkStation : MonoBehaviour
                 // Can store raw or cooked fries
                 ingredients.Add(Ingredient.RawFries, 0);
                 ingredients.Add(Ingredient.CookedFries, 0);
+                gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Fries);
                 break;
             case StorageType.FryWarmer:
                 // Can store cooked or complete fries
@@ -151,6 +153,7 @@ public class WorkStation : MonoBehaviour
                 // Can store soda or complete drink
                 ingredients.Add(Ingredient.Soda, 0);
                 ingredients.Add(Ingredient.CompleteDrink, 0);
+                gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Drink);
                 break;
             case StorageType.Other:
                 break;
