@@ -61,6 +61,7 @@ public class WorkStation : MonoBehaviour
     {
         GameManager.Instance.stationOpened = false;
         GameManager.Instance.openBuyMenuButton.SetActive(true);
+        PlayerInputEvents.Instance.ResetWorkstationAction();
         SceneManager.UnloadSceneAsync(GetStationSceneName());
     }
 

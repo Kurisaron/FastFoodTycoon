@@ -16,7 +16,9 @@ public class CookingStation : MonoBehaviour
     private WorkStation workStation;
     private CookingType cookingType;
 
-    private List<CookingIngredient> cookingIngredients = new List<CookingIngredient>();
+    public List<CookingIngredient> cookingIngredients = new List<CookingIngredient>();
+
+    public Action<int> interfaceAction;
 
     // FUNCTIONS
     public void PrepCooking(WorkStation workStation, CookingType ck)
@@ -43,7 +45,7 @@ public class CookingStation : MonoBehaviour
         StartCoroutine(CookRoutine(cookingIngredient));
     }
 
-    public void CompleteIngredient(CookingIngredient cookingIngredient)
+    public void PassIngredient(CookingIngredient cookingIngredient)
     {
 
     }
@@ -104,6 +106,11 @@ public class CookingStation : MonoBehaviour
 
         cookingIngredient.StepComplete();
     }
+    
+    public void DisplayIngredientStatus(bool isComplete)
+    {
+
+    }
 
     // CLASSES
     public class CookingIngredient
@@ -136,9 +143,14 @@ public class CookingStation : MonoBehaviour
             isCooking = false;
             stepsComplete += 1;
 
+            // Display UI based on whether the ingredient is complete
             if (stepsComplete >= steps)
             {
-                cookingStation.CompleteIngredient(this);
+                cookingStation.DisplayIngredientStatus(true);
+            }
+            else
+            {
+                cookingStation.DisplayIngredientStatus(true);
             }
         }
     }
