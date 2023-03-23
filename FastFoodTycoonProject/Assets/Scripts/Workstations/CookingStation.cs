@@ -32,10 +32,20 @@ public class CookingStation : MonoBehaviour
 
         if (cookingIngredients.Count < GetCookingCapacity() && workStation.WithdrawIngredient(cookingSequence.Item1, 1))
         {
-            CookingIngredient newIngredient = new CookingIngredient(cookingSequence.Item1, cookingSequence.Item2);
+            CookingIngredient newIngredient = new CookingIngredient(cookingSequence.Item1, cookingSequence.Item2, this);
             cookingIngredients.Add(newIngredient);
             StartCoroutine(CookRoutine(newIngredient));
         }
+    }
+
+    public void CookingIngredient_NextStep(CookingIngredient cookingIngredient)
+    {
+        StartCoroutine(CookRoutine(cookingIngredient));
+    }
+
+    public void CompleteIngredient(CookingIngredient cookingIngredient)
+    {
+
     }
 
     private Tuple<Ingredient, Ingredient> GetCookingIngredientTypes()
@@ -78,36 +88,58 @@ public class CookingStation : MonoBehaviour
 
     public IEnumerator CookRoutine(CookingIngredient cookingIngredient)
     {
-        float interval = 0.1f;
-
-        while (cookingIngredient.cookingLife <= 1.0f)
+        cookingIngredient.isCooking = true;
+        
+        // TO-DO: Initiate UI
+        
+        while (cookingIngredient.stepTime < 1.0f)
         {
-            
-            
-            cookingIngredient.cookingLife += interval;
-            yield return new WaitForSeconds(interval);
+            // TO-DO: Update UI
+
+            cookingIngredient.stepTime += Time.deltaTime;
+            yield return null;
         }
 
+        // TO-DO: Clear timer UI
 
+        cookingIngredient.StepComplete();
     }
 
     // CLASSES
     public class CookingIngredient
     {
+        private CookingStation cookingStation;
+        
         private Ingredient startingIngredient;
         private Ingredient targetIngredient;
 
-        public 
-        public float cookingLife;
+        public bool isCooking;
+
+        public float stepTime;
+        public int stepsComplete;
         public int steps;
 
-        public CookingIngredient(Ingredient sI, Ingredient tI)
+        public CookingIngredient(Ingredient sI, Ingredient tI, CookingStation cS)
         {
+            cookingStation = cS;
+            
             startingIngredient = sI;
             targetIngredient = tI;
 
-            cookingLife = 0.0f;
+            stepTime = 0.0f;
+            stepsComplete = 0;
             steps = 2;
+        }
+
+        public void StepComplete()
+        {
+            isCooking = false;
+            stepsComplete += 1;
+
+            if (stepsComplete >= steps)
+            {
+                cookingStation.CompleteIngredient(this);
+            }
         }
     }
 }
