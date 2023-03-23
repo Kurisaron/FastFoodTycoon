@@ -5,6 +5,7 @@ using UnityEngine;
 public class FlatTopInterface : WorkStationInterface
 {
     // VARIABLES
+    public Transform[] flatTop_SpawnPoints;
 
     // PROPERTIES
     private CookingStation FlatTopCooker
@@ -18,11 +19,16 @@ public class FlatTopInterface : WorkStationInterface
     // FUNCTIONS
     protected override void Awake()
     {
+        base.Awake();
 
+        PlayerInputEvents.Instance.workstationAction = FlatTopTapEvent;
     }
 
-    public void PlacePatty()
+    private void FlatTopTapEvent(RaycastHit hit)
     {
-        
+        if (hit.collider.gameObject.name.Contains("CookSelection"))
+        {
+            FlatTopCooker.TryCookingIngredient();
+        }
     }
 }
