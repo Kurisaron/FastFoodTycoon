@@ -11,8 +11,13 @@ public class GameData : MonoBehaviour
     // FUNCTIONS
     public void NewGameData()
     {
-        dayData.day = 1;
-        dayData.dayTime = 0.0f;
+        if (dayData == null) dayData = new DayData(1, 0.0f);
+        else
+        {
+            dayData.day = 1;
+            dayData.dayTime = 0.0f;
+        }
+        
     }
 
     // CLASSES
@@ -21,5 +26,11 @@ public class GameData : MonoBehaviour
         public int day;
         [Range(0.0f, 1.0f)]
         public float dayTime;
+
+        public DayData(int d, float dt)
+        {
+            day = d;
+            dayTime = dt;
+        }
     }
 }

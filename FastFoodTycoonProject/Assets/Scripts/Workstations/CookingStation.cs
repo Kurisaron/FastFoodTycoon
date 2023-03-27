@@ -16,9 +16,8 @@ public class CookingStation : MonoBehaviour
     private WorkStation workStation;
     private CookingType cookingType;
 
-    public List<CookingIngredient> cookingIngredients = new List<CookingIngredient>();
+    public CookingIngredient[] cookingIngredients;
 
-    public Action<int> interfaceAction;
 
     // FUNCTIONS
     public void PrepCooking(WorkStation workStation, CookingType ck)
@@ -26,18 +25,42 @@ public class CookingStation : MonoBehaviour
         this.workStation = workStation;
         cookingType = ck;
 
+        int ingredientCapacity;
+        switch (cookingType)
+        {
+            case CookingType.Patty:
+                ingredientCapacity = 8;
+                break;
+            case CookingType.Fries:
+                ingredientCapacity = 4;
+                break;
+            case CookingType.Drink:
+                ingredientCapacity = 1;
+                break;
+            default:
+                ingredientCapacity = 0;
+                break;
+        }
+        cookingIngredients = new CookingIngredient[ingredientCapacity];
     }
 
-    public void TryCookingIngredient()
+    public bool TryCookingIngredient(out int ingredientIndex)
     {
         Tuple<Ingredient, Ingredient> cookingSequence = GetCookingIngredientTypes();
-
-        if (cookingIngredients.Count < GetCookingCapacity() && workStation.WithdrawIngredient(cookingSequence.Item1, 1))
+        
+        if (Array.Exists(cookingIngredients, ingredient => ingredient == null) && workStation.WithdrawIngredient(cookingSequence.Item1, 1))
         {
             CookingIngredient newIngredient = new CookingIngredient(cookingSequence.Item1, cookingSequence.Item2, this);
-            cookingIngredients.Add(newIngredient);
+
+            ingredientIndex = Array.FindIndex(cookingIngredients, ingredient => ingredient == null);
+            cookingIngredients[ingredientIndex] = newIngredient;
+
             StartCoroutine(CookRoutine(newIngredient));
+            return true;
         }
+
+        ingredientIndex = 0;
+        return false;
     }
 
     public void CookingIngredient_NextStep(CookingIngredient cookingIngredient)
@@ -47,6 +70,22 @@ public class CookingStation : MonoBehaviour
 
     public void PassIngredient(CookingIngredient cookingIngredient)
     {
+        WorkStation targetStation;
+        if (cookingIngredient.targetIngredient == Ingredient.CookedPatty)
+        {
+            targetStation = WorkStation.burgerAssembly;
+        }
+        else
+        {
+            targetStation = WorkStation.orderBuilding;
+        }
+
+        if (targetStation.DepositIngredient(cookingIngredient.targetIngredient, 1))
+        {
+            Debug.Log("Cooking Station successfull passed " + cookingIngredient.targetIngredient.ToString() + " to " + targetStation.storageType.ToString());
+
+            cookingIngredients[Array.IndexOf(cookingIngredients, cookingIngredient)] = null;
+        }
 
     }
 
@@ -76,21 +115,11 @@ public class CookingStation : MonoBehaviour
         return new Tuple<Ingredient, Ingredient>(ingredientToCook, goalIngredient);
     }
 
-    private int GetCookingCapacity()
-    {
-        // If you are looking at this, look up "switch as expression c#" before re-using it
-        return cookingType switch
-        {
-            CookingType.Patty => 8,
-            CookingType.Fries => 4,
-            CookingType.Drink => 1,
-            _ => 0,
-        };
-    }
-
     public IEnumerator CookRoutine(CookingIngredient cookingIngredient)
     {
         cookingIngredient.isCooking = true;
+        cookingIngredient.stepTime = 0.0f;
+        Debug.Log("Ingredient is cooking");
         
         // TO-DO: Initiate UI
         
@@ -118,7 +147,7 @@ public class CookingStation : MonoBehaviour
         private CookingStation cookingStation;
         
         private Ingredient startingIngredient;
-        private Ingredient targetIngredient;
+        public Ingredient targetIngredient;
 
         public bool isCooking;
 
@@ -150,8 +179,10 @@ public class CookingStation : MonoBehaviour
             }
             else
             {
-                cookingStation.DisplayIngredientStatus(true);
+                cookingStation.DisplayIngredientStatus(false);
             }
+
+            Debug.Log("Ingredient is done cooking step");
         }
     }
 }

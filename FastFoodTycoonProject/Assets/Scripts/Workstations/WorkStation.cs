@@ -35,6 +35,8 @@ public class WorkStation : MonoBehaviour
     [HideInInspector]
     public static WorkStation fryer2;
     [HideInInspector]
+    public static WorkStation burgerAssembly;
+    [HideInInspector]
     public static WorkStation orderBuilding;
     [HideInInspector]
     public static WorkStation orderStation;
@@ -106,7 +108,7 @@ public class WorkStation : MonoBehaviour
             case StorageType.FlatTop:
                 flatTop = this;
                 // Can store patties (cooked or not)
-                ingredients.Add(Ingredient.RawPatty, 0);
+                ingredients.Add(Ingredient.RawPatty, 20);
                 ingredients.Add(Ingredient.CookedPatty, 0);
                 gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Patty);
                 break;
@@ -127,6 +129,7 @@ public class WorkStation : MonoBehaviour
                 gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Fries);
                 break;
             case StorageType.BurgerAssembly:
+                burgerAssembly = this;
                 // Can store burger ingredients or complete burgers
                 ingredients.Add(Ingredient.CookedPatty, 0);
                 ingredients.Add(Ingredient.Buns, 0);

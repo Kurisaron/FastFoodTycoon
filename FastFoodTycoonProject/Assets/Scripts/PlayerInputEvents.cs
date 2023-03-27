@@ -13,7 +13,7 @@ public class PlayerInputEvents : Singleton<PlayerInputEvents>
     public WorkStation lastStationPressed;
     public bool canOpenStation;
 
-    public Action<RaycastHit> workstationAction;
+    public Action<RaycastHit> workstationTapAction;
 
     // FUNCTIONS
     public override void Awake()
@@ -35,7 +35,7 @@ public class PlayerInputEvents : Singleton<PlayerInputEvents>
 
             if (Physics.Raycast(Camera.main.ScreenPointToRay(tapPosition), out RaycastHit hit, Mathf.Infinity))
             {
-                if (GameManager.Instance.stationOpened && workstationAction != null) workstationAction(hit);
+                if (GameManager.Instance.stationOpened && workstationTapAction != null) workstationTapAction(hit);
                 
                 if (hit.collider.gameObject.GetComponent<WorkStation>() != null)
                 {
@@ -93,6 +93,6 @@ public class PlayerInputEvents : Singleton<PlayerInputEvents>
 
     public void ResetWorkstationAction()
     {
-        workstationAction = null;
+        workstationTapAction = null;
     }
 }
