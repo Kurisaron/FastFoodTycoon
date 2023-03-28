@@ -23,7 +23,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
     {
         get
         {
-            return new Vector3(endPoint.position.x, endPoint.position.y, -3.0f);
+            return endPoint.position - (endPoint.forward * 3.0f);
         }
     }
 
@@ -141,7 +141,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
         {
             yield return new WaitForSeconds(interval);
 
-            ingredient.transform.position += new Vector3(0,0, interval * 2.0f);
+            ingredient.transform.position += -ingredient.transform.up * interval * 2.0f;
 
             if (lastIngredient == null)
             {
