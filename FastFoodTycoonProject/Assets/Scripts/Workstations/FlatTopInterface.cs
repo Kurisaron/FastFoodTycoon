@@ -26,6 +26,7 @@ public class FlatTopInterface : WorkStationInterface
         base.Awake();
 
         PlayerInputEvents.Instance.workstationTapAction = FlatTopTapEvent;
+
         for(int i = 0; i < FlatTopCooker.cookingIngredients.Length; i++)
         {
             if (FlatTopCooker.cookingIngredients[i] != null)

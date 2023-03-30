@@ -24,24 +24,13 @@ public class CookingStation : MonoBehaviour
     {
         this.workStation = workStation;
         cookingType = ck;
-
-        int ingredientCapacity;
-        switch (cookingType)
+        cookingIngredients = new CookingIngredient[cookingType switch
         {
-            case CookingType.Patty:
-                ingredientCapacity = 8;
-                break;
-            case CookingType.Fries:
-                ingredientCapacity = 4;
-                break;
-            case CookingType.Drink:
-                ingredientCapacity = 1;
-                break;
-            default:
-                ingredientCapacity = 0;
-                break;
-        }
-        cookingIngredients = new CookingIngredient[ingredientCapacity];
+            CookingType.Patty => 8,
+            CookingType.Fries => 8,
+            CookingType.Drink => 1,
+            _ => 0,
+        }];
     }
 
     public bool TryCookingIngredient(out int ingredientIndex)
@@ -123,7 +112,7 @@ public class CookingStation : MonoBehaviour
         
         // TO-DO: Initiate UI
         
-        while (cookingIngredient.stepTime < 1.0f)
+        while (cookingIngredient.stepTime < 2.0f)
         {
             // TO-DO: Update UI
 

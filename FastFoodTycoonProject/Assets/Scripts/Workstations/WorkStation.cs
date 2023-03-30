@@ -124,7 +124,7 @@ public class WorkStation : MonoBehaviour
                 }
 
                 // Can store raw or cooked fries
-                ingredients.Add(Ingredient.RawFries, 0);
+                ingredients.Add(Ingredient.RawFries, 20);
                 ingredients.Add(Ingredient.CompleteFries, 0);
                 gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Fries);
                 break;
