@@ -149,7 +149,7 @@ public class WorkStation : MonoBehaviour
                 break;
             case StorageType.DrinkStation:
                 // Can store soda or complete drink
-                ingredients.Add(Ingredient.Soda, 0);
+                ingredients.Add(Ingredient.Soda, 20);
                 ingredients.Add(Ingredient.CompleteDrink, 0);
                 gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Drink);
                 break;
