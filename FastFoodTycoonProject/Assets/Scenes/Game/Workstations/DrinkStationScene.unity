@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   workStation: {fileID: 0}
-  drinkCupPrefab: {fileID: 1633816530936529439, guid: af3faba6429dc8748a0b1836682737f2, type: 3}
+  emptyCupPrefab: {fileID: 107505942457230319, guid: 21b5ad9a86968d84fbfaf705044a24bc, type: 3}
   drink_SpawnPoints:
   - {fileID: 762309929}
 --- !u!1 &1402958652

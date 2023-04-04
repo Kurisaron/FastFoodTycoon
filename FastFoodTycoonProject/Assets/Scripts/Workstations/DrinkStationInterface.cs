@@ -6,7 +6,7 @@ using UnityEngine;
 public class DrinkStationInterface : WorkStationInterface
 {
     // VARIABLES
-    public GameObject drinkCupPrefab;
+    public GameObject emptyCupPrefab;
     public Transform[] drink_SpawnPoints;
 
     // PROPERTIES
@@ -99,8 +99,9 @@ public class DrinkStationInterface : WorkStationInterface
         {
             case 0:
                 // First step (none complete): add a drink cup and 'fill' it
-                GameObject drinkCup = Instantiate(drinkCupPrefab, spawnPoint);
-                drinkCup.transform.localScale = new Vector3(0.01f, 0.01f, 0.02f);
+                GameObject drinkCup = Instantiate(emptyCupPrefab, spawnPoint);
+                drinkCup.transform.localPosition = drinkCup.transform.up * -0.088f;
+                drinkCup.transform.localScale = new Vector3(0.02943999f, 0.04252196f, 0.07642627f);
 
                 // TO-DO: Add pour stream
                 break;
