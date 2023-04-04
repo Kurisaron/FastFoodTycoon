@@ -47,6 +47,14 @@ public class OrderBuildingInterface : WorkStationInterface
         isAssembling = true;
     }
 
+    public void ResetMeal()
+    {
+        isAssembling = false;
+        Destroy(orderTray);
+        NewMeal();
+        Debug.Log("Meal reset.");
+    }
+
 
     // COMPLETE MEAL EVENTS
     public void CompleteMealButtonEvent()
