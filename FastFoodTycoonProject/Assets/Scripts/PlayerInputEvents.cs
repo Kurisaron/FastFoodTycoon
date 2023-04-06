@@ -39,6 +39,12 @@ public class PlayerInputEvents : Singleton<PlayerInputEvents>
                 
                 if (hit.collider.gameObject.GetComponent<WorkStation>() != null)
                 {
+                    if (!GameManager.Instance.gameActive)
+                    {
+                        ResetWorker();
+                        return;
+                    }
+                    
                     if (currentWorker == player && !GameManager.Instance.stationOpened)
                     {
                         canOpenStation = true;
