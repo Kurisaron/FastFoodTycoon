@@ -72,7 +72,9 @@ public class OrderBuildingInterface : WorkStationInterface
     private void CompleteMeal()
     {
         isAssembling = false;
+
         WorkStation.orderStation.gameObject.GetComponent<MealStorage>().AddMeal(currentMeal);
+
         Destroy(orderTray);
         NewMeal();
     }

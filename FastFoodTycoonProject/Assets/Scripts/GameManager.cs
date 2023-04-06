@@ -2,19 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
     // VARIABLES ==================================================
+    public bool gameActive; // false = game is between days or paused
+
     public GameObject openBuyMenuButton;
+    public Text countdownTest;
+
     [HideInInspector]
     public GameData gameData;
     [HideInInspector]
+    public DayManager dayManager;
+    [HideInInspector]
     public SaveManager saveManager;
+
     [HideInInspector]
     public bool stationOpened;
-    [HideInInspector]
-    public bool restaurantOpen;
 
 
 
@@ -24,12 +30,14 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         gameData = gameObject.AddComponent<GameData>();
+        dayManager = gameObject.AddComponent<DayManager>();
         saveManager = gameObject.AddComponent<SaveManager>();
 
         gameData.money = 10000.0f;
         gameData.NewGameData();
         stationOpened = false;
-        restaurantOpen = false;
+
+        gameActive = true;
     }
 
     private void OnApplicationFocus(bool hasFocus)
@@ -83,11 +91,36 @@ public class GameManager : Singleton<GameManager>
     {
         SceneManager.UnloadSceneAsync("BuyScreenScene");
         openBuyMenuButton.SetActive(true);
+        if (!gameActive) gameActive = !gameActive;
     }
 
     // SAVE/LOAD ==================================================
     private void DoSave()
     {
         saveManager.SaveData(gameData);
+    }
+
+    // DAYS ==================================================
+    public void SetCountdownText(float secondsLeft)
+    {
+        countdownTest.text = secondsLeft.ToString("F1") + "s";
+    }
+
+    public void EndDay()
+    {
+        if (stationOpened) Worker.player.targetStation.UnloadStationScene();
+        gameData.dayData.day += 1;
+        StartCoroutine(EndDayRoutine());
+    }
+
+    private IEnumerator EndDayRoutine()
+    {
+        // TO-DO: Display end of day stats (money, day, etc)
+
+        yield return new WaitForSeconds(3.0f);
+
+        // TO-DO: Clear end of day stats
+        
+        OpenBuyMenu();
     }
 }
