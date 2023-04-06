@@ -20,6 +20,8 @@ public class OrderBuildingInterface : WorkStationInterface
 
     [SerializeField]
     private Text orderText;
+    [SerializeField]
+    private GameObject orderWindowContainer;
 
     // UNITY FUNCTIONS
     protected override void Awake()
@@ -32,6 +34,7 @@ public class OrderBuildingInterface : WorkStationInterface
     private void Update()
     {
         orderText.text = GetOrderText();
+        //orderWindowContainer = DisplayOrder(); //doesn't work rn
     }
 
     // MEAL FUNCTIONS
@@ -104,8 +107,10 @@ public class OrderBuildingInterface : WorkStationInterface
             burger.transform.position = spawnPoints.Find(point => point.id == "Burger").point.position;
             burger.transform.Rotate(new Vector3(-90.0f, 0.0f, 0.0f));
             burger.transform.parent = orderTray.transform;
-        }
 
+            
+        }
+        
         currentMeal.AddFood(Ingredient.CompleteBurger, 1);
     }
 
@@ -187,11 +192,18 @@ public class OrderBuildingInterface : WorkStationInterface
         return currentMeal.GetOrderText();
     }
 
+    /*private GameObject DisplayOrder()
+    {
+        currentMeal.GetItemDisplay().transform.SetParent(orderWindowContainer.transform);
+        
+        return currentMeal.GetItemDisplay();
+    }*/
+
     // CLASSES
     [Serializable]
     public class BuildingSpawnPoint
     {
         public string id;
         public Transform point;
-    }
+    }   
 }
