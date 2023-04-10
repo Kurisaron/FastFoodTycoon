@@ -22,12 +22,17 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector]
     public bool stationOpened;
 
-
+    [Header("End Day Screen")]
+    public GameObject endDayScreen;
+    public Text endDayTitle;
+    public Text endDayDetails;
 
     // UNITY FUNCTIONS ============================================
     public override void Awake()
     {
         base.Awake();
+
+        if (endDayScreen.activeInHierarchy) endDayScreen.SetActive(false);
 
         gameData = gameObject.AddComponent<GameData>();
         dayManager = gameObject.AddComponent<DayManager>();
@@ -109,18 +114,21 @@ public class GameManager : Singleton<GameManager>
     public void EndDay()
     {
         if (stationOpened) Worker.player.targetStation.UnloadStationScene();
-        gameData.dayData.day += 1;
         StartCoroutine(EndDayRoutine());
     }
 
     private IEnumerator EndDayRoutine()
     {
-        // TO-DO: Display end of day stats (money, day, etc)
+        // Display end of day stats (money, day, etc)
+        endDayScreen.SetActive(true);
+        endDayTitle.text = "Day " + gameData.dayData.day.ToString() + " Ended";
 
         yield return new WaitForSeconds(3.0f);
 
-        // TO-DO: Clear end of day stats
-        
+        // Clear end of day stats
+        endDayScreen.SetActive(false);
+
+        gameData.dayData.day += 1;
         OpenBuyMenu();
     }
 }
