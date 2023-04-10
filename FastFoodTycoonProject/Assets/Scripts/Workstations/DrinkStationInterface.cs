@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class DrinkStationInterface : WorkStationInterface
 {
@@ -9,6 +10,13 @@ public class DrinkStationInterface : WorkStationInterface
     public GameObject emptyCupPrefab;
     public GameObject cappedCupPrefab;
     public Transform[] drink_SpawnPoints;
+
+    AudioSource audioData;
+
+    void Start()
+    {
+        audioData = GetComponent<AudioSource>();
+    }
 
     // PROPERTIES
     private CookingStation DrinkCooker
@@ -44,6 +52,8 @@ public class DrinkStationInterface : WorkStationInterface
     {
         if (hit.collider.gameObject.name.Contains("CookSelection"))
         {
+            audioData.Play();
+
             if (DrinkCooker.TryCookingIngredient(out int index))
             {
                 DrinkStep(index, 0);
