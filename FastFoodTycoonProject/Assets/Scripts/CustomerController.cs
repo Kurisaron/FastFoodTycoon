@@ -87,6 +87,7 @@ public class CustomerController : MonoBehaviour
         else if (other.tag == "Player")
         {
             PLS.enabled = false;
+
         }
     }
 }
