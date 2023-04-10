@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DayManager : Singleton<DayManager>
 {
-    private float dayDuration /*in seconds*/ = 15.0f;
+    private float dayDuration /*in seconds*/ = 60.0f;
 
     public override void Awake()
     {
