@@ -2,12 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class DrinkStationInterface : WorkStationInterface
 {
     // VARIABLES
     public GameObject emptyCupPrefab;
+    public GameObject cappedCupPrefab;
     public Transform[] drink_SpawnPoints;
+
+    AudioSource audioData;
+
+    void Start()
+    {
+        audioData = GetComponent<AudioSource>();
+    }
 
     // PROPERTIES
     private CookingStation DrinkCooker
@@ -43,6 +52,8 @@ public class DrinkStationInterface : WorkStationInterface
     {
         if (hit.collider.gameObject.name.Contains("CookSelection"))
         {
+            audioData.Play();
+
             if (DrinkCooker.TryCookingIngredient(out int index))
             {
                 DrinkStep(index, 0);
@@ -95,11 +106,12 @@ public class DrinkStationInterface : WorkStationInterface
     {
         Transform spawnPoint = drink_SpawnPoints[index];
 
+        GameObject drinkCup;
         switch (step)
         {
             case 0:
                 // First step (none complete): add a drink cup and 'fill' it
-                GameObject drinkCup = Instantiate(emptyCupPrefab, spawnPoint);
+                drinkCup = Instantiate(emptyCupPrefab, spawnPoint);
                 drinkCup.transform.localPosition = drinkCup.transform.up * -0.088f;
                 drinkCup.transform.localScale = new Vector3(0.02943999f, 0.04252196f, 0.07642627f);
 
@@ -107,9 +119,16 @@ public class DrinkStationInterface : WorkStationInterface
                 break;
             case 1:
                 // Second step (one complete): put lid on drink cup
+                Destroy(spawnPoint.GetChild(0).gameObject);
+
+                drinkCup = Instantiate(cappedCupPrefab, spawnPoint);
+                drinkCup.transform.localPosition = drinkCup.transform.up * -0.02f;
+                drinkCup.transform.localScale = new Vector3(0.03134528f, 0.04107732f, 0.07256211f);
+                // TO-DO: Set transforms
                 break;
             case 2:
                 // Final step (two complete): pass to order building
+                Destroy(spawnPoint.GetChild(0).gameObject);
                 break;
         }
     }

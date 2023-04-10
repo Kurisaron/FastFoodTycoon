@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Meal
 {
@@ -44,5 +45,18 @@ public class Meal
         }
 
         return order;
+    }
+
+    public GameObject GetItemDisplay()
+    {
+        GameObject itemDisplay = new GameObject("No Food");
+        foreach (KeyValuePair<Ingredient, int> kvp in food)
+        {
+            itemDisplay = new GameObject(kvp.Key.ToString());
+            itemDisplay.AddComponent<RectTransform>();
+            itemDisplay.AddComponent<Image>();
+            itemDisplay.GetComponent<Image>().sprite = Resources.Load<Sprite>("/2D Assets/Menu Food Sprites/" + kvp.Key.ToString());
+        }      
+        return itemDisplay;
     }
 }

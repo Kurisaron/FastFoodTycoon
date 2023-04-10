@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 6487865428523759695}
   - component: {fileID: 7901104502684334058}
   - component: {fileID: 5351028315990639392}
+  - component: {fileID: -1759247814922035016}
   m_Layer: 0
   m_Name: Fryer Basket
-  m_TagString: Untagged
+  m_TagString: Basket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &-1759247814922035016
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5855338772442538741}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 85.480896, y: 139.56354, z: 256.938}
+  m_Center: {x: 0, y: 0, z: 0}
