@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class OrderBuildingInterface : WorkStationInterface
 {
@@ -17,6 +18,8 @@ public class OrderBuildingInterface : WorkStationInterface
     private GameObject orderTray;
     private Meal currentMeal;
     private bool isAssembling;
+
+    AudioSource audioData;
 
     [SerializeField]
     private Text orderText;
@@ -33,6 +36,9 @@ public class OrderBuildingInterface : WorkStationInterface
 
     private void Update()
     {
+
+        audioData = GetComponent<AudioSource>();
+
         orderText.text = GetOrderText();
         //orderWindowContainer = DisplayOrder(); //doesn't work rn
     }
@@ -77,6 +83,8 @@ public class OrderBuildingInterface : WorkStationInterface
         isAssembling = false;
 
         WorkStation.orderStation.gameObject.GetComponent<MealStorage>().AddMeal(currentMeal);
+
+        audioData.Play();
 
         Destroy(orderTray);
         NewMeal();
