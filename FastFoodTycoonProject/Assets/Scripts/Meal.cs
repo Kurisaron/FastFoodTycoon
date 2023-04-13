@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Meal
 {
+    //public
     private Dictionary<Ingredient, int> food;
 
     public Meal()
