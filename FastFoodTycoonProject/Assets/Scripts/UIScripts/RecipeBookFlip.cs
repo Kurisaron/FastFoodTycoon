@@ -43,5 +43,6 @@ public class RecipeBookFlip : MonoBehaviour
     public void TurnOffRecipeBook()
     {
         gameObject.SetActive(false);
+        GameManager.Instance.stationOpened = false;
     }
 }

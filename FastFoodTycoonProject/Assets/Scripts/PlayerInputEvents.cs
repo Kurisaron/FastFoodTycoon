@@ -25,7 +25,6 @@ public class PlayerInputEvents : Singleton<PlayerInputEvents>
         canOpenStation = false;
     }
 
-
     public void TapEvent(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
@@ -68,7 +67,7 @@ public class PlayerInputEvents : Singleton<PlayerInputEvents>
                 }
                 else if (hit.collider.gameObject.name.Contains("Exit"))
                 {
-                    player.targetStation.UnloadStationScene();
+                    if (player.targetStation != null) player.targetStation.UnloadStationScene();
                 }
                 else
                 {

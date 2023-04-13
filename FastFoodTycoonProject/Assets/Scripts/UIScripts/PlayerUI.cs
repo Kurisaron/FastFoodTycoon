@@ -12,6 +12,7 @@ public class PlayerUI : MonoBehaviour
     public void ViewRecipeBook() //when you click the recipe book button, set it active
     {
         Debug.Log("this is running");
+        GameManager.Instance.stationOpened = true;
         recipeBookUI.SetActive(true);
     }
 }

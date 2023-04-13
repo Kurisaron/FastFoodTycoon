@@ -22,6 +22,9 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector]
     public bool stationOpened;
 
+    public float dayDuration;
+    public Slider daySlider;
+
     [Header("End Day Screen")]
     public GameObject endDayScreen;
     public Text endDayTitle;
@@ -35,11 +38,14 @@ public class GameManager : Singleton<GameManager>
         if (endDayScreen.activeInHierarchy) endDayScreen.SetActive(false);
 
         gameData = gameObject.AddComponent<GameData>();
-        dayManager = gameObject.AddComponent<DayManager>();
-        saveManager = gameObject.AddComponent<SaveManager>();
 
         gameData.money = 10000.0f;
         gameData.NewGameData();
+
+        dayManager = gameObject.AddComponent<DayManager>();
+        dayManager.Init(dayDuration, daySlider);
+        saveManager = gameObject.AddComponent<SaveManager>();
+
         stationOpened = false;
 
         gameActive = true;
@@ -121,7 +127,8 @@ public class GameManager : Singleton<GameManager>
     {
         // Display end of day stats (money, day, etc)
         endDayScreen.SetActive(true);
-        endDayTitle.text = "Day " + gameData.dayData.day.ToString() + " Ended";
+        if (gameData != null && gameData.dayData != null) endDayTitle.text = "Day " + gameData.dayData.day.ToString() + " Ended";
+        else Debug.LogError("No game data or day data");
 
         yield return new WaitForSeconds(3.0f);
 

@@ -1,14 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DayManager : Singleton<DayManager>
 {
-    private float dayDuration /*in seconds*/ = 60.0f;
+    private float dayDuration; //in seconds
+    private Slider daySlider;
 
     public override void Awake()
     {
         base.Awake();
+
+    }
+
+    public void Init(float duration, Slider slider)
+    {
+        dayDuration = duration;
+        daySlider = slider;
+        daySlider.value = daySlider.minValue;
 
         StartCoroutine(DayRoutine());
     }
@@ -26,7 +36,8 @@ public class DayManager : Singleton<DayManager>
                 if (GameManager.Instance.gameActive)
                 {
                     dayTime -= Time.deltaTime;
-                    GameManager.Instance.SetCountdownText(dayTime);
+
+                    daySlider.value = (dayDuration - dayTime) / dayDuration;
                 }
 
                 yield return null;
