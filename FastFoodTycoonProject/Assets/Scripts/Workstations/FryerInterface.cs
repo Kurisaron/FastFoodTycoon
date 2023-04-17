@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class FryerInterface : WorkStationInterface
 {
@@ -10,6 +11,13 @@ public class FryerInterface : WorkStationInterface
 
     public GameObject fryerBasketPrefab;
     public GameObject completeFriesPrefab;
+
+    AudioSource audioData;
+
+    void Start()
+    {
+        audioData = GetComponent<AudioSource>();
+    }
 
     // PROPERTIES
     private CookingStation FryerCooker
@@ -172,6 +180,8 @@ public class FryerInterface : WorkStationInterface
             fries.transform.position += -spawnPoint.right * 5.0f * Time.deltaTime;
             yield return null;
         }
+
+        audioData.Play();
 
         Destroy(fries);
     }

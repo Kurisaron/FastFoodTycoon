@@ -10,13 +10,9 @@ public class DrinkStationInterface : WorkStationInterface
     public GameObject emptyCupPrefab;
     public GameObject cappedCupPrefab;
     public Transform[] drink_SpawnPoints;
+    public AudioSource completionAudio;
+    public AudioSource machineAudio;
 
-    AudioSource audioData;
-
-    void Start()
-    {
-        audioData = GetComponent<AudioSource>();
-    }
 
     // PROPERTIES
     private CookingStation DrinkCooker
@@ -52,7 +48,7 @@ public class DrinkStationInterface : WorkStationInterface
     {
         if (hit.collider.gameObject.name.Contains("CookSelection"))
         {
-            audioData.Play();
+            machineAudio.Play();
 
             if (DrinkCooker.TryCookingIngredient(out int index))
             {
@@ -128,6 +124,9 @@ public class DrinkStationInterface : WorkStationInterface
                 break;
             case 2:
                 // Final step (two complete): pass to order building
+
+                completionAudio.Play();
+
                 Destroy(spawnPoint.GetChild(0).gameObject);
                 break;
         }

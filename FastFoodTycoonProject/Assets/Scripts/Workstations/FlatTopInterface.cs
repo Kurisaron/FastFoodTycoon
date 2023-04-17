@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class FlatTopInterface : WorkStationInterface
 {
@@ -10,6 +11,8 @@ public class FlatTopInterface : WorkStationInterface
     public GameObject halfCookedPattyPrefab;
     public GameObject cookedPattyPrefab;
     public Transform[] flatTop_SpawnPoints;
+    public AudioSource grillAudio;
+    public AudioSource completionAudio;
 
     // PROPERTIES
     private CookingStation FlatTopCooker
@@ -54,6 +57,9 @@ public class FlatTopInterface : WorkStationInterface
         {
             if(FlatTopCooker.TryCookingIngredient(out int index))
             {
+
+                grillAudio.Play();
+
                 PlacePatty(index, 0);
             }
         }
@@ -129,6 +135,9 @@ public class FlatTopInterface : WorkStationInterface
 
     private void RemovePatty(int index)
     {
+
+        completionAudio.Play();
+
         Destroy(flatTop_SpawnPoints[index].Find("Patty(Clone)").gameObject);
     }
 }

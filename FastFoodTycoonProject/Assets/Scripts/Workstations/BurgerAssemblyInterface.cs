@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class BurgerAssemblyInterface : WorkStationInterface
 {
@@ -13,6 +14,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
     public GameObject cookedPattyPrefab;
     public GameObject lettucePrefab;
     public GameObject burgerPrefab;
+    public AudioSource burgerCompletion;
 
     private bool isAssembling; // is the player in the middle of assembling a burger (bottom bun placed, no top bun)
     private AssembledBurger assembledBurger;
