@@ -78,7 +78,7 @@ public class OrderBuildingInterface : WorkStationInterface
         }
     }
 
-    private void CompleteMeal()
+    public void CompleteMeal()
     {
         isAssembling = false;
 

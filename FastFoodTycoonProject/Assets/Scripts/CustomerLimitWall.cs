@@ -17,10 +17,10 @@ public class CustomerLimitWall : MonoBehaviour
     void Update()
     {
         if (IsColliding)
-        {
+        {  
             timer += Time.deltaTime;
         }
-        if (timer > 5)
+        if (timer > 2)
         {
             DestroyGameObject();
         }

@@ -7,6 +7,7 @@ TagManager:
   - Basket
   - Customer
   - Register
+  - LimitWall
   layers:
   - Default
   - TransparentFX

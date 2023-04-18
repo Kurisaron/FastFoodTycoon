@@ -15,8 +15,9 @@ public class CustomerController : MonoBehaviour
     public MeshRenderer PLS;
     //public int count;
     Rigidbody CustomerRB;
-
-    private int collisionCount = 0;
+    //public void SetActive(bool value);
+    //bool CompleteMeal();
+    /*private int collisionCount = 0;
 
     public bool IsNotColliding
     {
@@ -31,7 +32,7 @@ public class CustomerController : MonoBehaviour
     void OnCollisionExit(Collision col)
     {
         collisionCount--;
-    }
+    }*/
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +50,7 @@ public class CustomerController : MonoBehaviour
         //transform.position = Vector3.MoveTowards(transform.position, target2, step);
     }
 
-    public void despawn()
+    /*public void despawn()
     {
         //setRigidbodyState(false);
         //setColliderState(true);
@@ -63,7 +64,7 @@ public class CustomerController : MonoBehaviour
         {
             OnCustomerDespawned();
         }
-    }
+    }*/
 
     /*void setRigidbodyState(bool state)
     {
@@ -80,6 +81,10 @@ public class CustomerController : MonoBehaviour
     {
         float step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target, step);
+        /*if (CompleteMeal() == true);
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target2, step);
+        }*/
         /*if (collisionCount == 0)
         {
             float step = speed * Time.deltaTime;
@@ -101,15 +106,17 @@ public class CustomerController : MonoBehaviour
         if (other.tag == "Register")
         {
             PLS.enabled = true;
+            //elapsedTime += Time.deltaTime;
             //count++;
             //Destroy(GameObject.FindGameObjectWithTag("OrderIndicator"));
             //Destroy(other.gameObject);
             //DestroyGameObject();
-            print("destroyed order indicator");
+            print("added order indicator");
         }
         else if (other.tag == "Player")
         {
             print("collided with player");
+            //elapsedTime += Time.deltaTime;
             float step = speed * Time.deltaTime;
             PLS.enabled = false;
             transform.position = Vector3.MoveTowards(transform.position, target2, step);
@@ -117,10 +124,18 @@ public class CustomerController : MonoBehaviour
         else if (other.tag == "Customer")
         {
             print("customer in the way");
+            //elapsedTime += Time.deltaTime;
             CustomerRB.velocity = Vector3.zero;
             //RigidBody.IsKinematic = false;
             //GetComponenet<Rigidbody>().velocity = Vector3.zero;
             //return;
+        }
+        else if (other.tag == "LimitWall")
+        {
+            print("despawned customer");
+            //elapsedTime += Time.deltaTime;
+            Destroy(this.gameObject);
+            //this.gameObject.SetActive(false);
         }
         /*else
         {
