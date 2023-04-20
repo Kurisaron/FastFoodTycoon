@@ -15,6 +15,8 @@ public class CustomerController : MonoBehaviour
     public MeshRenderer PLS;
     //public int count;
     Rigidbody CustomerRB;
+    public Transform CustomerPos;
+    //CustomerController.GetComponent<OrderStationInterface>().CompleteMeal();
     //public void SetActive(bool value);
     //bool CompleteMeal();
     /*private int collisionCount = 0;
@@ -81,6 +83,7 @@ public class CustomerController : MonoBehaviour
     {
         float step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target, step);
+        //CustomerPos = GameObject.Find("Customer(clone)").transform;
         /*if (CompleteMeal() == true);
         {
             transform.position = Vector3.MoveTowards(transform.position, target2, step);
@@ -119,13 +122,15 @@ public class CustomerController : MonoBehaviour
             //elapsedTime += Time.deltaTime;
             float step = speed * Time.deltaTime;
             PLS.enabled = false;
-            transform.position = Vector3.MoveTowards(transform.position, target2, step);
+            //transform.position = Vector3.MoveTowards(transform.position, target2, step);
         }     
         else if (other.tag == "Customer")
         {
             print("customer in the way");
+            //float step = speed * Time.deltaTime;
+            //transform.position = Vector3.MoveTowards(transform.position, CustomerPos.position, step);
             //elapsedTime += Time.deltaTime;
-            CustomerRB.velocity = Vector3.zero;
+            //CustomerRB.velocity = Vector3.zero;
             //RigidBody.IsKinematic = false;
             //GetComponenet<Rigidbody>().velocity = Vector3.zero;
             //return;

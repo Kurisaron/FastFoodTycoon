@@ -70,7 +70,7 @@ public class CustomerSpawn : MonoBehaviour
     void Update()
     {
         elapsedTime = elapsedTime + Time.deltaTime;
-        if (elapsedTime >= 2)
+        if (elapsedTime >= secondsBetweenSpawn)
         {
             print("spawn new customer");
             SpawnNewCustomer();

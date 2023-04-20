@@ -12,6 +12,16 @@ public class GameManager : Singleton<GameManager>
     public GameObject openBuyMenuButton;
     public Text countdownTest;
 
+    //Courtney
+    public GameObject CustomerSpawner;
+    //money counter
+    public Text counterText;
+    int counter = 0;
+    //day counter
+    public Text dayCounterText;
+    int dayCounter = 0;
+    //
+
     [HideInInspector]
     public GameData gameData;
     [HideInInspector]
@@ -49,6 +59,12 @@ public class GameManager : Singleton<GameManager>
         stationOpened = false;
 
         gameActive = true;
+
+        //courntey
+        counterText.text = gameData.money.ToString();
+        dayCounterText.text = gameData.dayData.day.ToString();
+        //
+
     }
 
     private void OnApplicationFocus(bool hasFocus)
@@ -103,6 +119,9 @@ public class GameManager : Singleton<GameManager>
         SceneManager.UnloadSceneAsync("BuyScreenScene");
         openBuyMenuButton.SetActive(true);
         if (!gameActive) gameActive = !gameActive;
+        //Courtney
+        CustomerSpawner.SetActive(true);
+        //
     }
 
     // SAVE/LOAD ==================================================
@@ -121,6 +140,13 @@ public class GameManager : Singleton<GameManager>
     {
         if (stationOpened) Worker.player.targetStation.UnloadStationScene();
         StartCoroutine(EndDayRoutine());
+        //Courtney
+        //Destroy(GameObject.FindWithTag("Customer"));
+        GameObject[] Customers = GameObject.FindGameObjectsWithTag("Customer");
+        foreach (GameObject Customer in Customers)
+        GameObject.Destroy(Customer);
+        CustomerSpawner.SetActive(false);
+        //
     }
 
     private IEnumerator EndDayRoutine()
@@ -138,4 +164,9 @@ public class GameManager : Singleton<GameManager>
         gameData.dayData.day += 1;
         OpenBuyMenu();
     }
+
+    /*void update()
+    {
+        //counterText.text = counter.ToString();
+    }*/
 }
