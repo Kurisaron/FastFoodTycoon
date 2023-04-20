@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class FryerInterface : WorkStationInterface
 {
@@ -11,13 +12,9 @@ public class FryerInterface : WorkStationInterface
 
     public GameObject fryerBasketPrefab;
     public GameObject completeFriesPrefab;
+    public GameObject timerUIPrefab;
 
     AudioSource audioData;
-
-    void Start()
-    {
-        audioData = GetComponent<AudioSource>();
-    }
 
     // PROPERTIES
     private CookingStation FryerCooker
@@ -42,6 +39,25 @@ public class FryerInterface : WorkStationInterface
                 PlaceFries(i, FryerCooker.cookingIngredients[i].stepsComplete);
             }
         }
+    }
+
+    private void Start()
+    {
+        audioData = GetComponent<AudioSource>();
+    }
+
+    private void OnEnable()
+    {
+        FryerCooker.startCooking += Fryer_StartCooking;
+        FryerCooker.stillCooking += Fryer_StillCooking;
+        FryerCooker.endCooking += Fryer_EndCooking;
+    }
+
+    private void OnDisable()
+    {
+        FryerCooker.startCooking -= Fryer_StartCooking;
+        FryerCooker.stillCooking -= Fryer_StillCooking;
+        FryerCooker.endCooking -= Fryer_EndCooking;
     }
 
     /*
@@ -89,7 +105,7 @@ public class FryerInterface : WorkStationInterface
                 CookingStation.CookingIngredient pressedIngredient = FryerCooker.cookingIngredients[val];
                 if (pressedIngredient != null)
                 {
-                    if (pressedIngredient.stepTime >= 1.0f)
+                    if (pressedIngredient.stepTime >= 2.0f)
                     {
                         if (pressedIngredient.stepsComplete < pressedIngredient.steps)
                         {
@@ -112,15 +128,44 @@ public class FryerInterface : WorkStationInterface
     }
 
 
+    private void Fryer_StartCooking(CookingStation.CookingIngredient cookingIngredient)
+    {
+        Transform spawnPoint = GetSpawnPoint(cookingIngredient);
+
+        // Spawn and attach cooking timer UI to spawn point transform
+        GameObject newTimer = Instantiate(timerUIPrefab, spawnPoint);
+        newTimer.transform.Find("TimerUI").gameObject.GetComponent<Slider>().value = 0;
+    }
+
+    private void Fryer_StillCooking(CookingStation.CookingIngredient cookingIngredient)
+    {
+        Transform spawnPoint = GetSpawnPoint(cookingIngredient);
+
+        if (spawnPoint.Find("TimerUICanvas(Clone)") != null)
+        {
+            // Update the cooking timer UI
+            Slider mySlider = spawnPoint.Find("TimerUICanvas(Clone)").Find("TimerUI").gameObject.GetComponent<Slider>();
+            mySlider.value = Mathf.Lerp(mySlider.minValue, mySlider.maxValue, Mathf.InverseLerp(0, 2.0f, cookingIngredient.stepTime));
+        }
+    }
+
+    private void Fryer_EndCooking(CookingStation.CookingIngredient cookingIngredient)
+    {
+        Transform spawnPoint = GetSpawnPoint(cookingIngredient);
+
+        // Clear cooking timer UI
+        if (spawnPoint.Find("TimerUICanvas(Clone)") != null)
+        {
+            Destroy(spawnPoint.Find("TimerUICanvas(Clone)").gameObject);
+        }
+    }
+
     private void PlaceFries(int index, int step)
     {
         Transform spawnPoint = fryer_SpawnPoints[index];
 
-        if (spawnPoint.childCount > 0)
-        {
-            Destroy(spawnPoint.GetChild(0).gameObject);
-        }
-        
+        RemoveFries(index);
+
         GameObject fries = Instantiate(step == 2 ? completeFriesPrefab : fryerBasketPrefab, spawnPoint);
 
         if (step == 0)
@@ -136,6 +181,19 @@ public class FryerInterface : WorkStationInterface
         if (step == 2)
         {
             StartCoroutine(PassRoutine(fries, index));
+        }
+    }
+
+    private void RemoveFries(int index)
+    {
+        if (fryer_SpawnPoints[index].Find("Fryer Basket(Clone)") != null && FryerCooker.cookingIngredients[index] != null && FryerCooker.cookingIngredients[index].stepsComplete != 0)
+        {
+            Destroy(fryer_SpawnPoints[index].Find("Fryer Basket(Clone)").gameObject);
+        }
+
+        if (fryer_SpawnPoints[index].Find("FryBasketComplete(Clone)") != null && FryerCooker.cookingIngredients[index] != null && FryerCooker.cookingIngredients[index].stepsComplete != 0)
+        {
+            Destroy(fryer_SpawnPoints[index].Find("FryBasketComplete(Clone)").gameObject);
         }
     }
 
@@ -175,14 +233,39 @@ public class FryerInterface : WorkStationInterface
     {
         Transform spawnPoint = fryer_SpawnPoints[index];
 
-        while(fries.GetComponentInChildren<Renderer>().isVisible)
+        Debug.Log("Pass Routine " + index.ToString() + " starting loop");
+
+        // OLD
+        while (FriesVisible(fries))
         {
-            fries.transform.position += -spawnPoint.right * 5.0f * Time.deltaTime;
+            Debug.Log("Pass Routine " + index.ToString() + " loop iteration");
+            fries.transform.position += spawnPoint.right * -5.0f * Time.deltaTime;
             yield return null;
         }
 
+        Debug.Log("Pass Routine " + index.ToString() + " ending loop");
+
+        Debug.Log("Pass Routine " + index.ToString() + " playing audio");
+
         audioData.Play();
 
+        Debug.Log("Pass Routine " + index.ToString() + " almost complete, need to destroy current fries");
+
         Destroy(fries);
+    }
+
+    private bool FriesVisible(GameObject fries)
+    {
+        Vector3 friesRelativePos = Camera.main.WorldToViewportPoint(fries.transform.position, Camera.MonoOrStereoscopicEye.Mono);
+
+        if ((0 <= friesRelativePos.x && friesRelativePos.x <= 1) && (0 <= friesRelativePos.y && friesRelativePos.y <= 1) && friesRelativePos.z > 0) return true;
+
+        return false;
+    }
+
+    private Transform GetSpawnPoint(CookingStation.CookingIngredient cookingIngredient)
+    {
+        return fryer_SpawnPoints[Array.FindIndex(FryerCooker.cookingIngredients, ingredient => ingredient == cookingIngredient)];
+        // returns the transform associated with the provided CookingIngredient
     }
 }

@@ -20,7 +20,7 @@ public class DayManager : Singleton<DayManager>
         daySlider = slider;
         daySlider.value = daySlider.minValue;
 
-        StartCoroutine(DayRoutine());
+        //StartCoroutine(DayRoutine());
     }
 
     private IEnumerator DayRoutine()

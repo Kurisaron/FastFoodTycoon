@@ -775,6 +775,7 @@ MonoBehaviour:
   uncookedPattyPrefab: {fileID: 1141419950979197324, guid: cf84e726b31b93844bd351cafc6960fa, type: 3}
   halfCookedPattyPrefab: {fileID: 7443412286385523025, guid: 289e32001d574fc46b4eb5d718e5cc27, type: 3}
   cookedPattyPrefab: {fileID: 3221978998054382160, guid: 5a79237a470fe824a9a60b70bf12eaf2, type: 3}
+  timerUIPrefab: {fileID: 8648128691495489547, guid: 53b8abe887042c941bb16f0149f155e1, type: 3}
   flatTop_SpawnPoints:
   - {fileID: 637487015}
   - {fileID: 1826377177}

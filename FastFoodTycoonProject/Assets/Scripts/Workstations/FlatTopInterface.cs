@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class FlatTopInterface : WorkStationInterface
 {
@@ -10,7 +11,10 @@ public class FlatTopInterface : WorkStationInterface
     public GameObject uncookedPattyPrefab;
     public GameObject halfCookedPattyPrefab;
     public GameObject cookedPattyPrefab;
+    public GameObject timerUIPrefab;
+
     public Transform[] flatTop_SpawnPoints;
+
     public AudioSource grillAudio;
     public AudioSource completionAudio;
 
@@ -37,6 +41,20 @@ public class FlatTopInterface : WorkStationInterface
                 PlacePatty(i, FlatTopCooker.cookingIngredients[i].stepsComplete);
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        FlatTopCooker.startCooking += FlatTop_StartCooking;
+        FlatTopCooker.stillCooking += FlatTop_StillCooking;
+        FlatTopCooker.endCooking += FlatTop_EndCooking;
+    }
+
+    private void OnDisable()
+    {
+        FlatTopCooker.startCooking -= FlatTop_StartCooking;
+        FlatTopCooker.stillCooking -= FlatTop_StillCooking;
+        FlatTopCooker.endCooking -= FlatTop_EndCooking;
     }
 
     private void Update()
@@ -104,6 +122,38 @@ public class FlatTopInterface : WorkStationInterface
         }
     }
 
+    private void FlatTop_StartCooking(CookingStation.CookingIngredient cookingIngredient)
+    {
+        Transform spawnPoint = GetSpawnPoint(cookingIngredient);
+
+        // Spawn and attach cooking timer UI to spawn point transform
+        GameObject newTimer = Instantiate(timerUIPrefab, spawnPoint);
+        newTimer.transform.Find("TimerUI").gameObject.GetComponent<Slider>().value = 0;
+    }
+
+    private void FlatTop_StillCooking(CookingStation.CookingIngredient cookingIngredient)
+    {
+        Transform spawnPoint = GetSpawnPoint(cookingIngredient);
+
+        if (spawnPoint.Find("TimerUICanvas(Clone)") != null)
+        {
+            // Update the cooking timer UI
+            Slider mySlider = spawnPoint.Find("TimerUICanvas(Clone)").Find("TimerUI").gameObject.GetComponent<Slider>();
+            mySlider.value = Mathf.Lerp(mySlider.minValue, mySlider.maxValue, Mathf.InverseLerp(0, 2.0f, cookingIngredient.stepTime));
+        }
+    }
+
+    private void FlatTop_EndCooking(CookingStation.CookingIngredient cookingIngredient)
+    {
+        Transform spawnPoint = GetSpawnPoint(cookingIngredient);
+
+        // Clear cooking timer UI
+        if (spawnPoint.Find("TimerUICanvas(Clone)") != null)
+        {
+            Destroy(spawnPoint.Find("TimerUICanvas(Clone)").gameObject);
+        }
+    }
+
     private void PlacePatty(int index, int step)
     {
         GameObject patty = Instantiate(step == 0 ? uncookedPattyPrefab : (step == 1 ? halfCookedPattyPrefab : cookedPattyPrefab), flatTop_SpawnPoints[index]);
@@ -139,5 +189,11 @@ public class FlatTopInterface : WorkStationInterface
         completionAudio.Play();
 
         Destroy(flatTop_SpawnPoints[index].Find("Patty(Clone)").gameObject);
+    }
+
+    private Transform GetSpawnPoint(CookingStation.CookingIngredient cookingIngredient)
+    {
+        return flatTop_SpawnPoints[Array.FindIndex(FlatTopCooker.cookingIngredients, ingredient => ingredient == cookingIngredient)];
+        // returns the transform associated with the provided CookingIngredient
     }
 }

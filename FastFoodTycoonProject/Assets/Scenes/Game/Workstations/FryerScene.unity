@@ -1615,6 +1615,7 @@ MonoBehaviour:
   - {fileID: 194693200}
   fryerBasketPrefab: {fileID: 5855338772442538741, guid: e30f5ffb4e9bb874aab3bc45a2e44e97, type: 3}
   completeFriesPrefab: {fileID: 4816157749990714238, guid: e0438502a64a3a9438ee2daa7e23aa12, type: 3}
+  timerUIPrefab: {fileID: 8648128691495489547, guid: 53b8abe887042c941bb16f0149f155e1, type: 3}
 --- !u!82 &1816728576
 AudioSource:
   m_ObjectHideFlags: 0

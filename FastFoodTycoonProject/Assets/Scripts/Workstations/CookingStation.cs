@@ -18,6 +18,9 @@ public class CookingStation : MonoBehaviour
 
     public CookingIngredient[] cookingIngredients;
 
+    public Action<CookingIngredient> startCooking;
+    public Action<CookingIngredient> stillCooking;
+    public Action<CookingIngredient> endCooking;
 
     // FUNCTIONS
     public void PrepCooking(WorkStation workStation, CookingType ck)
@@ -109,18 +112,21 @@ public class CookingStation : MonoBehaviour
         cookingIngredient.isCooking = true;
         cookingIngredient.stepTime = 0.0f;
         Debug.Log("Ingredient is cooking");
-        
-        // TO-DO: Initiate UI
+
+        // Initiate UI
+        if (startCooking != null) startCooking(cookingIngredient);
         
         while (cookingIngredient.stepTime < 2.0f)
         {
-            // TO-DO: Update UI
+            // Update UI
+            if (stillCooking != null) stillCooking(cookingIngredient);
 
             cookingIngredient.stepTime += Time.deltaTime;
             yield return null;
         }
 
-        // TO-DO: Clear timer UI
+        // Clear timer UI
+        if (endCooking != null) endCooking(cookingIngredient);
 
         cookingIngredient.StepComplete();
     }
