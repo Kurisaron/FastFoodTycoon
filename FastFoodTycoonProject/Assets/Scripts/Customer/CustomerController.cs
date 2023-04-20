@@ -81,6 +81,7 @@ public class CustomerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //these two functions must be together. Moves customer towards target in inspector.
         float step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target, step);
         //CustomerPos = GameObject.Find("Customer(clone)").transform;

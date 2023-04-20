@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomerSpawn : MonoBehaviour
-
+public class CustomerSpawnOne : MonoBehaviour
 {
     //public Quaternion rotation;
     //Transform target;
@@ -44,9 +43,9 @@ public class CustomerSpawn : MonoBehaviour
         //elapsedTime += Time.deltaTime;
         /*if(elapsedTime <= 2)
         {*/
-            //print("spawn new customer");
+        //print("spawn new customer");
         Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
-            //elapsedTime = 0.0f;
+        //elapsedTime = 0.0f;
         //}
         //Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
         //transform.Rotate(new Vector3(axis2, axis1, 0), Space.World);
