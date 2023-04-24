@@ -36,6 +36,7 @@ public class Meal
     {
         return food != null && food.Count > 0;
     }
+
     public string GetOrderText()
     {
         string order = "Food in order:\n";

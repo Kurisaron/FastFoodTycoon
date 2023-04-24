@@ -110,6 +110,12 @@ public class OrderBuildingInterface : WorkStationInterface
 
     private void AddBurger()
     {
+        if (!workStation.WithdrawIngredient(Ingredient.CompleteBurger, 1))
+        {
+            Debug.Log("Order building does not have any completed burgers!");
+            return;
+        }
+        
         if (!currentMeal.Contains(Ingredient.CompleteBurger))
         {
             GameObject burger = Instantiate(burgerPrefab, transform);
@@ -144,6 +150,12 @@ public class OrderBuildingInterface : WorkStationInterface
 
     private void AddFries()
     {
+        if (!workStation.WithdrawIngredient(Ingredient.CompleteFries, 1))
+        {
+            Debug.Log("Order building does not have any completed fries!");
+            return;
+        }
+
         if (!currentMeal.Contains(Ingredient.CompleteFries))
         {
             GameObject fries = Instantiate(fryTrayPrefab, transform);
@@ -176,6 +188,12 @@ public class OrderBuildingInterface : WorkStationInterface
 
     private void AddDrink()
     {
+        if (!workStation.WithdrawIngredient(Ingredient.CompleteDrink, 1))
+        {
+            Debug.Log("Order building does not have any completed burgers!");
+            return;
+        }
+
         if (!currentMeal.Contains(Ingredient.CompleteDrink))
         {
             GameObject drink = Instantiate(drinkPrefab, transform);

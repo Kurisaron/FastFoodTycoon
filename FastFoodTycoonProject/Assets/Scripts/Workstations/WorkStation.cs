@@ -99,8 +99,8 @@ public class WorkStation : MonoBehaviour
                 {
                     if (!ingredient.ToString().Contains("Cooked") && !ingredient.ToString().Contains("Complete"))
                     {
-                        //ingredients.Add(ingredient, 0);
-                        ingredients.Add(ingredient, UnityEngine.Random.Range(0,3));
+                        ingredients.Add(ingredient, 0);
+                        //ingredients.Add(ingredient, UnityEngine.Random.Range(0,3));
                     }
 
                 }
@@ -108,7 +108,7 @@ public class WorkStation : MonoBehaviour
             case StorageType.FlatTop:
                 flatTop = this;
                 // Can store patties (cooked or not)
-                ingredients.Add(Ingredient.RawPatty, 20);
+                ingredients.Add(Ingredient.RawPatty, 0);
                 ingredients.Add(Ingredient.CookedPatty, 0);
                 gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Patty);
                 break;
@@ -124,7 +124,7 @@ public class WorkStation : MonoBehaviour
                 }
 
                 // Can store raw or cooked fries
-                ingredients.Add(Ingredient.RawFries, 20);
+                ingredients.Add(Ingredient.RawFries, 0);
                 ingredients.Add(Ingredient.CompleteFries, 0);
                 gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Fries);
                 break;
@@ -149,7 +149,7 @@ public class WorkStation : MonoBehaviour
                 break;
             case StorageType.DrinkStation:
                 // Can store soda or complete drink
-                ingredients.Add(Ingredient.Soda, 20);
+                ingredients.Add(Ingredient.Soda, 0);
                 ingredients.Add(Ingredient.CompleteDrink, 0);
                 gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Drink);
                 break;
@@ -183,4 +183,37 @@ public class WorkStation : MonoBehaviour
         return true;
     }
 
+    // COLLECTIVE FRIDGE FUNCTIONS
+    public static int CollectiveFridge_GetIngredientCount(Ingredient ingredient)
+    {
+        if (fridge1 == null || fridge2 == null)
+        {
+            Debug.LogError("Fridge not set properly");
+            return 0;
+        }
+
+        return fridge1.ingredients[ingredient] + fridge2.ingredients[ingredient];
+    }
+
+    public static bool CollectiveFridge_WithdrawIngredient(Ingredient ingredient, int amount)
+    {
+        if (!fridge1.ingredients.ContainsKey(ingredient) || !fridge2.ingredients.ContainsKey(ingredient) || CollectiveFridge_GetIngredientCount(ingredient) < amount) return false;
+
+        int amountNeeded = amount;
+        int fridgeAmount = amountNeeded > fridge1.ingredients[ingredient] ? fridge1.ingredients[ingredient] : amountNeeded;
+        if (fridge1.WithdrawIngredient(ingredient, fridgeAmount))
+        {
+            Debug.Log("Collective Fridge withdrew " + amount.ToString() + " " + ingredient.ToString() + " from Fridge 1");
+        }
+        amountNeeded -= fridgeAmount;
+
+        if (amountNeeded == 0) return true;
+
+        if (fridge2.WithdrawIngredient(ingredient, amountNeeded))
+        {
+            Debug.Log("Collective Fridge withdrew " + amount.ToString() + " " + ingredient.ToString() + " from Fridge 2");
+        }
+
+        return true;
+    }
 }

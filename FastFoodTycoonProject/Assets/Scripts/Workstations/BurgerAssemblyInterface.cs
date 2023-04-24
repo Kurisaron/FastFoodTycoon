@@ -63,6 +63,12 @@ public class BurgerAssemblyInterface : WorkStationInterface
 
     private void PlaceBottomBun()
     {
+        if (WorkStation.CollectiveFridge_GetIngredientCount(Ingredient.Buns) <= 0)
+        {
+            Debug.Log("You do not have any more buns!");
+            return;
+        }
+        
         GameObject bun = Instantiate(bottomBunPrefab, transform);
         bun.transform.parent = null;
         bun.transform.position = endPoint.position;
@@ -94,7 +100,16 @@ public class BurgerAssemblyInterface : WorkStationInterface
 
     private void DropPatty()
     {
-        DropIngredient(cookedPattyPrefab);
+        if (assembledBurger != null && (workStation.ingredients[Ingredient.CookedPatty] - assembledBurger.GetIngredientCount("Patty") > 0))
+        {
+            // Can only drop patties if you have enough to use (checks current assembled burger to avoid consuming ingredients until completion/trashing)
+            DropIngredient(cookedPattyPrefab);
+        }
+        else
+        {
+            Debug.Log("You do not have any more cooked patties!");
+        }
+        
     }
 
     private void NoPatty()
@@ -117,7 +132,16 @@ public class BurgerAssemblyInterface : WorkStationInterface
 
     private void DropLettuce()
     {
-        DropIngredient(lettucePrefab);
+        if (assembledBurger != null && (WorkStation.CollectiveFridge_GetIngredientCount(Ingredient.Lettuce) - assembledBurger.GetIngredientCount("Lettuce") > 0))
+        {
+            // Can only drop lettuce if you have enough to use (checks current assembled burger to avoid consuming ingredients until completion/trashing)
+            DropIngredient(lettucePrefab);
+        }
+        else
+        {
+            Debug.Log("You do not have any more lettuce!");
+        }
+
     }
 
     private void NoLettuce()
@@ -191,6 +215,17 @@ public class BurgerAssemblyInterface : WorkStationInterface
             }
         }
 
+        public int GetIngredientCount(string substring)
+        {
+            if (ingredients.Exists(ingredient => ingredient.name.Contains(substring)))
+            {
+                // return the amount of ingredients (GameObjects in scene) that have a name that contains the substring
+                return ingredients.FindAll(ingredient => ingredient.name.Contains(substring)).Count;
+            }
+
+            return 0;
+        }
+
         private void CheckBurger()
         {
             if (ingredients.Count >= 7 && !ingredients.Exists(ingredient => ingredient.name.Contains("Top")))
@@ -243,16 +278,40 @@ public class BurgerAssemblyInterface : WorkStationInterface
                 if (ingredient.name.Contains("Bottom"))
                 {
                     // Use Buns
+                    if (WorkStation.CollectiveFridge_WithdrawIngredient(Ingredient.Buns, 1))
+                    {
+                        Debug.Log("Burger used up a set of buns");
+                    }
+                    else
+                    {
+                        Debug.LogError("Burger could not pull a set of buns");
+                    }
                 }
 
                 if (ingredient.name.Contains("Patty"))
                 {
                     // Use Patty
+                    if (assemblyInterface.workStation.WithdrawIngredient(Ingredient.CookedPatty, 1))
+                    {
+                        Debug.Log("Burger used up a cooked patty");
+                    }
+                    else
+                    {
+                        Debug.LogError("Burger could not pull a cooked patty");
+                    }
                 }
 
                 if (ingredient.name.Contains("Lettuce"))
                 {
                     // Use Lettuce
+                    if (WorkStation.CollectiveFridge_WithdrawIngredient(Ingredient.Lettuce, 1))
+                    {
+                        Debug.Log("Burger used up a leaf of lettuce");
+                    }
+                    else
+                    {
+                        Debug.LogError("Burger could not pull a leaf of lettuce");
+                    }
                 }
 
                 ingredientsToClear.Add(ingredient);
