@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Meal
 {
-    private Dictionary<Ingredient, int> food;
+    public Dictionary<Ingredient, int> food;
 
     public Meal()
     {
@@ -35,6 +35,11 @@ public class Meal
     public bool HasFood()
     {
         return food != null && food.Count > 0;
+    }
+
+    public bool Contains(Ingredient ingredient, int amount)
+    {
+        return food.ContainsKey(ingredient) && food[ingredient] >= amount;
     }
 
     public string GetOrderText()

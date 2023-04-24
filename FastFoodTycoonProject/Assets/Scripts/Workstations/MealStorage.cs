@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MealStorage : MonoBehaviour
 {
-    private List<Meal> meals;
+    public List<Meal> meals;
 
     private void Awake()
     {
