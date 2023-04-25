@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CustomerController : MonoBehaviour
 {
+    //OrderBuildingInterface OrderBuildingInterfaceScript;
+    
     public delegate void CustomerDespawned();
     public static event CustomerDespawned OnCustomerDespawned;
     //public List<GameObject> waypoints;
@@ -16,6 +18,7 @@ public class CustomerController : MonoBehaviour
     //public int count;
     Rigidbody CustomerRB;
     public Transform CustomerPos;
+    //public class Dictionary<>
     //CustomerController.GetComponent<OrderStationInterface>().CompleteMeal();
     //public void SetActive(bool value);
     //bool CompleteMeal();
@@ -40,6 +43,7 @@ public class CustomerController : MonoBehaviour
     void Start()
     {
         PLS.enabled = false;
+        //OrderBuildingInterfaceScript = GameObject.FindGameObjectWithTag("OrderBuildingInterface").GetComponent<OrderBuildingInterface>();
         //float step = speed * Time.deltaTime;
         //transform.position = Vector3.MoveTowards(transform.position, target, step);
         //transform.position = target.position;
@@ -79,11 +83,32 @@ public class CustomerController : MonoBehaviour
     }*/
 
     // Update is called once per frame
+    /*public void CheckOrders()
+    {
+        foreach (Meal meal in StationMealStorage.meals)
+        {
+            bool flag = true;
+
+            foreach (Ingredient ingredient in meal.food.Keys)
+            {
+                if (order.food[ingredient] != meal.food[ingredient]) flag = false;
+                //quantify order
+            }
+
+            if (flag)
+            {
+                NewMeal();
+                // Remove meal from meal storage and give it to the customer
+            }
+        }
+    }*/
+
     void Update()
     {
         //these two functions must be together. Moves customer towards target in inspector.
         float step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target, step);
+        //CheckOrders();
         //CustomerPos = GameObject.Find("Customer(clone)").transform;
         /*if (CompleteMeal() == true);
         {

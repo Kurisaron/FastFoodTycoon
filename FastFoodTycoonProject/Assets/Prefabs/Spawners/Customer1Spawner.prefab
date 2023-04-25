@@ -39,7 +39,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9198713223510895232}
-  - component: {fileID: 9198713223510895233}
   m_Layer: 0
   m_Name: Customer1Spawner
   m_TagString: Untagged
@@ -62,19 +61,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9198713223510895233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9198713223510895294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5e035ca5ff3fd94d90742f8ec3a677e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SpawnPoints: {fileID: 7973499751190032438}
-  m_CustomerPrefab: {fileID: 7760008151879005146, guid: fdbcf8f9229508844beaeb95c965a491, type: 3}
-  secondsBetweenSpawn: 4
-  elapsedTime: 0

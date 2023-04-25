@@ -43,11 +43,10 @@ public class CustomerSpawnOne : MonoBehaviour
         //elapsedTime += Time.deltaTime;
         /*if(elapsedTime <= 2)
         {*/
-        //print("spawn new customer");
-        Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
+        print("spawn new customer");
         //elapsedTime = 0.0f;
         //}
-        //Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
+        Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
         //transform.Rotate(new Vector3(axis2, axis1, 0), Space.World);
     }
 
@@ -69,13 +68,25 @@ public class CustomerSpawnOne : MonoBehaviour
     void Update()
     {
         elapsedTime = elapsedTime + Time.deltaTime;
-        if (elapsedTime >= secondsBetweenSpawn)
+        //SpawnNewCustomer();
+        if (GameObject.Find("Customer1(Clone)")) //!= null)
+        {
+            //Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
+            SpawnNewCustomer();
+            print("no customer found");
+        }
+        /*else
+        {
+            print("customer found");
+            return;
+        }*/
+        /*if (elapsedTime >= secondsBetweenSpawn)
         {
             print("spawn new customer");
             SpawnNewCustomer();
             //Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
             elapsedTime = 0.0f;
-        }
+        }*/
         /*if (SpawnNewCustomer(););
         {
             elapsedTime = 0f

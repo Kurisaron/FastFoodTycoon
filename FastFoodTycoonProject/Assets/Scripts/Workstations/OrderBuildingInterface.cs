@@ -14,6 +14,7 @@ public class OrderBuildingInterface : WorkStationInterface
     public GameObject burgerPrefab;
     public GameObject fryTrayPrefab;
     public GameObject drinkPrefab;
+    //public GameObject customerPrefab;
 
     private GameObject orderTray;
     private Meal currentMeal;
@@ -68,6 +69,8 @@ public class OrderBuildingInterface : WorkStationInterface
     // COMPLETE MEAL EVENTS
     public void CompleteMealButtonEvent()
     {
+        //print("delete customer");
+        //GameObject.Destroy(GameObject.Find("CustomerOne(Clone)"));
         if (isAssembling && currentMeal.HasFood())
         {
             CompleteMeal();
@@ -88,6 +91,8 @@ public class OrderBuildingInterface : WorkStationInterface
 
         Destroy(orderTray);
         NewMeal();
+        //print("delete customer");
+        GameObject.Destroy(GameObject.Find("CustomerOne(Clone)"));
     }
 
     private void NoMeal()

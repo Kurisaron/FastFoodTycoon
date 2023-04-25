@@ -15,6 +15,8 @@ public class BurgerAssemblyInterface : WorkStationInterface
     public GameObject lettucePrefab;
     public GameObject burgerPrefab;
     public AudioSource burgerCompletion;
+    //public GameObject indicatorPrefab;
+    //public MeshRenderer PLS;
 
     private bool isAssembling; // is the player in the middle of assembling a burger (bottom bun placed, no top bun)
     private AssembledBurger assembledBurger;
@@ -209,10 +211,16 @@ public class BurgerAssemblyInterface : WorkStationInterface
         {
             if (ingredients != null && ingredients.Count > 0)
             {
+                //indicatorPrefab.enabled = true;
                 return true;
             }
+            /*else if (ingredients.Count <= 5)
+            {
+                indicatorPrefab.enabled = false;
+            }*/
             else
             {
+                //indicatorPrefab.enabled = true;
                 return false;
             }
         }

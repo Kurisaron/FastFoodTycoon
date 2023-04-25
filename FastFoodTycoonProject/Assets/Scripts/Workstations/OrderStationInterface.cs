@@ -23,24 +23,5 @@ public class OrderStationInterface : WorkStationInterface
 
 
     }
-
-    /*
-    public void CheckOrders()
-    {
-        foreach (Meal meal in StationMealStorage.meals)
-        {
-            bool flag = true;
-
-            foreach (Ingredient ingredient in meal.food.Keys)
-            {
-                if (order.food[ingredient] != meal.food[ingredient]) flag = false;
-            }
-
-            if (flag)
-            {
-                // Remove meal from meal storage and give it to the customer
-            }
-        }
-    }
-    */
+    
 }

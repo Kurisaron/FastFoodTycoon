@@ -18,4 +18,11 @@ public class MealStorage : MonoBehaviour
         meals.Add(meal);
     }
 
+    public void SubtractMeal (Meal meal)
+    {
+        Debug.Log("Meal added to storage.");
+
+        meals.Remove(meal);
+    }
+
 }

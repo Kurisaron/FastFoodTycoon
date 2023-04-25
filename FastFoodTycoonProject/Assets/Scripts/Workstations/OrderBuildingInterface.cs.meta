@@ -3,7 +3,15 @@ guid: d0611eddfe0da874fac9959b3b86ddef
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - workStation: {instanceID: 0}
+  - orderTrayPrefab: {instanceID: 0}
+  - burgerPrefab: {instanceID: 0}
+  - fryTrayPrefab: {instanceID: 0}
+  - drinkPrefab: {instanceID: 0}
+  - customerPrefab: {fileID: 1639684982386388043, guid: fdbcf8f9229508844beaeb95c965a491, type: 3}
+  - orderText: {instanceID: 0}
+  - orderWindowContainer: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
