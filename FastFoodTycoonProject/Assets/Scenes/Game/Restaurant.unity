@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &101581301
 RectTransform:
   m_ObjectHideFlags: 0
@@ -815,7 +815,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &333661236
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5248,7 +5248,7 @@ MonoBehaviour:
   dayManager: {fileID: 0}
   saveManager: {fileID: 0}
   stationOpened: 0
-  dayDuration: 10
+  dayDuration: 120
   daySlider: {fileID: 538925256}
   endDayScreen: {fileID: 1034774881}
   endDayTitle: {fileID: 1734239859}
@@ -6084,7 +6084,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2077256251
 MonoBehaviour:
   m_ObjectHideFlags: 0
