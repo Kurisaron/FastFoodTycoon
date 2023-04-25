@@ -134,6 +134,8 @@ public class FryerInterface : WorkStationInterface
 
         // Spawn and attach cooking timer UI to spawn point transform
         GameObject newTimer = Instantiate(timerUIPrefab, spawnPoint);
+        newTimer.transform.localScale *= 0.01f;
+        newTimer.transform.SetPositionAndRotation(newTimer.transform.position + (Vector3.up * 0.1f), Quaternion.Euler(45, 180, 0));
         newTimer.transform.Find("TimerUI").gameObject.GetComponent<Slider>().value = 0;
     }
 
@@ -188,13 +190,22 @@ public class FryerInterface : WorkStationInterface
     {
         if (fryer_SpawnPoints[index].Find("Fryer Basket(Clone)") != null && FryerCooker.cookingIngredients[index] != null && FryerCooker.cookingIngredients[index].stepsComplete != 0)
         {
+            Debug.Log("Removing Fryer Basket");
             Destroy(fryer_SpawnPoints[index].Find("Fryer Basket(Clone)").gameObject);
         }
 
         if (fryer_SpawnPoints[index].Find("FryBasketComplete(Clone)") != null && FryerCooker.cookingIngredients[index] != null && FryerCooker.cookingIngredients[index].stepsComplete != 0)
         {
+            Debug.Log("Removing Complete Fries");
             Destroy(fryer_SpawnPoints[index].Find("FryBasketComplete(Clone)").gameObject);
         }
+
+        Transform[] allChildren = fryer_SpawnPoints[index].GetComponentsInChildren<Transform>();
+        foreach (Transform child in allChildren)
+        {
+            Debug.LogError(child.gameObject.name + " still active");
+        }
+
     }
 
     private IEnumerator DropInRoutine(GameObject basket, int index)
@@ -233,23 +244,22 @@ public class FryerInterface : WorkStationInterface
     {
         Transform spawnPoint = fryer_SpawnPoints[index];
 
-        Debug.Log("Pass Routine " + index.ToString() + " starting loop");
+        //Debug.Log("Pass Routine " + index.ToString() + " starting loop");
 
-        // OLD
         while (FriesVisible(fries))
         {
-            Debug.Log("Pass Routine " + index.ToString() + " loop iteration");
+            //Debug.Log("Pass Routine " + index.ToString() + " loop iteration");
             fries.transform.position += spawnPoint.right * -5.0f * Time.deltaTime;
             yield return null;
         }
 
-        Debug.Log("Pass Routine " + index.ToString() + " ending loop");
+        //Debug.Log("Pass Routine " + index.ToString() + " ending loop");
 
-        Debug.Log("Pass Routine " + index.ToString() + " playing audio");
+        //Debug.Log("Pass Routine " + index.ToString() + " playing audio");
 
         audioData.Play();
 
-        Debug.Log("Pass Routine " + index.ToString() + " almost complete, need to destroy current fries");
+        //Debug.Log("Pass Routine " + index.ToString() + " almost complete, need to destroy current fries");
 
         Destroy(fries);
     }
