@@ -35,7 +35,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
         base.Awake();
 
         isAssembling = false;
-        assembledBurger = new AssembledBurger(this);
+        assembledBurger = new AssembledBurger(this, burgerCompletion);
     }
 
     // BUN BUTTON EVENTS
@@ -75,7 +75,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
 
         bun.transform.Rotate(new Vector3(-90.0f, 0.0f, 0.0f));
 
-        if (assembledBurger == null) assembledBurger = new AssembledBurger(this);
+        if (assembledBurger == null) assembledBurger = new AssembledBurger(this, burgerCompletion);
 
         assembledBurger.AddIngredient(bun);
     }
@@ -189,10 +189,12 @@ public class BurgerAssemblyInterface : WorkStationInterface
     {
         private BurgerAssemblyInterface assemblyInterface;
         private List<GameObject> ingredients = new List<GameObject>();
+        private AudioSource burgerAudio;
 
-        public AssembledBurger(BurgerAssemblyInterface burgerAssembly)
+        public AssembledBurger(BurgerAssemblyInterface burgerAssembly, AudioSource burgerCompletion)
         {
             assemblyInterface = burgerAssembly;
+            burgerAudio = burgerCompletion;
         }
 
         public void AddIngredient(GameObject ingredient)
@@ -316,6 +318,8 @@ public class BurgerAssemblyInterface : WorkStationInterface
 
                 ingredientsToClear.Add(ingredient);
             }
+
+            burgerAudio.Play();
 
             ingredients = new List<GameObject>();
             foreach(GameObject ingredient in ingredientsToClear)

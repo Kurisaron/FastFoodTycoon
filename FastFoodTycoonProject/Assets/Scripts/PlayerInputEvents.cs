@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 
 public class PlayerInputEvents : Singleton<PlayerInputEvents>
@@ -14,6 +15,8 @@ public class PlayerInputEvents : Singleton<PlayerInputEvents>
     public bool canOpenStation;
 
     public Action<RaycastHit> workstationTapAction;
+
+    public AudioSource exitAudio;
 
     // FUNCTIONS
     public override void Awake()
@@ -67,6 +70,8 @@ public class PlayerInputEvents : Singleton<PlayerInputEvents>
                 }
                 else if (hit.collider.gameObject.name.Contains("Exit"))
                 {
+                    exitAudio.Play();
+
                     if (player.targetStation != null) player.targetStation.UnloadStationScene();
                 }
                 else
