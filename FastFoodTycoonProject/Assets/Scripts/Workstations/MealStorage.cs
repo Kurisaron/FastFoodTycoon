@@ -11,6 +11,8 @@ public class MealStorage : MonoBehaviour
     // new
     public Dictionary<Ingredient, int> food;
 
+
+
     private void Awake()
     {
         //meals = new List<Meal>();
@@ -21,6 +23,7 @@ public class MealStorage : MonoBehaviour
             if (ingredient.ToString().Contains("Complete"))
                 food.Add(ingredient, 0);
         }
+
     }
 
     
@@ -42,6 +45,42 @@ public class MealStorage : MonoBehaviour
         Debug.Log("Meal added to storage.");
 
         meals.Remove(meal);
+    }
+    */
+
+    /*
+    public void ReferenceFunction()
+    {
+
+        bool flag = true;
+        foreach (Ingredient ingredient1 in order.food.Keys)
+        {
+            if (food[ingredient1] < order.food[ingredient1])
+            {
+                flag = false;
+            }
+        }
+
+        if (flag)
+        {
+            // Pass food
+            foreach (Ingredient ingredient1 in order.food.Keys)
+            {
+                food[ingredient1] -= order.food[ingredient1];
+            }
+        }
+
+        
+        if (!FindObjectOfType<CustomerController>())
+        {
+            // Spawn customer
+        }
+
+    
+        if (FindObjectsOfType<CustomerController>().Length < 8)
+        {
+
+        }
     }
     */
 
