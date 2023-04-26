@@ -188,6 +188,19 @@ public class FryerInterface : WorkStationInterface
 
     private void RemoveFries(int index)
     {
+        Transform spawnPoint = fryer_SpawnPoints[index];
+
+        if (!Array.Exists(spawnPoint.gameObject.GetComponentsInChildren<Transform>(), child => child.gameObject.name.Contains("Fry"))) return;
+
+        foreach (Transform fryChild in Array.FindAll(spawnPoint.gameObject.GetComponentsInChildren<Transform>(), child => child.gameObject.name.Contains("Fry")))
+        {
+            if (fryChild == null) continue;
+
+            Debug.Log("Removing child of spawn point " + index.ToString() + " with name containing Fry [" + fryChild.gameObject.name + "]");
+            Destroy(fryChild.gameObject);
+        }
+
+        /*
         if (fryer_SpawnPoints[index].Find("Fryer Basket(Clone)") != null && FryerCooker.cookingIngredients[index] != null && FryerCooker.cookingIngredients[index].stepsComplete != 0)
         {
             Debug.Log("Removing Fryer Basket");
@@ -200,11 +213,12 @@ public class FryerInterface : WorkStationInterface
             Destroy(fryer_SpawnPoints[index].Find("FryBasketComplete(Clone)").gameObject);
         }
 
-        Transform[] allChildren = fryer_SpawnPoints[index].GetComponentsInChildren<Transform>();
+        Transform[] allChildren = spawnPoint.GetComponentsInChildren<Transform>();
         foreach (Transform child in allChildren)
         {
             Debug.LogError(child.gameObject.name + " still active");
         }
+        */
 
     }
 

@@ -128,6 +128,8 @@ public class FlatTopInterface : WorkStationInterface
 
         // Spawn and attach cooking timer UI to spawn point transform
         GameObject newTimer = Instantiate(timerUIPrefab, spawnPoint);
+        newTimer.transform.localScale *= 0.25f;
+        newTimer.transform.SetPositionAndRotation(spawnPoint.position + (Vector3.up * 0.2f), Quaternion.Euler(45, 180, 0));
         newTimer.transform.Find("TimerUI").gameObject.GetComponent<Slider>().value = 0;
     }
 
