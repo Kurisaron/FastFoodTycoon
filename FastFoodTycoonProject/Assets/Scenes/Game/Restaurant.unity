@@ -5105,7 +5105,7 @@ MonoBehaviour:
   dayManager: {fileID: 0}
   saveManager: {fileID: 0}
   stationOpened: 0
-  dayDuration: 10
+  dayDuration: 60000
   daySlider: {fileID: 538925256}
   endDayScreen: {fileID: 1034774881}
   endDayTitle: {fileID: 1734239859}

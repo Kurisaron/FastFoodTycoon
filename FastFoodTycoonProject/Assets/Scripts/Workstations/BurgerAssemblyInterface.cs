@@ -65,7 +65,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
 
     private void PlaceBottomBun()
     {
-        if (WorkStation.CollectiveFridge_GetIngredientCount(Ingredient.Buns) <= 0)
+        if (WorkStation.fridge.ingredients[Ingredient.Buns] <= 0)
         {
             Debug.Log("You do not have any more buns!");
             return;
@@ -134,7 +134,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
 
     private void DropLettuce()
     {
-        if (assembledBurger != null && (WorkStation.CollectiveFridge_GetIngredientCount(Ingredient.Lettuce) - assembledBurger.GetIngredientCount("Lettuce") > 0))
+        if (assembledBurger != null && (WorkStation.fridge.ingredients[Ingredient.Lettuce] - assembledBurger.GetIngredientCount("Lettuce") > 0))
         {
             // Can only drop lettuce if you have enough to use (checks current assembled burger to avoid consuming ingredients until completion/trashing)
             DropIngredient(lettucePrefab);
@@ -288,7 +288,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
                 if (ingredient.name.Contains("Bottom"))
                 {
                     // Use Buns
-                    if (WorkStation.CollectiveFridge_WithdrawIngredient(Ingredient.Buns, 1))
+                    if (WorkStation.fridge.WithdrawIngredient(Ingredient.Buns, 1))
                     {
                         Debug.Log("Burger used up a set of buns");
                     }
@@ -314,7 +314,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
                 if (ingredient.name.Contains("Lettuce"))
                 {
                     // Use Lettuce
-                    if (WorkStation.CollectiveFridge_WithdrawIngredient(Ingredient.Lettuce, 1))
+                    if (WorkStation.fridge.WithdrawIngredient(Ingredient.Lettuce, 1))
                     {
                         Debug.Log("Burger used up a leaf of lettuce");
                     }

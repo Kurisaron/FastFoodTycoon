@@ -25,21 +25,19 @@ public class WorkStation : MonoBehaviour
     public Transform goToPoint;
 
     [HideInInspector]
-    public static WorkStation fridge1;
-    [HideInInspector]
-    public static WorkStation fridge2;
+    public static WorkStation fridge;
     [HideInInspector]
     public static WorkStation flatTop;
     [HideInInspector]
-    public static WorkStation fryer1;
-    [HideInInspector]
-    public static WorkStation fryer2;
+    public static WorkStation fryer;
     [HideInInspector]
     public static WorkStation burgerAssembly;
     [HideInInspector]
     public static WorkStation orderBuilding;
     [HideInInspector]
     public static WorkStation orderStation;
+
+    //WorkStation.orderStation.gameObject.GetComponent<MealStorage>()
 
     // Workstation Storage
     public StorageType storageType;
@@ -85,22 +83,19 @@ public class WorkStation : MonoBehaviour
                 break;
             case StorageType.Fridge:
                 // Set appropriate static "singleton"
-                if (gameObject.name.Contains("1"))
+                if (fridge == null)
                 {
-                    fridge1 = this;
-                }
-                else
-                {
-                    fridge2 = this;
-                }
+                    fridge = this;
 
-                // Can store all non-cooked ingredients
-                foreach (Ingredient ingredient in (Ingredient[])Enum.GetValues(typeof(Ingredient)))
-                {
-                    if (!ingredient.ToString().Contains("Cooked") && !ingredient.ToString().Contains("Complete"))
+                    // Can store all non-cooked ingredients
+                    foreach (Ingredient ingredient in (Ingredient[])Enum.GetValues(typeof(Ingredient)))
                     {
-                        ingredients.Add(ingredient, 0);
-                        //ingredients.Add(ingredient, UnityEngine.Random.Range(0,3));
+                        if (!ingredient.ToString().Contains("Cooked") && !ingredient.ToString().Contains("Complete"))
+                        {
+                            //ingredients.Add(ingredient, 0);
+                            ingredients.Add(ingredient, UnityEngine.Random.Range(0,3));
+                        }
+
                     }
 
                 }
@@ -108,25 +103,23 @@ public class WorkStation : MonoBehaviour
             case StorageType.FlatTop:
                 flatTop = this;
                 // Can store patties (cooked or not)
-                ingredients.Add(Ingredient.RawPatty, 20);
+                ingredients.Add(Ingredient.RawPatty, 5);
                 ingredients.Add(Ingredient.CookedPatty, 0);
                 gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Patty);
                 break;
             case StorageType.Fryer:
                 // Set appropriate static "singleton"
-                if (gameObject.name.Contains("1"))
-                {
-                    fryer1 = this;
-                }
-                else
-                {
-                    fryer2 = this;
-                }
-
+                fryer = this;
                 // Can store raw or cooked fries
-                ingredients.Add(Ingredient.RawFries, 20);
+                ingredients.Add(Ingredient.RawFries, 5);
                 ingredients.Add(Ingredient.CompleteFries, 0);
                 gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Fries);
+                break;
+            case StorageType.DrinkStation:
+                // Can store soda or complete drink
+                ingredients.Add(Ingredient.Soda, 5);
+                ingredients.Add(Ingredient.CompleteDrink, 0);
+                gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Drink);
                 break;
             case StorageType.BurgerAssembly:
                 burgerAssembly = this;
@@ -141,17 +134,15 @@ public class WorkStation : MonoBehaviour
                 gameObject.AddComponent<MealStorage>();
                 break;
             case StorageType.OrderBuilding:
-                orderBuilding = this;
-                // Can store complete food items
-                ingredients.Add(Ingredient.CompleteBurger, 0);
-                ingredients.Add(Ingredient.CompleteFries, 0);
-                ingredients.Add(Ingredient.CompleteDrink, 0);
-                break;
-            case StorageType.DrinkStation:
-                // Can store soda or complete drink
-                ingredients.Add(Ingredient.Soda, 0);
-                ingredients.Add(Ingredient.CompleteDrink, 0);
-                gameObject.AddComponent<CookingStation>().PrepCooking(this, CookingType.Drink);
+                if (orderBuilding == null)
+                {
+                    orderBuilding = this;
+                    // Can store complete food items
+                    ingredients.Add(Ingredient.CompleteBurger, 0);
+                    ingredients.Add(Ingredient.CompleteFries, 0);
+                    ingredients.Add(Ingredient.CompleteDrink, 0);
+
+                }
                 break;
             case StorageType.Other:
                 break;
@@ -165,7 +156,11 @@ public class WorkStation : MonoBehaviour
     public bool DepositIngredient(Ingredient ingredient, int amount)
     {
         // Cannot deposit ingredient if this storage cannot accept it
-        if (!ingredients.ContainsKey(ingredient)) return false;
+        if (!ingredients.ContainsKey(ingredient))
+        {
+            Debug.LogError("Ingredient " + ingredient.ToString() + " cannot be deposited in workstation " + typeof(WorkStation).Name);
+            return false;
+        }
 
         // Add ingredients if storage can accept it
         ingredients[ingredient] += amount;
@@ -183,37 +178,4 @@ public class WorkStation : MonoBehaviour
         return true;
     }
 
-    // COLLECTIVE FRIDGE FUNCTIONS
-    public static int CollectiveFridge_GetIngredientCount(Ingredient ingredient)
-    {
-        if (fridge1 == null || fridge2 == null)
-        {
-            Debug.LogError("Fridge not set properly");
-            return 0;
-        }
-
-        return fridge1.ingredients[ingredient] + fridge2.ingredients[ingredient];
-    }
-
-    public static bool CollectiveFridge_WithdrawIngredient(Ingredient ingredient, int amount)
-    {
-        if (!fridge1.ingredients.ContainsKey(ingredient) || !fridge2.ingredients.ContainsKey(ingredient) || CollectiveFridge_GetIngredientCount(ingredient) < amount) return false;
-
-        int amountNeeded = amount;
-        int fridgeAmount = amountNeeded > fridge1.ingredients[ingredient] ? fridge1.ingredients[ingredient] : amountNeeded;
-        if (fridge1.WithdrawIngredient(ingredient, fridgeAmount))
-        {
-            Debug.Log("Collective Fridge withdrew " + amount.ToString() + " " + ingredient.ToString() + " from Fridge 1");
-        }
-        amountNeeded -= fridgeAmount;
-
-        if (amountNeeded == 0) return true;
-
-        if (fridge2.WithdrawIngredient(ingredient, amountNeeded))
-        {
-            Debug.Log("Collective Fridge withdrew " + amount.ToString() + " " + ingredient.ToString() + " from Fridge 2");
-        }
-
-        return true;
-    }
 }

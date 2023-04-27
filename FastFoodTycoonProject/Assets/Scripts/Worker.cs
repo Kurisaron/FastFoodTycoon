@@ -42,6 +42,9 @@ public class Worker : MonoBehaviour
             PlayerInputEvents.Instance.canOpenStation = false;
 
             // Deposit held items
+            if (targetStation.storageType == StorageType.Fridge) targetStation = WorkStation.fridge;
+            if (targetStation.storageType == StorageType.OrderBuilding) targetStation = WorkStation.orderBuilding;
+
             if ((heldIngredient != null && targetStation.DepositIngredient(heldIngredient.Item1, heldIngredient.Item2)) || heldIngredient == null)
             {
                 ReleaseIngredient();

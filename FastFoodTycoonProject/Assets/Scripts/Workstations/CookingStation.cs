@@ -74,7 +74,7 @@ public class CookingStation : MonoBehaviour
 
         if (targetStation.DepositIngredient(cookingIngredient.targetIngredient, 1))
         {
-            Debug.Log("Cooking Station successfull passed " + cookingIngredient.targetIngredient.ToString() + " to " + targetStation.storageType.ToString());
+            Debug.Log("Cooking Station successfully passed " + cookingIngredient.targetIngredient.ToString() + " to " + targetStation.storageType.ToString());
 
             cookingIngredients[Array.IndexOf(cookingIngredients, cookingIngredient)] = null;
         }

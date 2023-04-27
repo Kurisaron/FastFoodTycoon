@@ -109,7 +109,7 @@ public class BuyScreenInterface : WorkStationInterface
 
         public void UpdateStorageText()
         {
-            ingredientStorageText.text = "You have " + (WorkStation.fridge1.ingredients[ingredient] + WorkStation.fridge2.ingredients[ingredient]).ToString() + " " + IngredientInfoManager.Instance.GetInfo(ingredient).ingredientName + "(s)";
+            ingredientStorageText.text = "You have " + WorkStation.fridge.ingredients[ingredient].ToString() + " " + IngredientInfoManager.Instance.GetInfo(ingredient).ingredientName + "(s)";
         }
 
         private void SetBuyButton(IngredientInfoManager.IngredientInfo ingredientInfo)
@@ -126,13 +126,9 @@ public class BuyScreenInterface : WorkStationInterface
                 float cost = Mathf.Lerp(ingredientInfo.costPerUnit, ingredientInfo.bulkCost, Mathf.InverseLerp(1, ingredientInfo.bulkAmount, buyAmountSlider.value));
                 if (GameManager.Instance.SpendMoney(cost))
                 {
-                    if (WorkStation.fridge1.ingredients[ingredientInfo.ingredient] >= WorkStation.fridge1.ingredients[ingredientInfo.ingredient] && WorkStation.fridge1.DepositIngredient(ingredientInfo.ingredient, (int) buyAmountSlider.value))
+                    if (WorkStation.fridge.DepositIngredient(ingredientInfo.ingredient, (int) buyAmountSlider.value))
                     {
                         Debug.Log("You spent $" + cost.ToString() + " to add " + buyAmountSlider.value.ToString() + " " + ingredientInfo.ingredientName + (buyAmountSlider.value > 1 ? "" : "s") + " to Fridge 1");
-                    }
-                    else if (WorkStation.fridge2.DepositIngredient(ingredientInfo.ingredient, (int)buyAmountSlider.value))
-                    {
-                        Debug.Log("You spent $" + cost.ToString() + " to add " + buyAmountSlider.value.ToString() + " " + ingredientInfo.ingredientName + (buyAmountSlider.value > 1 ? "" : "s") + " to Fridge 2");
                     }
                     else
                     {
