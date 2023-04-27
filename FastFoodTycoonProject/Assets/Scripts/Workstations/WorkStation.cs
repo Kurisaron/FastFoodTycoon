@@ -80,6 +80,7 @@ public class WorkStation : MonoBehaviour
         switch (storageType)
         {
             case StorageType.None:
+                Debug.LogError("Storage type for workstation " + gameObject.name + " not valid");
                 break;
             case StorageType.Fridge:
                 // Set appropriate static "singleton"
@@ -93,7 +94,7 @@ public class WorkStation : MonoBehaviour
                         if (!ingredient.ToString().Contains("Cooked") && !ingredient.ToString().Contains("Complete"))
                         {
                             //ingredients.Add(ingredient, 0);
-                            ingredients.Add(ingredient, UnityEngine.Random.Range(0,3));
+                            ingredients.Add(ingredient, UnityEngine.Random.Range(1,11));
                         }
 
                     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class BurgerAssemblyInterface : WorkStationInterface
 {
@@ -15,6 +16,9 @@ public class BurgerAssemblyInterface : WorkStationInterface
     public GameObject lettucePrefab;
     public GameObject burgerPrefab;
     public AudioSource burgerCompletion;
+    public Text bunsAmountText;
+    public Text pattyAmountText;
+    public Text lettuceAmountText;
     //public GameObject indicatorPrefab;
     //public MeshRenderer PLS;
 
@@ -38,6 +42,13 @@ public class BurgerAssemblyInterface : WorkStationInterface
 
         isAssembling = false;
         assembledBurger = new AssembledBurger(this, burgerCompletion);
+    }
+
+    private void Update()
+    {
+        bunsAmountText.text = "x" + WorkStation.fridge.ingredients[Ingredient.Buns]; //remember to change the number so that it reflects the amount in the burger assembly and fridge
+        pattyAmountText.text = "x" + workStation.ingredients[Ingredient.CookedPatty]; 
+        lettuceAmountText.text = "x" + WorkStation.fridge.ingredients[Ingredient.Lettuce]; 
     }
 
     // BUN BUTTON EVENTS
