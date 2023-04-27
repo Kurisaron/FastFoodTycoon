@@ -60,11 +60,17 @@ public class GameManager : Singleton<GameManager>
 
         gameActive = true;
 
-        //courntey
-        counterText.text = gameData.money.ToString();
-        dayCounterText.text = gameData.dayData.day.ToString();
+        //courtney
+        counterText.text = "Money: " + GameManager.Instance.gameData.money.ToString();
+        dayCounterText.text = "Day: " + gameData.dayData.day.ToString();
         //
 
+    }
+
+    private void Update()
+    {
+        counterText.text = "Money: " + GameManager.Instance.gameData.money.ToString();
+        dayCounterText.text = "Day: " + gameData.dayData.day.ToString();
     }
 
     private void OnApplicationFocus(bool hasFocus)

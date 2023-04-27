@@ -16,6 +16,10 @@ public class OrderBuildingInterface : WorkStationInterface
     public GameObject drinkPrefab;
     //public GameObject customerPrefab;
 
+    public GameObject burgerLayout;
+    public GameObject friesLayout;
+    public GameObject drinkLayout;
+
     private GameObject orderTray;
     private Meal currentMeal;
     private bool isAssembling;
@@ -24,8 +28,6 @@ public class OrderBuildingInterface : WorkStationInterface
 
     [SerializeField]
     private Text orderText;
-    [SerializeField]
-    private GameObject orderWindowContainer;
 
     // UNITY FUNCTIONS
     protected override void Awake()
@@ -54,6 +56,9 @@ public class OrderBuildingInterface : WorkStationInterface
         orderTray.transform.localScale *= 3.0f;
 
         currentMeal = new Meal();
+        burgerLayout.SetActive(false);
+        friesLayout.SetActive(false);
+        drinkLayout.SetActive(false);
         isAssembling = true;
     }
 
@@ -128,11 +133,12 @@ public class OrderBuildingInterface : WorkStationInterface
             burger.transform.position = spawnPoints.Find(point => point.id == "Burger").point.position;
             burger.transform.Rotate(new Vector3(-90.0f, 0.0f, 0.0f));
             burger.transform.parent = orderTray.transform;
-
+            burgerLayout.SetActive(true);
             
         }
         
         currentMeal.AddFood(Ingredient.CompleteBurger, 1);
+        burgerLayout.GetComponentInChildren<Text>().text = "x" + currentMeal.food[Ingredient.CompleteBurger].ToString();
     }
 
     private void NoBurger()
@@ -168,9 +174,11 @@ public class OrderBuildingInterface : WorkStationInterface
             fries.transform.position = spawnPoints.Find(point => point.id == "Fries").point.position;
             fries.transform.Rotate(new Vector3(-90.0f, 0.0f, 0.0f));
             fries.transform.parent = orderTray.transform;
+            friesLayout.SetActive(true);
         }
 
         currentMeal.AddFood(Ingredient.CompleteFries, 1);
+        friesLayout.GetComponentInChildren<Text>().text = "x" + currentMeal.food[Ingredient.CompleteFries].ToString();
     }
 
     private void NoFries()
@@ -195,7 +203,7 @@ public class OrderBuildingInterface : WorkStationInterface
     {
         if (!workStation.WithdrawIngredient(Ingredient.CompleteDrink, 1))
         {
-            Debug.Log("Order building does not have any completed burgers!");
+            Debug.Log("Order building does not have any completed drinks!");
             return;
         }
 
@@ -206,9 +214,11 @@ public class OrderBuildingInterface : WorkStationInterface
             drink.transform.position = spawnPoints.Find(point => point.id == "Drink").point.position;
             drink.transform.Rotate(new Vector3(-90.0f, 0.0f, 0.0f));
             drink.transform.parent = orderTray.transform;
+            drinkLayout.SetActive(true);
         }
 
         currentMeal.AddFood(Ingredient.CompleteDrink, 1);
+        drinkLayout.GetComponentInChildren<Text>().text = "x" + currentMeal.food[Ingredient.CompleteDrink].ToString();
     }
 
     private void NoDrink()
@@ -224,13 +234,6 @@ public class OrderBuildingInterface : WorkStationInterface
 
         return currentMeal.GetOrderText();
     }
-
-    /*private GameObject DisplayOrder()
-    {
-        currentMeal.GetItemDisplay().transform.SetParent(orderWindowContainer.transform);
-        
-        return currentMeal.GetItemDisplay();
-    }*/
 
     // CLASSES
     [Serializable]
