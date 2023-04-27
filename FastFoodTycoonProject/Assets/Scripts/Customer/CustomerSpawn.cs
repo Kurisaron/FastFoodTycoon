@@ -72,7 +72,7 @@ public class CustomerSpawn : MonoBehaviour
         elapsedTime = elapsedTime + Time.deltaTime;
         if (elapsedTime >= secondsBetweenSpawn)
         {
-            print("spawn new customer");
+            //print("spawn new customer");
             SpawnNewCustomer();
             //Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
             elapsedTime = 0.0f;

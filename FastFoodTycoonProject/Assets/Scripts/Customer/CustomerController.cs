@@ -5,7 +5,7 @@ using UnityEngine;
 public class CustomerController : MonoBehaviour
 {
     //OrderBuildingInterface OrderBuildingInterfaceScript;
-    
+
     public delegate void CustomerDespawned();
     public static event CustomerDespawned OnCustomerDespawned;
     //public List<GameObject> waypoints;
@@ -22,8 +22,12 @@ public class CustomerController : MonoBehaviour
     //CustomerController.GetComponent<OrderStationInterface>().CompleteMeal();
     //public void SetActive(bool value);
     //bool CompleteMeal();
-    /*private int collisionCount = 0;
+    //Dictionary<Meal, int> order;
+    public Dictionary<Ingredient, int> food;
 
+
+    /*private int collisionCount = 0;
+    
     public bool IsNotColliding
     {
         get { return collisionCount == 0; }
@@ -43,6 +47,25 @@ public class CustomerController : MonoBehaviour
     void Start()
     {
         PLS.enabled = false;
+        // Set up the dictionary with entries for Complete ingredients
+        food = new Dictionary<Ingredient, int>();
+        //food.Add(Ingredient.CompleteFries, 1);
+        foreach (Ingredient ingredient in food.Keys)
+        {
+            if (ingredient.ToString().Contains("Complete"))
+                food.Add(ingredient, 1);
+        }
+        //meals = new List<Meal>();
+
+        /*food = new Dictionary<Ingredient, int>();
+        foreach (Ingredient ingredient in (Ingredient[])Enum.GetValues(typeof(Ingredient)))
+        {
+            if (ingredient.ToString().Contains("Complete"))
+                food.Add(ingredient, 0);
+        }*/
+
+        //order = new Dictionary<Meal, int>();
+        //order.Add(Meal, 1);
         //OrderBuildingInterfaceScript = GameObject.FindGameObjectWithTag("OrderBuildingInterface").GetComponent<OrderBuildingInterface>();
         //float step = speed * Time.deltaTime;
         //transform.position = Vector3.MoveTowards(transform.position, target, step);
@@ -108,6 +131,7 @@ public class CustomerController : MonoBehaviour
         //these two functions must be together. Moves customer towards target in inspector.
         float step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target, step);
+        CheckCompletion();
         //CheckOrders();
         //CustomerPos = GameObject.Find("Customer(clone)").transform;
         /*if (CompleteMeal() == true);
@@ -140,11 +164,11 @@ public class CustomerController : MonoBehaviour
             //Destroy(GameObject.FindGameObjectWithTag("OrderIndicator"));
             //Destroy(other.gameObject);
             //DestroyGameObject();
-            print("added order indicator");
+            //print("added order indicator");
         }
         else if (other.tag == "Player")
         {
-            print("collided with player");
+            //print("collided with player");
             //elapsedTime += Time.deltaTime;
             float step = speed * Time.deltaTime;
             PLS.enabled = false;
@@ -152,9 +176,9 @@ public class CustomerController : MonoBehaviour
         }     
         else if (other.tag == "Customer")
         {
-            print("customer in the way");
-            //float step = speed * Time.deltaTime;
-            //transform.position = Vector3.MoveTowards(transform.position, CustomerPos.position, step);
+            //print("customer in the way");
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, CustomerPos.position, step);
             //elapsedTime += Time.deltaTime;
             //CustomerRB.velocity = Vector3.zero;
             //RigidBody.IsKinematic = false;
@@ -163,7 +187,7 @@ public class CustomerController : MonoBehaviour
         }
         else if (other.tag == "LimitWall")
         {
-            print("despawned customer");
+            //print("despawned customer");
             //elapsedTime += Time.deltaTime;
             Destroy(this.gameObject);
             //this.gameObject.SetActive(false);
@@ -175,5 +199,60 @@ public class CustomerController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, target, step);
         }*/
         //return;
+    }
+
+    /*public void ReferenceFunction()
+    {
+
+        bool flag = true;
+        foreach (Ingredient ingredient1 in order.food.Keys)
+        {
+            if (food[ingredient1] < order.food[ingredient1])
+            {
+                flag = false;
+            }
+        }
+
+        if (flag)
+        {
+            // Pass food
+            foreach (Ingredient ingredient1 in order.food.Keys)
+            {
+                food[ingredient1] -= order.food[ingredient1];
+            }
+        }
+
+        
+        /*if (!FindObjectOfType<CustomerController>())
+        {
+            // Spawn customer
+        }
+
+    
+        if (FindObjectsOfType<CustomerController>().Length < 8)
+        {
+
+        }*/
+    //}
+
+    public void CheckCompletion()
+    {
+        bool flag = true;
+        foreach (Ingredient ingredient in food.Keys)
+        {
+            if (WorkStation.orderStation.gameObject.GetComponent<MealStorage>().food[ingredient] < food[ingredient])
+                flag = false;
+        }
+
+        if (flag)
+        {
+            // Pass food
+            foreach (Ingredient ingredient1 in food.Keys)
+            {
+                WorkStation.orderStation.gameObject.GetComponent<MealStorage>().food[ingredient1] -= food[ingredient1];
+            }
+            // Use up food
+            // FILL-IN
+        }
     }
 }

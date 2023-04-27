@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CustomerSpawnOne : MonoBehaviour
 {
+    
     //public Quaternion rotation;
     //Transform target;
 
@@ -19,11 +20,15 @@ public class CustomerSpawnOne : MonoBehaviour
     public GameObject m_CustomerPrefab;
     public float secondsBetweenSpawn;
     public float elapsedTime = 0.0f;
+    //bool customerExists = (GameObject.Find("Customer(Clone)") != null);
     //var Customer : GameObject;
     //var Customer : GameObject;
+    //[SerializeField]
+    //public GameObject Customer;
 
     private void Start()
     {
+        //CheckForCustomers();
         SpawnNewCustomer();
         //elapsedTime = 0f;
     }
@@ -43,7 +48,7 @@ public class CustomerSpawnOne : MonoBehaviour
         //elapsedTime += Time.deltaTime;
         /*if(elapsedTime <= 2)
         {*/
-        print("spawn new customer");
+        //print("spawn new customer");
         //elapsedTime = 0.0f;
         //}
         Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
@@ -64,17 +69,36 @@ public class CustomerSpawnOne : MonoBehaviour
         StartCoroutine(SpawnNewCustomer(CustomerInterval, CustomerPrefab));
     }*/
 
+    private void CheckForCustomers()
+    {
+        /*if ()
+        {
+            print("no customers here");
+            return;
+        }
+        else
+        {
+            print("spawning customer");
+            SpawnNewCustomer();
+        }*/
+        /*if (GameObject.Find("Customer1(Clone)")) //!= null)
+        {
+            //Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
+            return;
+            //print("no customer found");
+        }
+        else
+        {
+            SpawnNewCustomer();
+        }*/
+    }
+
     // Update is called once per frame
     void Update()
     {
         elapsedTime = elapsedTime + Time.deltaTime;
+        //CheckForCustomers();
         //SpawnNewCustomer();
-        if (GameObject.Find("Customer1(Clone)")) //!= null)
-        {
-            //Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
-            SpawnNewCustomer();
-            print("no customer found");
-        }
         /*else
         {
             print("customer found");
