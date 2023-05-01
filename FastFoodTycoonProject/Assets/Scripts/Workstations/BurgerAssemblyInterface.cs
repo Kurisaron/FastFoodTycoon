@@ -304,13 +304,22 @@ public class BurgerAssemblyInterface : WorkStationInterface
                 if (ingredient.name.Contains("Bottom"))
                 {
                     // Use Buns
-                    if (WorkStation.fridge.WithdrawIngredient(Ingredient.Buns, 1))
+                    if (assemblyInterface.workStation.WithdrawIngredient(Ingredient.Buns, 1))
                     {
-                        Debug.Log("Burger used up a set of buns");
+                        Debug.Log("Burger used up a set of buns from the burger assembly storage");
                     }
                     else
                     {
-                        Debug.LogError("Burger could not pull a set of buns");
+                        if (WorkStation.fridge.WithdrawIngredient(Ingredient.Buns, 1))
+                        {
+                            Debug.Log("Burger used up a set of buns from the fridge");
+                        }
+                        else
+                        {
+
+                            Debug.LogError("Burger could not pull a set of buns");
+                        }
+                        
                     }
                 }
 
@@ -330,13 +339,21 @@ public class BurgerAssemblyInterface : WorkStationInterface
                 if (ingredient.name.Contains("Lettuce"))
                 {
                     // Use Lettuce
-                    if (WorkStation.fridge.WithdrawIngredient(Ingredient.Lettuce, 1))
+                    if (assemblyInterface.workStation.WithdrawIngredient(Ingredient.CookedPatty, 1))
                     {
-                        Debug.Log("Burger used up a leaf of lettuce");
+                        Debug.Log("Burger used up a leaf of lettuce from the burger assembly storage");
                     }
                     else
                     {
-                        Debug.LogError("Burger could not pull a leaf of lettuce");
+                        if (WorkStation.fridge.WithdrawIngredient(Ingredient.Lettuce, 1))
+                        {
+                            Debug.Log("Burger used up a leaf of lettuce from the fridge");
+                        }
+                        else
+                        {
+                            Debug.LogError("Burger could not pull a leaf of lettuce");
+                        }
+                        
                     }
                 }
 
