@@ -9,6 +9,7 @@ public class DrinkStationInterface : WorkStationInterface
     // VARIABLES
     public GameObject emptyCupPrefab;
     public GameObject cappedCupPrefab;
+    public GameObject playAnim;
     public Transform[] drink_SpawnPoints;
     public AudioSource completionAudio;
     public AudioSource machineAudio;
@@ -103,6 +104,7 @@ public class DrinkStationInterface : WorkStationInterface
         Transform spawnPoint = drink_SpawnPoints[index];
 
         GameObject drinkCup;
+        GameObject anim;
         switch (step)
         {
             case 0:
@@ -128,6 +130,12 @@ public class DrinkStationInterface : WorkStationInterface
                 completionAudio.Play();
 
                 Destroy(spawnPoint.GetChild(0).gameObject);
+
+                anim = Instantiate(playAnim, spawnPoint);
+                anim.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+
+                Destroy(anim, 1.1f);
+
                 break;
         }
     }

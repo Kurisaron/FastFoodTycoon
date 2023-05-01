@@ -290,6 +290,7 @@ MonoBehaviour:
   cookedPattyPrefab: {fileID: 3221978998054382160, guid: 5a79237a470fe824a9a60b70bf12eaf2, type: 3}
   lettucePrefab: {fileID: 8720503522392821412, guid: d5354129904fde740afbac7f37af179d, type: 3}
   burgerPrefab: {fileID: 1436142983090966506, guid: b20c02e76d9a4314a8ed14735d099078, type: 3}
+  playAnim: {fileID: 2896279626164465558, guid: 4e25b674de66ea548b376ec3b0300f81, type: 3}
   burgerCompletion: {fileID: 822912614}
   bunsAmountText: {fileID: 4002325967922789852}
   pattyAmountText: {fileID: 4002325967382688395}

@@ -15,6 +15,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
     public GameObject cookedPattyPrefab;
     public GameObject lettucePrefab;
     public GameObject burgerPrefab;
+    public GameObject playAnim;
     public AudioSource burgerCompletion;
     public Text bunsAmountText;
     public Text pattyAmountText;
@@ -41,7 +42,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
         base.Awake();
 
         isAssembling = false;
-        assembledBurger = new AssembledBurger(this, burgerCompletion);
+        assembledBurger = new AssembledBurger(this, burgerCompletion, playAnim, endPoint);
     }
 
     private void Update()
@@ -88,7 +89,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
 
         bun.transform.Rotate(new Vector3(-90.0f, 0.0f, 0.0f));
 
-        if (assembledBurger == null) assembledBurger = new AssembledBurger(this, burgerCompletion);
+        if (assembledBurger == null) assembledBurger = new AssembledBurger(this, burgerCompletion, playAnim, endPoint);
 
         assembledBurger.AddIngredient(bun);
     }
@@ -203,11 +204,15 @@ public class BurgerAssemblyInterface : WorkStationInterface
         private BurgerAssemblyInterface assemblyInterface;
         private List<GameObject> ingredients = new List<GameObject>();
         private AudioSource burgerAudio;
+        private GameObject animPlay;
+        private Transform animEndPoint;
 
-        public AssembledBurger(BurgerAssemblyInterface burgerAssembly, AudioSource burgerCompletion)
+        public AssembledBurger(BurgerAssemblyInterface burgerAssembly, AudioSource burgerCompletion, GameObject playAnim, Transform endPoint)
         {
             assemblyInterface = burgerAssembly;
             burgerAudio = burgerCompletion;
+            animPlay = playAnim;
+            animEndPoint = endPoint;
         }
 
         public void AddIngredient(GameObject ingredient)
@@ -338,6 +343,8 @@ public class BurgerAssemblyInterface : WorkStationInterface
                 ingredientsToClear.Add(ingredient);
             }
 
+            GameObject anim;
+
             burgerAudio.Play();
 
             ingredients = new List<GameObject>();
@@ -345,6 +352,12 @@ public class BurgerAssemblyInterface : WorkStationInterface
             {
                 Destroy(ingredient);
             }
+
+            anim = Instantiate(animPlay, animEndPoint);
+            anim.transform.position = animEndPoint.position;
+            anim.transform.Rotate(new Vector3(-90.0f, 0.0f, 0.0f));
+
+            Destroy(anim, 1.1f);
         }
     }
 }

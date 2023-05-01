@@ -12,6 +12,7 @@ public class FlatTopInterface : WorkStationInterface
     public GameObject halfCookedPattyPrefab;
     public GameObject cookedPattyPrefab;
     public GameObject timerUIPrefab;
+    public GameObject playAnim;
 
     public Transform[] flatTop_SpawnPoints;
 
@@ -187,10 +188,18 @@ public class FlatTopInterface : WorkStationInterface
 
     private void RemovePatty(int index)
     {
+        GameObject anim;
 
         completionAudio.Play();
 
+        anim = Instantiate(playAnim, flatTop_SpawnPoints[index]);
+        anim.transform.localScale = new Vector3(12f, 12f, 12f);
+        anim.transform.SetPositionAndRotation(flatTop_SpawnPoints[index].position + (Vector3.up * 0.2f), Quaternion.Euler(45, 180, 0));
+
         Destroy(flatTop_SpawnPoints[index].Find("Patty(Clone)").gameObject);
+
+        Destroy(anim, 1.1f);
+
     }
 
     private Transform GetSpawnPoint(CookingStation.CookingIngredient cookingIngredient)

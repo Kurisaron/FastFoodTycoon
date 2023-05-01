@@ -13,8 +13,9 @@ public class FryerInterface : WorkStationInterface
     public GameObject fryerBasketPrefab;
     public GameObject completeFriesPrefab;
     public GameObject timerUIPrefab;
-
-    AudioSource audioData;
+    public GameObject playAnim;
+    public AudioSource completionAudio;
+    public AudioSource fryerAudio;
 
     // PROPERTIES
     private CookingStation FryerCooker
@@ -43,7 +44,7 @@ public class FryerInterface : WorkStationInterface
 
     private void Start()
     {
-        audioData = GetComponent<AudioSource>();
+
     }
 
     private void OnEnable()
@@ -131,6 +132,8 @@ public class FryerInterface : WorkStationInterface
     private void Fryer_StartCooking(CookingStation.CookingIngredient cookingIngredient)
     {
         Transform spawnPoint = GetSpawnPoint(cookingIngredient);
+
+        fryerAudio.Play();
 
         // Spawn and attach cooking timer UI to spawn point transform
         GameObject newTimer = Instantiate(timerUIPrefab, spawnPoint);
@@ -258,7 +261,16 @@ public class FryerInterface : WorkStationInterface
     {
         Transform spawnPoint = fryer_SpawnPoints[index];
 
+        GameObject anim;
+
         //Debug.Log("Pass Routine " + index.ToString() + " starting loop");
+
+        completionAudio.Play();
+
+        anim = Instantiate(playAnim, spawnPoint);
+        anim.transform.position = spawnPoint.position + (spawnPoint.up * 0.8f);
+
+        Destroy(anim, 1.1f);
 
         while (FriesVisible(fries))
         {
@@ -271,11 +283,10 @@ public class FryerInterface : WorkStationInterface
 
         //Debug.Log("Pass Routine " + index.ToString() + " playing audio");
 
-        audioData.Play();
-
         //Debug.Log("Pass Routine " + index.ToString() + " almost complete, need to destroy current fries");
 
         Destroy(fries);
+
     }
 
     private bool FriesVisible(GameObject fries)
