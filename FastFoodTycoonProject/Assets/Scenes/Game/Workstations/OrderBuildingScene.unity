@@ -2207,11 +2207,13 @@ MonoBehaviour:
   burgerPrefab: {fileID: 1436142983090966506, guid: b20c02e76d9a4314a8ed14735d099078, type: 3}
   fryTrayPrefab: {fileID: 4816157749990714238, guid: e0438502a64a3a9438ee2daa7e23aa12, type: 3}
   drinkPrefab: {fileID: 1633816530936529439, guid: af3faba6429dc8748a0b1836682737f2, type: 3}
+  burgerAmountText: {fileID: 2864702842648962152}
+  friesAmountText: {fileID: 2864702842115320639}
+  drinkAmountText: {fileID: 2864702842922321454}
   burgerLayout: {fileID: 1864845704}
   friesLayout: {fileID: 1813511190}
   drinkLayout: {fileID: 1260892380}
   orderText: {fileID: 1919450617}
-  orderWindowContainer: {fileID: 0}
 --- !u!4 &2085367807
 Transform:
   m_ObjectHideFlags: 0

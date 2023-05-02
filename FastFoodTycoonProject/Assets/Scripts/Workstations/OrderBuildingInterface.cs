@@ -16,6 +16,10 @@ public class OrderBuildingInterface : WorkStationInterface
     public GameObject drinkPrefab;
     //public GameObject customerPrefab;
 
+    public Text burgerAmountText;
+    public Text friesAmountText;
+    public Text drinkAmountText;
+
     public GameObject burgerLayout;
     public GameObject friesLayout;
     public GameObject drinkLayout;
@@ -43,7 +47,10 @@ public class OrderBuildingInterface : WorkStationInterface
         audioData = GetComponent<AudioSource>();
 
         orderText.text = GetOrderText();
-        //orderWindowContainer = DisplayOrder(); //doesn't work rn
+
+        burgerAmountText.text = "x " + WorkStation.orderBuilding.ingredients[Ingredient.CompleteBurger];
+        friesAmountText.text = "x " + WorkStation.orderBuilding.ingredients[Ingredient.CompleteFries];
+        drinkAmountText.text = "x " + WorkStation.orderBuilding.ingredients[Ingredient.CompleteDrink];
     }
 
     // MEAL FUNCTIONS
