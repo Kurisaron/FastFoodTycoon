@@ -96,7 +96,8 @@ public class BuyScreenInterface : WorkStationInterface
         private void SetAmountSlider(IngredientInfoManager.IngredientInfo ingredientInfo)
         {
             buyAmountSlider.minValue = 1;
-            buyAmountSlider.maxValue = ingredientInfo.bulkAmount;
+            //buyAmountSlider.maxValue = ingredientInfo.bulkAmount;
+            buyAmountSlider.maxValue = Mathf.Min(WorkStation.FridgeStorageEmptySpaces(), ingredientInfo.bulkAmount);
             buyAmountSlider.value = 1;
         }
 
@@ -110,6 +111,7 @@ public class BuyScreenInterface : WorkStationInterface
         public void UpdateStorageText()
         {
             ingredientStorageText.text = "You have " + WorkStation.fridge.ingredients[ingredient].ToString() + " " + IngredientInfoManager.Instance.GetInfo(ingredient).ingredientName + "(s)";
+            storageSpaceText.text = "You have " + WorkStation.FridgeStorageEmptySpaces().ToString() + " storage spaces left.";
         }
 
         private void SetBuyButton(IngredientInfoManager.IngredientInfo ingredientInfo)
@@ -129,6 +131,7 @@ public class BuyScreenInterface : WorkStationInterface
                     if (WorkStation.fridge.DepositIngredient(ingredientInfo.ingredient, (int) buyAmountSlider.value))
                     {
                         Debug.Log("You spent $" + cost.ToString() + " to add " + buyAmountSlider.value.ToString() + " " + ingredientInfo.ingredientName + (buyAmountSlider.value > 1 ? "" : "s") + " to Fridge 1");
+                        SetAmountSlider(ingredientInfo);
                     }
                     else
                     {

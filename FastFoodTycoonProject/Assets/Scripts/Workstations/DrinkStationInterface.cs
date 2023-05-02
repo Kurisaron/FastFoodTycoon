@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class DrinkStationInterface : WorkStationInterface
 {
     // VARIABLES
     public GameObject emptyCupPrefab;
     public GameObject cappedCupPrefab;
+    public GameObject timerUIPrefab;
     public GameObject playAnim;
     public Transform[] drink_SpawnPoints;
     public AudioSource completionAudio;
@@ -43,6 +45,20 @@ public class DrinkStationInterface : WorkStationInterface
     private void Update()
     {
         
+    }
+
+    private void OnEnable()
+    {
+        DrinkCooker.startCooking += DrinkStation_StartCooking;
+        DrinkCooker.stillCooking += DrinkStation_StillCooking;
+        DrinkCooker.endCooking += DrinkStation_EndCooking;
+    }
+
+    private void OnDisable()
+    {
+        DrinkCooker.startCooking -= DrinkStation_StartCooking;
+        DrinkCooker.stillCooking -= DrinkStation_StillCooking;
+        DrinkCooker.endCooking -= DrinkStation_EndCooking;
     }
 
     private void DrinkStationTapEvent(RaycastHit hit)
@@ -138,5 +154,47 @@ public class DrinkStationInterface : WorkStationInterface
 
                 break;
         }
+    }
+
+    private void DrinkStation_StartCooking(CookingStation.CookingIngredient cookingIngredient)
+    {
+        Transform spawnPoint = GetSpawnPoint(cookingIngredient);
+
+        //fryerAudio.Play();
+
+        // Spawn and attach cooking timer UI to spawn point transform
+        GameObject newTimer = Instantiate(timerUIPrefab, spawnPoint);
+        newTimer.transform.localScale *= 0.01f;
+        newTimer.transform.SetPositionAndRotation(newTimer.transform.position + (Vector3.up * 0.1f), Quaternion.Euler(45, 180, 0));
+        newTimer.transform.Find("TimerUI").gameObject.GetComponent<Slider>().value = 0;
+    }
+
+    private void DrinkStation_StillCooking(CookingStation.CookingIngredient cookingIngredient)
+    {
+        Transform spawnPoint = GetSpawnPoint(cookingIngredient);
+
+        if (spawnPoint.Find("TimerUICanvas(Clone)") != null)
+        {
+            // Update the cooking timer UI
+            Slider mySlider = spawnPoint.Find("TimerUICanvas(Clone)").Find("TimerUI").gameObject.GetComponent<Slider>();
+            mySlider.value = Mathf.Lerp(mySlider.minValue, mySlider.maxValue, Mathf.InverseLerp(0, 2.0f, cookingIngredient.stepTime));
+        }
+    }
+
+    private void DrinkStation_EndCooking(CookingStation.CookingIngredient cookingIngredient)
+    {
+        Transform spawnPoint = GetSpawnPoint(cookingIngredient);
+
+        // Clear cooking timer UI
+        if (spawnPoint.Find("TimerUICanvas(Clone)") != null)
+        {
+            Destroy(spawnPoint.Find("TimerUICanvas(Clone)").gameObject);
+        }
+    }
+
+    private Transform GetSpawnPoint(CookingStation.CookingIngredient cookingIngredient)
+    {
+        return drink_SpawnPoints[Array.FindIndex(DrinkCooker.cookingIngredients, ingredient => ingredient == cookingIngredient)];
+        // returns the transform associated with the provided CookingIngredient
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 654639209301534423}
   - component: {fileID: 3902190307028931554}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Personal Space
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4432348722090503085}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Customer 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,6 +146,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Exclamation Mark
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f90221dee354d014bba763d66f7ff18e, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f90221dee354d014bba763d66f7ff18e, type: 3}
 --- !u!1 &526003078615567409 stripped
@@ -165,6 +169,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4432348722090503085}
     m_Modifications:
+    - target: {fileID: -8772210519526756186, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -213,9 +221,17 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ae8e2e784aefb4d4b855c096af6d1386, type: 2}
+    - target: {fileID: 710399625348081744, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
       propertyPath: m_Name
       value: Customer 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
       propertyPath: m_IsActive
@@ -224,6 +240,42 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
       propertyPath: m_TagString
       value: Customer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643403243741880462, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071776754151732560, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2870574881120199038, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194519719154407324, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3519738916087099907, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4220657623468831752, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596712726584137861, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7950606366575776523, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9055249124431924478, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc71eb73ab8d5914ea53357171d71cc4, type: 3}

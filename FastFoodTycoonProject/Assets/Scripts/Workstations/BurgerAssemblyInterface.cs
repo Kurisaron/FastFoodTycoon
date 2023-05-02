@@ -339,7 +339,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
                 if (ingredient.name.Contains("Lettuce"))
                 {
                     // Use Lettuce
-                    if (assemblyInterface.workStation.WithdrawIngredient(Ingredient.CookedPatty, 1))
+                    if (assemblyInterface.workStation.WithdrawIngredient(Ingredient.Lettuce, 1))
                     {
                         Debug.Log("Burger used up a leaf of lettuce from the burger assembly storage");
                     }

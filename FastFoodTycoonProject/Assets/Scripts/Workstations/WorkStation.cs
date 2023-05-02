@@ -44,6 +44,8 @@ public class WorkStation : MonoBehaviour
     [HideInInspector]
     public Dictionary<Ingredient, int> ingredients = new Dictionary<Ingredient, int>();
 
+    public static int fridgeMaxStorage = 200;
+
     // FUNCTIONS
     private void Awake()
     {
@@ -163,6 +165,12 @@ public class WorkStation : MonoBehaviour
             return false;
         }
 
+        if (storageType == StorageType.Fridge && GetStorageTotal() >= fridgeMaxStorage)
+        {
+            Debug.LogWarning("Ingredient " + ingredient.ToString() + " cannot be deposited in the fridge because it is too full");
+            return false;
+        }
+
         // Add ingredients if storage can accept it
         ingredients[ingredient] += amount;
         Debug.Log(gameObject.name + " " + amount.ToString() + " " + ingredient.ToString() + " deposited");
@@ -179,4 +187,18 @@ public class WorkStation : MonoBehaviour
         return true;
     }
 
+    public int GetStorageTotal()
+    {
+        int total = 0;
+        foreach(Ingredient ingredient in ingredients.Keys)
+        {
+            total += ingredients[ingredient];
+        }
+        return total;
+    }
+
+    public static int FridgeStorageEmptySpaces()
+    {
+        return fridgeMaxStorage - fridge.GetStorageTotal();
+    }
 }
