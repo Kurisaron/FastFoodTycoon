@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b41e9780103c934989cf57130ab5640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 4
   target: {x: -11, y: 0.1, z: -3}
   target2: {x: -11, y: 0, z: -20}
   OrderIndicator: {fileID: 1639684982830858145}

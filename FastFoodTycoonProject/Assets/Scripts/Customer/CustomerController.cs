@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,11 +19,13 @@ public class CustomerController : MonoBehaviour
     //public int count;
     Rigidbody CustomerRB;
     public Transform CustomerPos;
+    //public static float Range(float minInclusive, float maxInclusive);
     //public class Dictionary<>
     //CustomerController.GetComponent<OrderStationInterface>().CompleteMeal();
     //public void SetActive(bool value);
     //bool CompleteMeal();
     //Dictionary<Meal, int> order;
+    //CustomerSpawnOne s1;
     public Dictionary<Ingredient, int> food;
 
 
@@ -46,6 +49,19 @@ public class CustomerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //RANDOMIZE CUSTOMER ORDER
+        /*string[] CustomerOrder = new string[] { "CompleteBurger", "CompleteFries", "CompleteDrink" };
+        System.Random random = new System.Random();
+        int useCustomerOrder = random.Next(CustomerOrder.Length);
+        string pickCustomerOrder = CustomerOrder[useCustomerOrder];
+        print(pickCustomerOrder);*/
+
+        /*s1 = GetComponent<CustomerSpawnOne>();
+        yield return new WaitForEndOfFrame();
+        foreach (newCustomer s in s1.customers)
+            print(s);*/
+
+        //don't show exclamation mark
         PLS.enabled = false;
         // Set up the dictionary with entries for Complete ingredients
         food = new Dictionary<Ingredient, int>();
@@ -53,7 +69,7 @@ public class CustomerController : MonoBehaviour
         foreach (Ingredient ingredient in food.Keys)
         {
             if (ingredient.ToString().Contains("Complete"))
-                food.Add(ingredient, 1);
+                food.Add(ingredient, UnityEngine.Random.Range(0,3));
         }
         //meals = new List<Meal>();
 
@@ -235,6 +251,14 @@ public class CustomerController : MonoBehaviour
         }*/
     //}
 
+    /*IEnumerator Start()
+    {
+        s1 = GetComponent<CustomerSpawnOne>();
+        yield return new WaitForEndOfFrame();
+        foreach (string s in s1.testList)
+            print(s);
+    }*/
+
     public void CheckCompletion()
     {
         bool flag = true;
@@ -242,6 +266,8 @@ public class CustomerController : MonoBehaviour
         {
             if (WorkStation.orderStation.gameObject.GetComponent<MealStorage>().food[ingredient] < food[ingredient])
                 flag = false;
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, target2, step);
         }
 
         if (flag)
@@ -251,8 +277,12 @@ public class CustomerController : MonoBehaviour
             {
                 WorkStation.orderStation.gameObject.GetComponent<MealStorage>().food[ingredient1] -= food[ingredient1];
             }
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, target, step);
             // Use up food
             // FILL-IN
+            GameManager.Instance.EarnMoney(5);
+            //customers.Remove(newCustomer.GetComponent<CustomerController>());
         }
     }
 }

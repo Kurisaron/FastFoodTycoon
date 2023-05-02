@@ -20,8 +20,8 @@ public class BurgerAssemblyInterface : WorkStationInterface
     public Text bunsAmountText;
     public Text pattyAmountText;
     public Text lettuceAmountText;
-    //public GameObject indicatorPrefab;
-    //public MeshRenderer PLS;
+    public GameObject indicatorPrefab;
+    public MeshRenderer PLS;
 
     private bool isAssembling; // is the player in the middle of assembling a burger (bottom bun placed, no top bun)
     private AssembledBurger assembledBurger;
@@ -225,9 +225,10 @@ public class BurgerAssemblyInterface : WorkStationInterface
 
         public bool CheckForIngredients()
         {
-            if (ingredients != null && ingredients.Count > 0)
+            if (ingredients != null && ingredients.Count >= 3)
             {
-                //indicatorPrefab.enabled = true;
+                //PLS.enabled = false;
+                //indicatorPrefab.enabled = false;
                 return true;
             }
             /*else if (ingredients.Count <= 5)
@@ -236,6 +237,7 @@ public class BurgerAssemblyInterface : WorkStationInterface
             }*/
             else
             {
+                //PLS.enabled = true;
                 //indicatorPrefab.enabled = true;
                 return false;
             }
