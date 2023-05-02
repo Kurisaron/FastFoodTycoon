@@ -63,6 +63,10 @@ public class GameManager : Singleton<GameManager>
         //courtney
         counterText.text = "Money: " + GameManager.Instance.gameData.money.ToString();
         dayCounterText.text = "Day: " + gameData.dayData.day.ToString();
+        GameObject[] Customers = GameObject.FindGameObjectsWithTag("Customer");
+        foreach (GameObject Customer in Customers)
+            GameObject.Destroy(Customer);
+        CustomerSpawner.SetActive(true);
         //
 
     }

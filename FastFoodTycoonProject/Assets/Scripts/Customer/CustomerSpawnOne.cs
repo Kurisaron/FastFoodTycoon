@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class CustomerSpawnOne : MonoBehaviour
 {
-    
+
+    //public GameObject[] CustomerArr;
     //public Quaternion rotation;
     //Transform target;
+
+    public List<CustomerController> customers = new List<CustomerController>();
 
     //Attempt #3
     /*public GameObject CustomerPrefab;
@@ -17,6 +20,7 @@ public class CustomerSpawnOne : MonoBehaviour
 
     //Attempt #2, spawns a customer, when customer despawns a new one spawns
     public Transform m_SpawnPoints;
+    //PROBLEM?
     public GameObject m_CustomerPrefab;
     public float secondsBetweenSpawn;
     public float elapsedTime = 0.0f;
@@ -29,8 +33,20 @@ public class CustomerSpawnOne : MonoBehaviour
     private void Start()
     {
         //CheckForCustomers();
+        /* foreach(customers customers in customers.keys)
+         {
+             if(customers)
+             {
+                 SpawnNewCustomer();
+             }
+         }*/
+        /*if (customers)
+        {
+            SpawnNewCustomer();
+        }*/
         SpawnNewCustomer();
         //elapsedTime = 0f;
+        //CustomerArr = m_CustomerPrefab[numSelectors];
     }
 
     private void OnEnable()
@@ -51,7 +67,8 @@ public class CustomerSpawnOne : MonoBehaviour
         //print("spawn new customer");
         //elapsedTime = 0.0f;
         //}
-        Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
+        GameObject newCustomer = Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
+        customers.Add(newCustomer.GetComponent<CustomerController>());
         //transform.Rotate(new Vector3(axis2, axis1, 0), Space.World);
     }
 
@@ -71,7 +88,7 @@ public class CustomerSpawnOne : MonoBehaviour
 
     private void CheckForCustomers()
     {
-        /*if ()
+        /*if (CustomerArr = 1)
         {
             print("no customers here");
             return;
