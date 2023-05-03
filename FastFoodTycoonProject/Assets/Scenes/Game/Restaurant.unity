@@ -5251,7 +5251,7 @@ MonoBehaviour:
   dayManager: {fileID: 0}
   saveManager: {fileID: 0}
   stationOpened: 0
-  dayDuration: 10
+  dayDuration: 1000
   daySlider: {fileID: 538925256}
   endDayScreen: {fileID: 1034774881}
   endDayTitle: {fileID: 1734239859}
@@ -6637,6 +6637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1114832812abb5446a8df7d48af05bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customers: []
   m_SpawnPoints: {fileID: 620980269}
   m_CustomerPrefab: {fileID: 1639684982386388043, guid: fdbcf8f9229508844beaeb95c965a491, type: 3}
   secondsBetweenSpawn: 4

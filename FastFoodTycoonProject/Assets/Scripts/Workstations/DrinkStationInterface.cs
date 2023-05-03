@@ -133,7 +133,7 @@ public class DrinkStationInterface : WorkStationInterface
                 break;
             case 1:
                 // Second step (one complete): put lid on drink cup
-                Destroy(spawnPoint.GetChild(0).gameObject);
+                Destroy(Array.Find(spawnPoint.gameObject.GetComponentsInChildren<Transform>(), child => child != spawnPoint && child.gameObject.name.Contains("Drink")).gameObject);
 
                 drinkCup = Instantiate(cappedCupPrefab, spawnPoint);
                 drinkCup.transform.localPosition = drinkCup.transform.up * -0.02f;
@@ -145,7 +145,7 @@ public class DrinkStationInterface : WorkStationInterface
 
                 completionAudio.Play();
 
-                Destroy(spawnPoint.GetChild(0).gameObject);
+                Destroy(Array.Find(spawnPoint.gameObject.GetComponentsInChildren<Transform>(), child => child != spawnPoint && child.gameObject.name.Contains("Drink")).gameObject);
 
                 anim = Instantiate(playAnim, spawnPoint);
                 anim.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
@@ -164,9 +164,15 @@ public class DrinkStationInterface : WorkStationInterface
 
         // Spawn and attach cooking timer UI to spawn point transform
         GameObject newTimer = Instantiate(timerUIPrefab, spawnPoint);
-        newTimer.transform.localScale *= 0.01f;
-        newTimer.transform.SetPositionAndRotation(newTimer.transform.position + (Vector3.up * 0.1f), Quaternion.Euler(45, 180, 0));
+        newTimer.transform.localScale *= 0.001f;
+        newTimer.transform.SetPositionAndRotation(newTimer.transform.position + (Vector3.up * 1f), Quaternion.Euler(45, 180, 0));
         newTimer.transform.Find("TimerUI").gameObject.GetComponent<Slider>().value = 0;
+
+        // Spawn and attach the spout
+        if (cookingIngredient.stepsComplete <= 0 && spawnPoint.Find("PourStream") != null)
+        {
+            spawnPoint.Find("PourStream").gameObject.SetActive(true);
+        }
     }
 
     private void DrinkStation_StillCooking(CookingStation.CookingIngredient cookingIngredient)
@@ -189,6 +195,11 @@ public class DrinkStationInterface : WorkStationInterface
         if (spawnPoint.Find("TimerUICanvas(Clone)") != null)
         {
             Destroy(spawnPoint.Find("TimerUICanvas(Clone)").gameObject);
+        }
+
+        if (spawnPoint.Find("PourStream") && spawnPoint.Find("PourStream").gameObject.activeInHierarchy)
+        {
+            spawnPoint.Find("PourStream").gameObject.SetActive(false);
         }
     }
 
