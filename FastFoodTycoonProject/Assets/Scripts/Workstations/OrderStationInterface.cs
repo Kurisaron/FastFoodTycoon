@@ -7,11 +7,11 @@ public class OrderStationInterface : WorkStationInterface
 {
     // VARIABLES
     public Text burgerCounterText;
-    int burgerCounter = 1;
+    int burgerCounter = 0;
     public Text fryCounterText;
-    int fryCounter = 1;
+    int fryCounter = 0;
     public Text drinkCounterText;
-    int drinkCounter = 1;
+    int drinkCounter = 0;
     //private List<Order> customerOrders = new List<Order>();
     
     // PROPERTIES
@@ -27,14 +27,33 @@ public class OrderStationInterface : WorkStationInterface
     protected override void Awake()
     {
         base.Awake();
+        burgerCounter = 0;
+        fryCounter = 0;
+        drinkCounter = 0;
+        //burgerCounterText.text = "x" + burgerCounter;
+        //fryCounterText.text = "x" + fryCounter;
+        //drinkCounterText.text = "x" + drinkCounter;
 
+        if (CustomerSpawnOne.Instance == null) Debug.LogError("No instance of CustomerSpawnOne");
+        if (CustomerSpawnOne.Instance.customers[0] == null) Debug.LogError("No customer 0");
 
+        foreach (Ingredient ingredient in CustomerSpawnOne.Instance.customers[0].food.Keys)
+        {
+            Debug.Log("Customer 0 has " + ingredient.ToString() + " in dictionary");
+        }
+
+        //UNHIDE SHOULD WORK?
+        /*
+        burgerCounterText.text = "x" + CustomerSpawnOne.Instance.customers[0].food[Ingredient.CompleteBurger];
+        fryCounterText.text = "x" + CustomerSpawnOne.Instance.customers[0].food[Ingredient.CompleteFries];
+        drinkCounterText.text = "x" + CustomerSpawnOne.Instance.customers[0].food[Ingredient.CompleteDrink];
+        */
     }
     
     void Update()
     {
-        //burgerCounterText.text = "x" +
-        //fryCounterText.text = "x" +
-        //drinkCounterText.text = "x" +
+        //burgerCounterText.text = "x" + burgerCounter;
+        //fryCounterText.text = "x" + fryCounter;
+        //drinkCounterText.text = "x" + drinkCounter;
     }
 }

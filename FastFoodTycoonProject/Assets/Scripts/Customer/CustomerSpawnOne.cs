@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomerSpawnOne : MonoBehaviour
+public class CustomerSpawnOne : Singleton<CustomerSpawnOne>
 {
 
     //public GameObject[] CustomerArr;
@@ -33,14 +33,14 @@ public class CustomerSpawnOne : MonoBehaviour
     private void Start()
     {
         //CheckForCustomers();
-        /* foreach(customers customers in customers.keys)
+        /*foreach(customers customers in customers.keys)
          {
              if(customers)
              {
                  SpawnNewCustomer();
              }
-         }*/
-        /*if (customers)
+         }
+        if (customers)
         {
             SpawnNewCustomer();
         }*/
@@ -97,7 +97,7 @@ public class CustomerSpawnOne : MonoBehaviour
         {
             print("spawning customer");
             SpawnNewCustomer();
-        }*/
+        }
         /*if (GameObject.Find("Customer1(Clone)")) //!= null)
         {
             //Instantiate(m_CustomerPrefab, m_SpawnPoints.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));

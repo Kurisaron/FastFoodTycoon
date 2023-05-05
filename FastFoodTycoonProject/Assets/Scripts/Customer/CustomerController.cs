@@ -54,7 +54,7 @@ public class CustomerController : MonoBehaviour
         System.Random random = new System.Random();
         int useCustomerOrder = random.Next(CustomerOrder.Length);
         string pickCustomerOrder = CustomerOrder[useCustomerOrder];
-        print(pickCustomerOrder);*/
+        print(pickCustomerOrder);
 
         /*s1 = GetComponent<CustomerSpawnOne>();
         yield return new WaitForEndOfFrame();
@@ -268,6 +268,7 @@ public class CustomerController : MonoBehaviour
                 flag = false;
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, target2, step);
+            GameManager.Instance.EarnMoney(5);
         }
 
         if (flag)
@@ -281,8 +282,9 @@ public class CustomerController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, target, step);
             // Use up food
             // FILL-IN
-            GameManager.Instance.EarnMoney(5);
-            //customers.Remove(newCustomer.GetComponent<CustomerController>());
+            //HERE! Remove Customer from list
+            //NEED THIS TO WORK
+            //customers.Remove(this);
         }
     }
 }

@@ -45,11 +45,18 @@ public class WorkStation : MonoBehaviour
     public Dictionary<Ingredient, int> ingredients = new Dictionary<Ingredient, int>();
 
     public static int fridgeMaxStorage = 200;
+    public GameObject OrderIndicator;
+    public MeshRenderer PLS;
 
     // FUNCTIONS
     private void Awake()
     {
         SetStorage();
+    }
+
+    void update()
+    {
+        CheckForIngredients();
     }
 
     public void LoadStationScene()
@@ -200,5 +207,27 @@ public class WorkStation : MonoBehaviour
     public static int FridgeStorageEmptySpaces()
     {
         return fridgeMaxStorage - fridge.GetStorageTotal();
+    }
+
+    public bool CheckForIngredients()
+    {
+        if (ingredients != null && ingredients.Count >= 3)
+        {
+            PLS.enabled = true;
+            //indicatorPrefab.enabled = false;
+            print("more than 3 ingredients");
+            return true;
+        }
+        /*else if (ingredients.Count <= 5)
+        {
+            indicatorPrefab.enabled = false;
+        }*/
+        else
+        {
+            PLS.enabled = false;
+            print("less than 3 ingredients");
+            //indicatorPrefab.enabled = true;
+            return false;
+        }
     }
 }
