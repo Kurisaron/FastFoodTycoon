@@ -111,11 +111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b41e9780103c934989cf57130ab5640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 2
   target: {x: -11, y: 0.1, z: -3}
   target2: {x: -11, y: 0, z: -20}
   OrderIndicator: {fileID: 1639684982830858145}
-  PLS: {fileID: 991258926047780468}
   CustomerPos: {fileID: 2128659327309756145}
 --- !u!65 &7514723842602666027
 BoxCollider:
@@ -128,8 +127,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5101712, y: 3.8245208, z: 2.3567514}
-  m_Center: {x: -2.2236438, y: 1.4122604, z: -0.040026188}
+  m_Size: {x: 5.1281557, y: 3.8245208, z: 5.778775}
+  m_Center: {x: -3.5326362, y: 1.4122604, z: -1.7510381}
 --- !u!54 &6162937979405674685
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -603,10 +602,5 @@ GameObject:
 --- !u!4 &2128659327838102811 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f90221dee354d014bba763d66f7ff18e, type: 3}
-  m_PrefabInstance: {fileID: 1873564635809039088}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &991258926047780468 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: f90221dee354d014bba763d66f7ff18e, type: 3}
   m_PrefabInstance: {fileID: 1873564635809039088}
   m_PrefabAsset: {fileID: 0}

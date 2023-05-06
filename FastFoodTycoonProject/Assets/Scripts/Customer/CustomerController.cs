@@ -15,7 +15,7 @@ public class CustomerController : MonoBehaviour
     public Vector3 target;
     public Vector3 target2;
     public GameObject OrderIndicator;
-    public MeshRenderer PLS;
+    //public MeshRenderer PLS;
     //public int count;
     Rigidbody CustomerRB;
     public Transform CustomerPos;
@@ -62,7 +62,10 @@ public class CustomerController : MonoBehaviour
             print(s);*/
 
         //don't show exclamation mark
-        PLS.enabled = false;
+        //OrderIndicator.enabled = false;
+        //OrderIndicator.GetComponent<Renderer>().enabled = false;
+        OrderIndicator.SetActive(false);
+        //PLS.enabled = false;
         // Set up the dictionary with entries for Complete ingredients
         food = new Dictionary<Ingredient, int>();
         //food.Add(Ingredient.CompleteFries, 1);
@@ -174,7 +177,11 @@ public class CustomerController : MonoBehaviour
     {
         if (other.tag == "Register")
         {
-            PLS.enabled = true;
+            //PLS.enabled = true;
+            //OrderIndicator.enabled = true;
+            //OrderIndicator.GetComponent<Renderer>().enabled = true;
+            OrderIndicator.SetActive(true);
+            print("colliding with register");
             //elapsedTime += Time.deltaTime;
             //count++;
             //Destroy(GameObject.FindGameObjectWithTag("OrderIndicator"));
@@ -187,7 +194,8 @@ public class CustomerController : MonoBehaviour
             //print("collided with player");
             //elapsedTime += Time.deltaTime;
             float step = speed * Time.deltaTime;
-            PLS.enabled = false;
+            OrderIndicator.SetActive(false);
+            //PLS.enabled = false;
             //transform.position = Vector3.MoveTowards(transform.position, target2, step);
         }     
         else if (other.tag == "Customer")
@@ -267,8 +275,8 @@ public class CustomerController : MonoBehaviour
             if (WorkStation.orderStation.gameObject.GetComponent<MealStorage>().food[ingredient] < food[ingredient])
                 flag = false;
             float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, target2, step);
-            GameManager.Instance.EarnMoney(5);
+            transform.position = Vector3.MoveTowards(transform.position, target, step);
+            //GameManager.Instance.EarnMoney(5);
         }
 
         if (flag)
@@ -279,7 +287,9 @@ public class CustomerController : MonoBehaviour
                 WorkStation.orderStation.gameObject.GetComponent<MealStorage>().food[ingredient1] -= food[ingredient1];
             }
             float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, target, step);
+            transform.position = Vector3.MoveTowards(transform.position, target2, step);
+            GameManager.Instance.EarnMoney(5);
+            return;
             // Use up food
             // FILL-IN
             //HERE! Remove Customer from list

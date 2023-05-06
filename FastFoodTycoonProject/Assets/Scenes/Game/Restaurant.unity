@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17278713, g: 0.21591742, b: 0.29785535, a: 1}
+  m_IndirectSpecularColor: {r: 0.17278698, g: 0.21591702, b: 0.29785472, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8490,6 +8490,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 245ad81f9a8778744a02002c50644acf, type: 3}
+--- !u!1 &1439737479 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8394267448332808852, guid: 93eec918b4828884fbdf7572885e2fd4, type: 3}
+  m_PrefabInstance: {fileID: 373644356}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1439737482
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439737479}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 150.00003, y: 126.96396, z: 151.83868}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1448278076 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7843107443837156352, guid: 245ad81f9a8778744a02002c50644acf, type: 3}
@@ -13390,6 +13408,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goToPoint: {fileID: 335792216}
   storageType: 1
+  OrderIndicator: {fileID: 0}
+  PLS: {fileID: 0}
 --- !u!4 &6351371171846850407
 Transform:
   m_ObjectHideFlags: 0
@@ -13518,6 +13538,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goToPoint: {fileID: 1195157305}
   storageType: 2
+  OrderIndicator: {fileID: 0}
+  PLS: {fileID: 0}
 --- !u!33 &6351371172070214832
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -13614,6 +13636,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goToPoint: {fileID: 1745048021}
   storageType: 7
+  OrderIndicator: {fileID: 0}
+  PLS: {fileID: 0}
 --- !u!4 &6351371172070214839
 Transform:
   m_ObjectHideFlags: 0
@@ -13780,6 +13804,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goToPoint: {fileID: 1919990449}
   storageType: 4
+  OrderIndicator: {fileID: 0}
+  PLS: {fileID: 0}
 --- !u!4 &6351371172287681137
 Transform:
   m_ObjectHideFlags: 0
@@ -13892,6 +13918,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goToPoint: {fileID: 1336578514}
   storageType: 6
+  OrderIndicator: {fileID: 0}
+  PLS: {fileID: 0}
 --- !u!4 &6351371172290839203
 Transform:
   m_ObjectHideFlags: 0
@@ -14004,6 +14032,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goToPoint: {fileID: 486137573}
   storageType: 4
+  OrderIndicator: {fileID: 0}
+  PLS: {fileID: 0}
 --- !u!4 &6351371172321079379
 Transform:
   m_ObjectHideFlags: 0
@@ -14291,6 +14321,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goToPoint: {fileID: 677287211}
   storageType: 6
+  OrderIndicator: {fileID: 0}
+  PLS: {fileID: 0}
 --- !u!4 &6351371172655643583
 Transform:
   m_ObjectHideFlags: 0
@@ -14704,6 +14736,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goToPoint: {fileID: 2004910807}
   storageType: 3
+  OrderIndicator: {fileID: 0}
+  PLS: {fileID: 0}
 --- !u!1 &6351371173162446440
 GameObject:
   m_ObjectHideFlags: 0
@@ -14887,6 +14921,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goToPoint: {fileID: 1800863232}
   storageType: 5
+  OrderIndicator: {fileID: 0}
+  PLS: {fileID: 0}
 --- !u!4 &6351371173572907662
 Transform:
   m_ObjectHideFlags: 0
@@ -15022,6 +15058,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goToPoint: {fileID: 897502796}
   storageType: 1
+  OrderIndicator: {fileID: 0}
+  PLS: {fileID: 0}
 --- !u!4 &6351371173666529826
 Transform:
   m_ObjectHideFlags: 0
@@ -15134,6 +15172,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goToPoint: {fileID: 355757911}
   storageType: 3
+  OrderIndicator: {fileID: 0}
+  PLS: {fileID: 0}
 --- !u!1001 &6868545879722622539
 PrefabInstance:
   m_ObjectHideFlags: 0
