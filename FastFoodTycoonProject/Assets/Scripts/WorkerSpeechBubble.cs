@@ -25,7 +25,7 @@ public class WorkerSpeechBubble : MonoBehaviour
     {
         if (gameObject.activeInHierarchy && worker != null)
         {
-            GetComponent<RectTransform>().position = worker.gameObject.transform.position + (Vector3.up * 1.5f) + (Vector3.back * 1.5f);
+            GetComponent<RectTransform>().position = worker.gameObject.transform.position + (Vector3.up * 2.0f) + (Vector3.back * 1.5f);
         }
     }
 

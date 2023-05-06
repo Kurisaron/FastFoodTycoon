@@ -764,6 +764,7 @@ MonoBehaviour:
   - {fileID: 762309929}
   completionAudio: {fileID: 837444848}
   machineAudio: {fileID: 837444847}
+  sodaAmountText: {fileID: 744122156}
 --- !u!82 &837444847
 AudioSource:
   m_ObjectHideFlags: 0

@@ -72,6 +72,14 @@ public class OrderBuildingInterface : WorkStationInterface
     public void ResetMeal()
     {
         isAssembling = false;
+
+        // Return items from the meal to the storage
+        foreach(Ingredient ingredient in currentMeal.food.Keys)
+        {
+            if (workStation.DepositIngredient(ingredient, currentMeal.food[ingredient])) Debug.Log(currentMeal.food[ingredient] + " " + ingredient.ToString() + " returned to order building storage");
+            else Debug.LogError("Could not return " + currentMeal.food[ingredient] + " " + ingredient.ToString() + " to order building storage");
+        }
+
         Destroy(orderTray);
         NewMeal();
         Debug.Log("Meal reset.");

@@ -15,7 +15,7 @@ public class DrinkStationInterface : WorkStationInterface
     public Transform[] drink_SpawnPoints;
     public AudioSource completionAudio;
     public AudioSource machineAudio;
-
+    public Text sodaAmountText;
 
     // PROPERTIES
     private CookingStation DrinkCooker
@@ -44,7 +44,7 @@ public class DrinkStationInterface : WorkStationInterface
 
     private void Update()
     {
-        
+        sodaAmountText.text = "x" + workStation.ingredients[Ingredient.Soda];
     }
 
     private void OnEnable()
