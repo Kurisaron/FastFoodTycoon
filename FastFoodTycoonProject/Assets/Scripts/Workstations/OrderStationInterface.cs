@@ -41,13 +41,11 @@ public class OrderStationInterface : WorkStationInterface
         {
             Debug.Log("Customer 0 has " + ingredient.ToString() + " in dictionary");
         }
-
-        //UNHIDE SHOULD WORK?
-        /*
+        
         burgerCounterText.text = "x" + CustomerSpawnOne.Instance.customers[0].food[Ingredient.CompleteBurger];
         fryCounterText.text = "x" + CustomerSpawnOne.Instance.customers[0].food[Ingredient.CompleteFries];
         drinkCounterText.text = "x" + CustomerSpawnOne.Instance.customers[0].food[Ingredient.CompleteDrink];
-        */
+        
     }
     
     void Update()

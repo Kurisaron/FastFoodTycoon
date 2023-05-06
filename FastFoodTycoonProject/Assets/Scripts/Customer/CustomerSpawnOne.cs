@@ -9,6 +9,7 @@ public class CustomerSpawnOne : Singleton<CustomerSpawnOne>
     //public Quaternion rotation;
     //Transform target;
 
+    
     public List<CustomerController> customers = new List<CustomerController>();
 
     //Attempt #3

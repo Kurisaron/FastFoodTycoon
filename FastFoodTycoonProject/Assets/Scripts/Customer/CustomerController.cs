@@ -47,7 +47,7 @@ public class CustomerController : MonoBehaviour
     }*/
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //RANDOMIZE CUSTOMER ORDER
         /*string[] CustomerOrder = new string[] { "CompleteBurger", "CompleteFries", "CompleteDrink" };
@@ -66,7 +66,7 @@ public class CustomerController : MonoBehaviour
         // Set up the dictionary with entries for Complete ingredients
         food = new Dictionary<Ingredient, int>();
         //food.Add(Ingredient.CompleteFries, 1);
-        foreach (Ingredient ingredient in food.Keys)
+        foreach (Ingredient ingredient in (Ingredient[])Enum.GetValues(typeof(Ingredient)))
         {
             if (ingredient.ToString().Contains("Complete"))
                 food.Add(ingredient, UnityEngine.Random.Range(0,3));
@@ -284,6 +284,7 @@ public class CustomerController : MonoBehaviour
             // FILL-IN
             //HERE! Remove Customer from list
             //NEED THIS TO WORK
+            //HELP
             //customers.Remove(this);
         }
     }
