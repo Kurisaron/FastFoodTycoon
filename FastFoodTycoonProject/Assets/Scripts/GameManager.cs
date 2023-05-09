@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>
     public Text countdownTest;
 
     //Courtney
-    public GameObject CustomerSpawner;
+    
     //money counter
     public Text counterText;
     int counter = 0;
@@ -63,10 +63,10 @@ public class GameManager : Singleton<GameManager>
         //courtney
         counterText.text = "Money: " + GameManager.Instance.gameData.money.ToString();
         dayCounterText.text = "Day: " + gameData.dayData.day.ToString();
-        GameObject[] Customers = GameObject.FindGameObjectsWithTag("Customer");
+        /*GameObject[] Customers = GameObject.FindGameObjectsWithTag("Customer");
         foreach (GameObject Customer in Customers)
             GameObject.Destroy(Customer);
-        CustomerSpawner.SetActive(true);
+        CustomerSpawnOne.Instance.gameObject.SetActive(true);*/
         //
 
     }
@@ -128,9 +128,12 @@ public class GameManager : Singleton<GameManager>
     {
         SceneManager.UnloadSceneAsync("BuyScreenScene");
         openBuyMenuButton.SetActive(true);
+        //CustomerSpawnOne.Instance.gameObject.SetActive(true);
         if (!gameActive) gameActive = !gameActive;
+        CustomerSpawnOne.Instance.SpawnNewCustomer();
         //Courtney
-        CustomerSpawner.SetActive(true);
+        //CustomerSpawnOne.Instance.gameObject.SetActive(true);
+        //print("spawn customer");
         //
     }
 
@@ -151,11 +154,16 @@ public class GameManager : Singleton<GameManager>
         if (stationOpened) Worker.player.targetStation.UnloadStationScene();
         StartCoroutine(EndDayRoutine());
         //Courtney
-        //Destroy(GameObject.FindWithTag("Customer"));
-        GameObject[] Customers = GameObject.FindGameObjectsWithTag("Customer");
+        CustomerController[] customers = FindObjectsOfType<CustomerController>();
+        foreach(CustomerController customer in customers)
+        {
+            CustomerSpawnOne.Instance.customers.Remove(customer);
+        }
+        Destroy(GameObject.FindWithTag("Customer"));
+        /*GameObject[] Customers = GameObject.FindGameObjectsWithTag("Customer");
         foreach (GameObject Customer in Customers)
-        GameObject.Destroy(Customer);
-        CustomerSpawner.SetActive(false);
+        GameObject.Destroy(Customer);*/
+        //CustomerSpawnOne.Instance.gameObject.SetActive(false);
         //
     }
 
