@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 341352018}
   m_LocalRotation: {x: 0.37754986, y: 0, z: 0, w: 0.9259893}
-  m_LocalPosition: {x: 0, y: 5, z: 4}
+  m_LocalPosition: {x: 0.95, y: 6.5, z: 5.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 788957083}
@@ -247,8 +247,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788957079}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.6499996, z: 0}
-  m_LocalScale: {x: 20, y: 1, z: 9}
+  m_LocalPosition: {x: 0, y: -0.6, z: 0}
+  m_LocalScale: {x: 18.1, y: 1, z: 9}
   m_Children: []
   m_Father: {fileID: 341352019}
   m_RootOrder: 0
@@ -295,6 +295,8 @@ MonoBehaviour:
   bunsAmountText: {fileID: 4002325967922789852}
   pattyAmountText: {fileID: 4002325967382688395}
   lettuceAmountText: {fileID: 4002325968186285978}
+  indicatorPrefab: {fileID: 0}
+  PLS: {fileID: 0}
   lastIngredient: {fileID: 0}
 --- !u!4 &822912613
 Transform:
