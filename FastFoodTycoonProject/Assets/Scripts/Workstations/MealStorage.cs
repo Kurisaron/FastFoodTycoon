@@ -24,6 +24,7 @@ public class MealStorage : MonoBehaviour
                 food.Add(ingredient, 0);
         }
 
+        
     }
 
     

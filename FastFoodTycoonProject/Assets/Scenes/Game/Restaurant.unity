@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17278698, g: 0.21591702, b: 0.29785472, a: 1}
+  m_IndirectSpecularColor: {r: 0.17278713, g: 0.21591742, b: 0.29785535, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10281,7 +10281,7 @@ MonoBehaviour:
   daySlider: {fileID: 538925256}
   endDayScreen: {fileID: 1034774881}
   endDayTitle: {fileID: 1734239859}
-  endDayDetails: {fileID: 0}
+  endDayDetails: {fileID: 1563001881}
 --- !u!1 &1800863231
 GameObject:
   m_ObjectHideFlags: 0

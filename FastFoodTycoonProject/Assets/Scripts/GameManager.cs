@@ -50,6 +50,7 @@ public class GameManager : Singleton<GameManager>
         gameData = gameObject.AddComponent<GameData>();
 
         gameData.money = 10000.0f;
+        gameData.moneyAtDayStart = gameData.money;
         gameData.NewGameData();
 
         dayManager = gameObject.AddComponent<DayManager>();
@@ -171,7 +172,12 @@ public class GameManager : Singleton<GameManager>
     {
         // Display end of day stats (money, day, etc)
         endDayScreen.SetActive(true);
-        if (gameData != null && gameData.dayData != null) endDayTitle.text = "Day " + gameData.dayData.day.ToString() + " Ended";
+        if (gameData != null && gameData.dayData != null)
+        {
+            endDayTitle.text = "Day " + gameData.dayData.day.ToString() + " Ended";
+            float profitAmount = gameData.money - gameData.moneyAtDayStart;
+            endDayDetails.text = "Profit: " + (profitAmount >= 0 ? "" : "-") + "$" + Mathf.Abs(profitAmount).ToString("0.00");
+        }
         else Debug.LogError("No game data or day data");
 
         yield return new WaitForSeconds(3.0f);
@@ -180,6 +186,7 @@ public class GameManager : Singleton<GameManager>
         endDayScreen.SetActive(false);
 
         gameData.dayData.day += 1;
+        gameData.moneyAtDayStart = gameData.money;
         OpenBuyMenu();
     }
 

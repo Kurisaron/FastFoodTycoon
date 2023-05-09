@@ -6,6 +6,8 @@ public class GameData : MonoBehaviour
 {
     // VARIABLES
     public float money;
+    [HideInInspector]
+    public float moneyAtDayStart;
     public DayData dayData;
 
     // FUNCTIONS
