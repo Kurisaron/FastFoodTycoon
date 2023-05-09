@@ -37,6 +37,7 @@ public class MealStorage : MonoBehaviour
         foreach(Ingredient ingredient in meal.food.Keys)
         {
             food[ingredient] += meal.food[ingredient];
+            Debug.Log(ingredient.ToString() + " count in meal storage is " + food[ingredient].ToString());
         }
     }
 

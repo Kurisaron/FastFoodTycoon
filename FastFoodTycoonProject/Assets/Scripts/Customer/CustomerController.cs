@@ -11,6 +11,7 @@ public class CustomerController : MonoBehaviour
     public float speed = 4;
     public Vector3 target;
     public Vector3 target2;
+    public GameObject LimitWall;
     public GameObject OrderIndicator;
     Rigidbody CustomerRB;
     public Transform CustomerPos;
@@ -18,6 +19,8 @@ public class CustomerController : MonoBehaviour
 
     void Awake()
     {
+        LimitWall = GameObject.Find("CustomerLimitWall");
+        target2 = LimitWall.transform.position;
         OrderIndicator.SetActive(false);
         food = new Dictionary<Ingredient, int>();
         int ingredientAmount = 0;
@@ -62,18 +65,16 @@ public class CustomerController : MonoBehaviour
         {
             OrderIndicator.SetActive(true);
         }
-        else if (other.tag == "Player")
+        /*else if (other.tag == "Player")
         {
             float step = speed * Time.deltaTime;
             OrderIndicator.SetActive(false);
-        }     
-        else if (other.tag == "Customer")
-        {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, CustomerPos.position, step);
-        }
+        }    */ 
         else if (other.tag == "LimitWall")
         {
+            GameManager.Instance.EarnMoney(50);
+            CustomerSpawnOne.Instance.customers.Remove(this);
+            CustomerSpawnOne.Instance.SpawnNewCustomer();
             Destroy(this.gameObject);
         }
     }
@@ -94,12 +95,21 @@ public class CustomerController : MonoBehaviour
             foreach (Ingredient ingredient1 in food.Keys)
             {
                 WorkStation.orderStation.gameObject.GetComponent<MealStorage>().food[ingredient1] -= food[ingredient1];
-                Debug.Log(ingredient1.ToString() + " Count: " + WorkStation.orderStation.gameObject.GetComponent<MealStorage>().food[ingredient1].ToString());
+                Debug.Log(ingredient1.ToString() + " Count Equals " + WorkStation.orderStation.gameObject.GetComponent<MealStorage>().food[ingredient1].ToString());
             }
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, target2, step);
-            GameManager.Instance.EarnMoney(50);
-            CustomerSpawnOne.Instance.customers.Remove(this);
+            StartCoroutine(CompletionRoutine());
         }
+    }
+
+    private IEnumerator CompletionRoutine()
+    {
+        while (Vector3.Distance(transform.position, target2) > 0.1f)
+        {
+            //float step = speed * Time.deltaTime;
+            transform.position = Vector3.Lerp(transform.position, target2, 0.1f);
+            yield return null;
+        }
+        //GameManager.Instance.EarnMoney(50);
+        //CustomerSpawnOne.Instance.customers.Remove(this);
     }
 }

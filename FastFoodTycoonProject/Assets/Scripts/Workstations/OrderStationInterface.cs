@@ -12,7 +12,6 @@ public class OrderStationInterface : WorkStationInterface
     int fryCounter = 0;
     public Text drinkCounterText;
     int drinkCounter = 0;
-    //private List<Order> customerOrders = new List<Order>();
     
     // PROPERTIES
     private MealStorage StationMealStorage
@@ -30,9 +29,6 @@ public class OrderStationInterface : WorkStationInterface
         burgerCounter = 0;
         fryCounter = 0;
         drinkCounter = 0;
-        //burgerCounterText.text = "x" + burgerCounter;
-        //fryCounterText.text = "x" + fryCounter;
-        //drinkCounterText.text = "x" + drinkCounter;
 
         if (CustomerSpawnOne.Instance == null) Debug.LogError("No instance of CustomerSpawnOne");
         if (CustomerSpawnOne.Instance.customers[0] == null) Debug.LogError("No customer 0");
@@ -50,8 +46,6 @@ public class OrderStationInterface : WorkStationInterface
     
     void Update()
     {
-        //burgerCounterText.text = "x" + burgerCounter;
-        //fryCounterText.text = "x" + fryCounter;
-        //drinkCounterText.text = "x" + drinkCounter;
+
     }
 }

@@ -19,7 +19,7 @@ public class CustomerSpawnOne : Singleton<CustomerSpawnOne>
 
     public void OnEnable()
     {
-        CustomerController.OnCustomerDespawned += SpawnNewCustomer;
+        //CustomerController.OnCustomerDespawned += SpawnNewCustomer;
     }
 
     public void SpawnNewCustomer()
