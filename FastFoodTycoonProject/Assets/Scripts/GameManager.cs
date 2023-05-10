@@ -49,7 +49,7 @@ public class GameManager : Singleton<GameManager>
 
         gameData = gameObject.AddComponent<GameData>();
 
-        gameData.money = 10000.0f;
+        gameData.money = 500.0f;
         gameData.moneyAtDayStart = gameData.money;
         gameData.NewGameData();
 
